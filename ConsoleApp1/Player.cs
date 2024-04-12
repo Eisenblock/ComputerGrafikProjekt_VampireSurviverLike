@@ -7,6 +7,7 @@ internal class Player
 
     public float PositionX; 
     public float PositionY;
+    public float scale;
 
 
     public Player()
@@ -36,20 +37,32 @@ internal class Player
         Position = new Vector2(Position.X, Position.Y - 0.1f);
     }
 
-    void Quad()
+    float SetScale()
     {
-        //GL.ClearColor(Color4.LightGray);
-        GL.Begin(PrimitiveType.Quads); 
-        GL.Color4(Color4.IndianRed);
-        GL.Vertex2(Position.X + 0.1f, Position.Y + 0.1f);
-        GL.Vertex2(Position.X + 0.1f, Position.Y - 0.1f);
-        GL.Vertex2(Position.X - 0.1f, Position.Y - 0.1f);
-        GL.Vertex2(Position.X - 0.1f, Position.Y + 0.1f);
+        return GlobalSettings.AspectRatio;
+    }
+
+    void Circle(Vector2 pos, float radius, int segments)
+    {
+        scale = SetScale();
+
+        GL.Begin(PrimitiveType.TriangleFan);
+        GL.Color4(Color4.Blue);
+        GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
+
+        for (int i = 0; i <= segments; i++)
+        {
+            double theta = 2.0 * Math.PI * i / segments;
+            float dx = (float)(radius * Math.Cos(theta) / scale);
+            float dy = (float)(radius * Math.Sin(theta));
+            GL.Vertex2(pos.X + dx, pos.Y + dy);
+        }
+
         GL.End();
     }
 
     public void Draw()
     {
-        Quad();
+        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
     }
 }

@@ -4,28 +4,23 @@ class EnemyList
 {    
 
     public Enemy[] enemies { get; set; }
-    Enemy[] array = new Enemy[10];
-    private double spawnTimer;
+    private double spawnTimer = 3; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
 
     public EnemyList()
     {
         enemies = new Enemy[10];
-        InitializeEnemies();
     }
 
-    private void InitializeEnemies()
+    private void InitializeEnemy()
     {
-        // Initialize enemies array with Enemy objects
-        for (int i = 0; i < enemies.Length; i++)
-        {
+        // Initialize enemy array with Enemy objects
             Random random = new Random();
             float x = (float)random.NextDouble() * 2 - 1; // Zufällige x-Position zwischen -1 und 1
             float y = (float)random.NextDouble() * 2 - 1; // Zufällige y-Position zwischen -1 und 1
 
-            enemies[i] = new Enemy(new Vector2(x,y));
-        }
+            enemies[count] = new Enemy(new Vector2(x,y));
     }
 
     public void DrawArray()
@@ -38,10 +33,12 @@ class EnemyList
 
     public void UpdateTimer(double timer)
     {
-        spawnTimer = timer;
-        double flooredTimer = Math.Floor(spawnTimer);
-        if(Math.Floor(flooredTimer) % 3 == 0 && flooredTimer != lastPrintedTime){
+        double flooredTimer = Math.Floor(timer);
+        if(Math.Floor(flooredTimer) % spawnTimer == 0 && flooredTimer != lastPrintedTime){
             Console.WriteLine("Spawned enemy at time: " + flooredTimer);
+
+            InitializeEnemy();
+
             DrawArray();
             count++;
             lastPrintedTime = flooredTimer;

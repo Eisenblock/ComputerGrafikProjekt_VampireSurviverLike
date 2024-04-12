@@ -21,7 +21,7 @@ internal class Enemy
     void Quad(Vector2 pos)
     {
         GL.Begin(PrimitiveType.Quads);
-        GL.Color4(Color4.Aqua);
+        GL.Color4(Color4.Blue);
         GL.Vertex2( pos.X + 0.1f, pos.Y + 0.1f);
         GL.Vertex2( pos.X + 0.1f, pos.Y);
         GL.Vertex2( pos.X, pos.Y);

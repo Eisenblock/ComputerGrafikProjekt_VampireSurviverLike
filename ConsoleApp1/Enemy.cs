@@ -5,27 +5,35 @@ internal class Enemy
 {
     public float PositionX;
     public float PositionY;
+    public int i = 0;
+
+
+
     public Vector2 Position { get; internal set; }
 
-    public Enemy() 
+  
+
+    public Enemy(Vector2 pos ) 
     {
-        Position = new Vector2(0.8f,0.8f);
+        Position = pos;
     }
 
-    void Quad()
+    void Quad(Vector2 pos)
     {
         GL.Begin(PrimitiveType.Quads);
         GL.Color4(Color4.Aqua);
-        GL.Vertex2( Position.X + 0.1f, Position.Y + 0.1f);
-        GL.Vertex2( Position.X + 0.1f, Position.Y);
-        GL.Vertex2( Position.X, Position.Y);
-        GL.Vertex2( Position.X, Position.Y + 0.1f);
+        GL.Vertex2( pos.X + 0.1f, pos.Y + 0.1f);
+        GL.Vertex2( pos.X + 0.1f, pos.Y);
+        GL.Vertex2( pos.X, pos.Y);
+        GL.Vertex2( pos.X, pos.Y + 0.1f);
         GL.End();
     }
 
     public void Draw()
     {
-        Quad();
+
+        Quad(Position);
+        
     }
 
     public void MoveTowards(Vector2 targetPosition, float speed)
@@ -34,4 +42,5 @@ internal class Enemy
         direction = Vector2.Normalize(direction);
         Position += direction * speed;
     }
+
 }

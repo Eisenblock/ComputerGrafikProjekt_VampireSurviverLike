@@ -38,7 +38,7 @@ internal class Player
 
     void Quad()
     {
-        GL.ClearColor(Color4.LightGray);
+        //GL.ClearColor(Color4.LightGray);
         GL.Begin(PrimitiveType.Quads); 
         GL.Color4(Color4.IndianRed);
         GL.Vertex2(Position.X + 0.1f, Position.Y + 0.1f);

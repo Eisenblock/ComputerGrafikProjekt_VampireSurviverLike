@@ -9,10 +9,13 @@ using OpenTK.Mathematics;
 var window = new GameWindow(GameWindowSettings.Default, new NativeWindowSettings { Profile = ContextProfile.Compatability });
 
 Player player = new ();
-Enemy enemy = new ();
+Enemy enemy = new (new Vector2(0.6f,0.6f));
+EnemyList enemyList = new EnemyList();
+
 
 double timer = 3;
 double interval = 3;
+
 
 Vector2 playerpos = new Vector2(0,0);
 
@@ -42,27 +45,20 @@ void Render(FrameEventArgs e)
     GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
 
     player.Draw();
-    enemy.Draw();
-
-    timer += e.Time;
-    //Console.WriteLine(timer);
-    if (timer >= interval)
-    {
-        Console.WriteLine(timer + "sdsad");
-        enemy.Draw(); // Zeichne den Feind
-        timer = 0; // Timer zurücksetzen
-    }
-
-
+    enemyList.DrawArray();
+  
     window.SwapBuffers();
 }
 
 
 void Update(FrameEventArgs e)
-{
+{ 
     
     playerpos = player.Position;
     enemy.MoveTowards(player.Position,0.0001f);
+
+    timer += e.Time;  
+    enemyList.UpdateTimer(timer);
 }
 
 void Resize(ResizeEventArgs e)

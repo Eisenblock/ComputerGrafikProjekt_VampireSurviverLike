@@ -3,26 +3,40 @@ using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Drawing;
-using System.Reflection;
 using OpenTK.Mathematics;
 
-var window = new GameWindow(GameWindowSettings.Default, new NativeWindowSettings { Profile = ContextProfile.Compatability });
+var window = new GameWindow(
+    new GameWindowSettings(),
+    new NativeWindowSettings()
+    {
+        Profile = ContextProfile.Compatability,
+        ClientSize = new Vector2i(800, 600) // Setzen Sie die Fenstergröße auf 800x600 Pixel
+    }
+);
 
 Player player = new ();
 Enemy enemy = new (new Vector2(0.6f,0.6f));
 EnemyList enemyList = new EnemyList();
+Shoot shoot = new Shoot();
 
 float aspectRatio = 1f;
 double timer = 3;
+double timerShoot = 0;
 double interval = 3;
-
-
+Vector2 mousePosition = Vector2.Zero;
 Vector2 playerpos = new Vector2(0,0);
+Vector2 pos = new Vector2(1,1);
 
 
 window.UpdateFrame += Update;
 window.RenderFrame += Render;
 window.Resize += Resize;
+
+window.MouseMove +=  args =>
+{
+    mousePosition = new Vector2((float)args.X / window.ClientSize.X * 2 - 1, 1 - (float)args.Y / window.ClientSize.Y * 2);
+};
+
 window.KeyDown += args =>
 {
     switch (args.Key)
@@ -32,6 +46,7 @@ window.KeyDown += args =>
         case Keys.Right: player.Right(); break;
         case Keys.Up: player.Up(); break;
         case Keys.Down: player.Down(); break;
+        case Keys.Space: shoot.PlayerShoots(mousePosition, timer); break;
     }
 };
 
@@ -47,6 +62,8 @@ void Render(FrameEventArgs e)
     
     player.Draw();
     enemyList.DrawArray();
+    shoot.Draw();
+   
   
     window.SwapBuffers();
 }
@@ -65,8 +82,10 @@ void Update(FrameEventArgs e)
         }
     }
 
-    timer += e.Time;  
+    timer += e.Time;
+    timerShoot += e.Time;
     enemyList.UpdateTimer(timer);
+    shoot.UpdateTimerShoot(timerShoot);
 }
 
 void Resize(ResizeEventArgs e)

@@ -1,21 +1,23 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using static System.Formats.Asn1.AsnWriter;
 
 internal class Shoot
 {
 
-    Player player = new Player();
+   
  
-    Vector2 shootPos;
-    Vector2 targetPos;
 
     public bool shootBool = false;
 
+    private Vector2 shootPos;
+    private Vector2 targetPos;
     private double lifetime;
     private double lastPrintedTime = 0;   
     private float scale;
-    private double lastShootTime = 0;
+    private double lastShootTime = 0; 
+    
+    Player player = new Player();
+    Circle circle = new Circle(Vector2.Zero,0.1f);
 
 
     public Shoot()
@@ -53,6 +55,7 @@ internal class Shoot
         { 
             Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
             ShootDirection(targetPos, 0.0001f);
+            DrawCircle(shootPos, 0.1f, 32);
         }
     }
 
@@ -67,7 +70,7 @@ internal class Shoot
         }
         else
         {
-            Console.WriteLine("Kannst net schießen");
+            
         }      
     }
 
@@ -89,9 +92,22 @@ internal class Shoot
 
         if (timer - lastShootTime >= 0.25)
         {
-            Console.WriteLine("TimerUpdate" + timer);
             shootBool = false; // Setzen Sie shootBool auf false, da die Lebensdauer abgelaufen ist
             shootPos = player.Position;
         }
+    }
+
+    private void DrawCircle(Vector2 center, float radius, int segments)
+    {
+        GL.Begin(PrimitiveType.LineLoop);
+        GL.Color4(Color4.Green);
+        for (int i = 0; i < segments; i++)
+        {
+            float angle = i / (float)segments * 2.0f * MathF.PI;
+            float x = center.X + radius * MathF.Cos(angle);
+            float y = center.Y + radius * MathF.Sin(angle);
+            GL.Vertex2(x, y);
+        }
+        GL.End();
     }
 }

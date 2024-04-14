@@ -14,10 +14,11 @@ var window = new GameWindow(
     }
 );
 
-Player player = new ();
+Player player = new Player();
 Enemy enemy = new (new Vector2(0.6f,0.6f));
 EnemyList enemyList = new EnemyList();
 Shoot shoot = new Shoot();
+Circle circle = new Circle(Vector2.Zero,0);
 
 float aspectRatio = 1f;
 double timer = 3;

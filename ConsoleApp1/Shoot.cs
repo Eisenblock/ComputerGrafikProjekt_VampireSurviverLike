@@ -17,12 +17,13 @@ internal class Shoot
     private double lastShootTime = 0; 
     
     Player player = new Player();
-    Circle circle = new Circle(Vector2.Zero,0.1f);
+    Circle boundShoot = new Circle(Vector2.Zero,0.1f);
 
 
     public Shoot()
     {
         shootPos = player.Position;
+        boundShoot = new Circle(shootPos, 0.1f);
     }
 
     float SetScale()
@@ -83,8 +84,7 @@ internal class Shoot
         }
               
         shootBool = true;
-        
-
+       
     }
 
     public void UpdateTimerShoot(double timer)
@@ -109,5 +109,19 @@ internal class Shoot
             GL.Vertex2(x, y);
         }
         GL.End();
+    }
+
+    public bool CheckCollision(Enemy enemy)
+    {
+        float distanceSquared = 1;
+        float radiusSumSquared = 0;
+      
+        if (enemy != null && shootBool == true )
+        {
+            distanceSquared = (shootPos - enemy.Position).LengthSquared;
+            radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
+            
+        }
+        return distanceSquared < radiusSumSquared;
     }
 }

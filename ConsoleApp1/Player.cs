@@ -3,8 +3,6 @@ using OpenTK.Graphics.OpenGL;
 
 internal class Player
 {
-
-
     public Vector2 Position { get; internal set; }
     public float radius_col;
     public float PositionX; 
@@ -22,7 +20,11 @@ internal class Player
         PositionY = Position.Y;
     }
 
-   
+    public Vector2 getPlayerPosition()
+    {
+        return Position;
+    }
+
     internal void Left()
     {
         Position = new Vector2(Position.X - 0.1f, Position.Y);

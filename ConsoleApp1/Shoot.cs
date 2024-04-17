@@ -3,26 +3,21 @@ using OpenTK.Graphics.OpenGL;
 
 internal class Shoot
 {
-
-   
- 
-
     public bool shootBool = false;
-
+    private Player player;
     private Vector2 shootPos;
     private Vector2 targetPos;
     private double lifetime;
     private double lastPrintedTime = 0;   
     private float scale;
     private double lastShootTime = 0; 
-    
-    Player player = new Player();
     Circle boundShoot = new Circle(Vector2.Zero,0.1f);
 
 
-    public Shoot()
+    public Shoot(Player player)
     {
-        shootPos = player.Position;
+        this.player = player;
+        shootPos = this.player.Position;
         boundShoot = new Circle(shootPos, 0.1f);
     }
 
@@ -31,10 +26,11 @@ internal class Shoot
         return GlobalSettings.AspectRatio;
     }
 
+
     void Circle(Vector2 pos, float radius, int segments)
     {
         scale = SetScale();
-
+        
         GL.Begin(PrimitiveType.TriangleFan);
         GL.Color4(Color4.Aqua);
         GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
@@ -113,14 +109,20 @@ internal class Shoot
 
     public bool CheckCollision(Enemy enemy)
     {
+        if (enemy == null){
+            Console.WriteLine("Enemy is null");
+            return false;
+        }
+
         float distanceSquared = 1;
         float radiusSumSquared = 0;
-      
+              
         if (enemy != null && shootBool == true )
         {
+            Console.WriteLine(shootPos);
+            Console.WriteLine(enemy.Position);
             distanceSquared = (shootPos - enemy.Position).LengthSquared;
             radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
-            
         }
         return distanceSquared < radiusSumSquared;
     }

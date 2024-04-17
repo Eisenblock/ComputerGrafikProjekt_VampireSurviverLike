@@ -64,6 +64,7 @@ internal class Shoot
             Vector2 direction = targetPosition - shootPos;
             direction = Vector2.Normalize(direction);
             shootPos += direction * speed;
+            targetPos += direction * speed;
         }
         else
         {

@@ -24,25 +24,41 @@ internal class Player
         return Position;
     }
 
-    internal void Left()
+internal void Left()
+{
+    float newX = Position.X - 0.1f;
+    if (newX >= -0.99) // Berücksichtigen Sie den Radius des Spielers
     {
-        Position = new Vector2(Position.X - 0.1f, Position.Y);
+        Position = new Vector2(newX, Position.Y);
     }
+}
 
-    internal void Right()
+internal void Right()
+{
+    float newX = Position.X + 0.1f;
+    if (newX <= 0.99) // Berücksichtigen Sie den Radius des Spielers
     {
-        Position = new Vector2(Position.X + 0.1f, Position.Y);
+        Position = new Vector2(newX, Position.Y);
     }
+}
 
-    internal void Up()
+internal void Up()
+{
+    float newY = Position.Y + 0.1f;
+    if (newY <= 0.99) // Berücksichtigen Sie den Radius des Spielers
     {
-        Position = new Vector2(Position.X, Position.Y + 0.1f);
+        Position = new Vector2(Position.X, newY);
     }
+}
 
-    internal void Down()
+internal void Down()
+{
+    float newY = Position.Y - 0.1f;
+    if (newY >= -0.99) // Berücksichtigen Sie den Radius des Spielers
     {
-        Position = new Vector2(Position.X, Position.Y - 0.1f);
+        Position = new Vector2(Position.X, newY);
     }
+}
 
     float SetScale()
     {
@@ -76,12 +92,13 @@ internal class Player
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
+        scale = SetScale();
         GL.Begin(PrimitiveType.LineLoop);
         GL.Color4(Color4.Green);
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle);
+            float x = center.X + radius * MathF.Cos(angle) / scale;
             float y = center.Y + radius * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }

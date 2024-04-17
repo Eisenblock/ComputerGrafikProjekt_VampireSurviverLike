@@ -47,10 +47,10 @@ window.KeyDown += args =>
     switch (args.Key)
     {
         case Keys.Escape: window.Close(); break;
-        case Keys.Left: player.Left(); break;
-        case Keys.Right: player.Right(); break;
-        case Keys.Up: player.Up(); break;
-        case Keys.Down: player.Down(); break;
+        case Keys.A: player.Left(); break;
+        case Keys.D: player.Right(); break;
+        case Keys.W: player.Up(); break;
+        case Keys.S: player.Down(); break;
         case Keys.Space: shoot.PlayerShoots(mousePosition, timer); break;
         case Keys.L: gamestate.ShowUpgradeScreen(); break;
     }

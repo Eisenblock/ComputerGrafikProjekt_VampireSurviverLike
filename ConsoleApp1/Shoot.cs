@@ -95,12 +95,13 @@ internal class Shoot
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
+        scale = SetScale();
         GL.Begin(PrimitiveType.LineLoop);
         GL.Color4(Color4.Green);
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle);
+            float x = center.X + radius * MathF.Cos(angle) / scale;
             float y = center.Y + radius * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
@@ -119,7 +120,7 @@ internal class Shoot
               
         if (enemy != null && shootBool == true )
         {
-            Console.WriteLine(shootPos);
+            //Console.WriteLine(shootPos);
             //Console.WriteLine(enemy.Position);
             distanceSquared = (shootPos - enemy.Position).LengthSquared;
             radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);

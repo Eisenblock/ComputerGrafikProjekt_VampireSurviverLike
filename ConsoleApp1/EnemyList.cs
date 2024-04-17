@@ -22,11 +22,17 @@ class EnemyList
     private void InitializeEnemy()
     {
         // Initialize enemy array with Enemy objects
-            Random random = new Random();
-            float x = (float)random.NextDouble() * 2 - 1; // Zufällige x-Position zwischen -1 und 1
-            float y = (float)random.NextDouble() * 2 - 1; // Zufällige y-Position zwischen -1 und 1
+        Random random = new Random();
+        float x, y;
 
-            enemies[count] = new Enemy(new Vector2(x,y),false);
+        do
+        {
+            x = (float)random.NextDouble() * 2.6f - 1.3f; // Zufällige x-Position zwischen -1.3 und 1.3
+            y = (float)random.NextDouble() * 2.6f - 1.3f; // Zufällige y-Position zwischen -1.3 und 1.3
+        }
+        while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Wiederhole, bis die Position außerhalb des Bereichs -1 bis 1 liegt
+
+        enemies[count] = new Enemy(new Vector2(x,y),false);
     }
 
     public void DrawArray()

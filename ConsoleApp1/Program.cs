@@ -105,7 +105,23 @@ void Update(FrameEventArgs e)
         {
             if (enemy != null) // Überprüft, ob der Feind existiert
             {
-                enemy.MoveTowards(player.Position, 0.0001f);
+                //check welcher Enemy der derzeitige ist
+                if(enemy is BigEnemy bigEnemy)
+                {
+                    bigEnemy.Update(playerpos);
+                }
+                if(enemy is FastEnemy fastEnemy)
+                {
+                    fastEnemy.Update(playerpos);
+                }
+                if(enemy is RangedEnemy rangedEnemy)
+                {
+                    rangedEnemy.Update(playerpos);
+                }
+                else
+                {
+                    enemy.MoveTowards(playerpos, 0.0001f); // Bewegt den Feind in Richtung des Spielers
+                }
             }
         }
 

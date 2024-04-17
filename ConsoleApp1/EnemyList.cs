@@ -1,4 +1,6 @@
 ﻿using OpenTK.Mathematics;
+using System;
+
 
 class EnemyList
 {    
@@ -32,7 +34,21 @@ class EnemyList
         }
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Wiederhole, bis die Position außerhalb des Bereichs -1 bis 1 liegt
 
-        enemies[count] = new Enemy(new Vector2(x,y),false);
+        // random Gegner spawnen
+        random = new Random();
+        int randomNumber = random.Next(1, 4); // Generiert eine Zufallszahl zwischen 1 und 3 einschließlich
+        if (randomNumber == 1)
+        {
+            enemies[count] = new BigEnemy(new Vector2(x, y), false);
+        }
+        else if (randomNumber == 2)
+        {
+            enemies[count] = new FastEnemy(new Vector2(x, y), false);
+        }
+        else if (randomNumber == 3)
+        {
+            enemies[count] = new RangedEnemy(new Vector2(x, y), false);
+        }
     }
 
     public void DrawArray()
@@ -41,7 +57,8 @@ class EnemyList
         {
             if (enemies[i].enemyDead != true)
             {
-                enemies[i].Draw();
+                //draw enemy mit seiner speziellen Farbe
+                enemies[i].Draw(enemies[i].Color);
             }
         }
     }

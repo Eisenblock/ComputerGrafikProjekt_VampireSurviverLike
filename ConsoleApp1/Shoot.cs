@@ -120,8 +120,6 @@ internal class Shoot
               
         if (enemy != null && shootBool == true )
         {
-            //Console.WriteLine(shootPos);
-            //Console.WriteLine(enemy.Position);
             distanceSquared = (shootPos - enemy.Position).LengthSquared;
             radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
         }

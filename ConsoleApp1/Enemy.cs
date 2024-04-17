@@ -14,6 +14,8 @@ internal class Enemy
     public Circle boundEnemy;
 
     public bool enemyDead;
+
+    public Color4 Color { get; set; }
     public Enemy(Vector2 pos, bool dead ) 
     {
         enemyDead = dead;
@@ -26,11 +28,11 @@ internal class Enemy
         return GlobalSettings.AspectRatio;
     }
 
-    void Circle(Vector2 pos, float radius, int segments)
+    void Circle(Vector2 pos, float radius, int segments, Color4 color)
     {
         scale = SetScale();
         GL.Begin(PrimitiveType.TriangleFan);
-        GL.Color4(Color4.Red);
+        GL.Color4(color);
         GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
 
         for (int i = 0; i <= segments; i++)
@@ -44,9 +46,9 @@ internal class Enemy
         GL.End();
     }
 
-    public void Draw()
+    public virtual void Draw(Color4 color)
     {
-        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
         DrawCircle(Position, boundEnemy.Radius, 32);
     }
 
@@ -55,22 +57,25 @@ internal class Enemy
         Vector2 direction = targetPosition - Position;
         direction = Vector2.Normalize(direction);
         Position += direction * speed;
-
-
-        // Bewegung für Abstand halten vom Gegner (ranged Enemy)
-        // Vector2 direction = targetPosition - Position;
-        // float distance = direction.Length;
-        // if (distance > 0.5f)
-        // {
-        //     direction = Vector2.Normalize(direction);
-        //     Position += direction * speed;
-        // }
-        // else
-        // {
-        //     direction = Vector2.Normalize(direction) * -1;
-        //     Position += direction * speed;
-        // }
     }
+
+    public void MoveAway(Vector2 targetPosition, float speed)
+    {
+        //Bewegung für Abstand halten vom Gegner (ranged Enemy)
+        Vector2 direction = targetPosition - Position;
+        float distance = direction.Length;
+        if (distance > 1f)
+        {
+            direction = Vector2.Normalize(direction);
+            Position += direction * speed;
+        }
+        else
+        {
+            direction = Vector2.Normalize(direction) * -1;
+            Position += direction * speed;
+        }
+    } 
+    
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {

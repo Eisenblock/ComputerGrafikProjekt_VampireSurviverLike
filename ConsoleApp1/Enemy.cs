@@ -13,8 +13,10 @@ internal class Enemy
     //EnemyList enemyList1 = new EnemyList();
     public Circle boundEnemy;
 
-    public Enemy(Vector2 pos ) 
+    public bool enemyDead;
+    public Enemy(Vector2 pos, bool dead ) 
     {
+        enemyDead = dead;
         Position = pos;
         boundEnemy = new Circle(Vector2.Zero,0.1f);
     }

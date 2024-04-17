@@ -129,3 +129,7 @@ C:\Users\nxine\Desktop\Alles\.Hubbyshid\Leben\Leben\Schule\RWU\Semester_6\Comput
 C:\Users\nxine\Desktop\Alles\.Hubbyshid\Leben\Leben\Schule\RWU\Semester_6\Computergrafik\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\QuickFont.dll
 C:\Users\nxine\Desktop\Alles\.Hubbyshid\Leben\Leben\Schule\RWU\Semester_6\Computergrafik\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\System.Drawing.Common.dll
 C:\Users\nxine\Desktop\Alles\.Hubbyshid\Leben\Leben\Schule\RWU\Semester_6\Computergrafik\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\Microsoft.Win32.SystemEvents.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\QuickFont.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\System.Drawing.Common.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\runtimes\win\lib\net8.0\Microsoft.Win32.SystemEvents.dll

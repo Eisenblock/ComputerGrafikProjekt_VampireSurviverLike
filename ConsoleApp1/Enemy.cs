@@ -10,7 +10,7 @@ internal class Enemy
     public Vector2 Position { get; internal set; }
 
     Player player = new Player();
-    EnemyList enemyList1 = new EnemyList();
+    //EnemyList enemyList1 = new EnemyList();
     public Circle boundEnemy;
 
     public Enemy(Vector2 pos ) 

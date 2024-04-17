@@ -4,8 +4,8 @@ using OpenTK.Graphics.OpenGL;
 internal class Shoot
 {
     public bool shootBool = false;
-    private Player player;
-    private Vector2 shootPos;
+    public Player player;
+    public Vector2 shootPos;
     private Vector2 targetPos;
     private double lifetime;
     private double lastPrintedTime = 0;   
@@ -120,7 +120,7 @@ internal class Shoot
         if (enemy != null && shootBool == true )
         {
             Console.WriteLine(shootPos);
-            Console.WriteLine(enemy.Position);
+            //Console.WriteLine(enemy.Position);
             distanceSquared = (shootPos - enemy.Position).LengthSquared;
             radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
         }

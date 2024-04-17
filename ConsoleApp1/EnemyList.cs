@@ -3,16 +3,17 @@
 class EnemyList
 {    
 
-    Player player = new Player();
+    Player player;
     Shoot shoot;
     public Enemy[] enemies { get; set; }
     private double spawnTimer = 3; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
 
-    public EnemyList()
+    public EnemyList(Player player, Shoot shoot)
     {
-        shoot = new Shoot(player);
+        this.player = player;
+        this.shoot = shoot;
         enemies = new Enemy[10];
     }
 
@@ -50,11 +51,12 @@ class EnemyList
 
     public void CheckCollisionPlayer()
     {
+        //Console.WriteLine(player.Position);
         foreach (Enemy enemy in enemies)
         {
             if (player.CheckCollision(enemy) == true)
             {
-                Console.WriteLine("Treffer Player - Enemy");
+                //Console.WriteLine("Treffer Player - Enemy");
                 // Hier fügst du den Code für die Behandlung der Kollision hinzu
             }
         }
@@ -63,8 +65,8 @@ class EnemyList
     public void CheckCollisionShoot()
      {
          foreach(Enemy enemy in enemies)
-         {       
-            if(enemy != null){
+         {
+            if(enemy != null && shoot != null){
                 if (shoot.CheckCollision(enemy) == true )
                 {   
                     Console.WriteLine("Treffer Shoot - Enemy");

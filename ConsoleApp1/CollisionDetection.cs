@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 class CollisionDetection
 {
-    EnemyList enemyList1 = new EnemyList();
+    //EnemyList enemyList1 = new EnemyList();
     int i = 0;
 
     private bool CheckCollision(Circle circle1, Circle circle2)

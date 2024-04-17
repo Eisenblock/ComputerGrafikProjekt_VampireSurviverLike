@@ -9,12 +9,14 @@ internal class Enemy
     public float scale;
     public Vector2 Position { get; internal set; }
 
-    Circle boundEnemy;
+    Player player = new Player();
+    //EnemyList enemyList1 = new EnemyList();
+    public Circle boundEnemy;
 
     public Enemy(Vector2 pos ) 
     {
         Position = pos;
-        boundEnemy = new Circle(Vector2.Zero,0.05f);
+        boundEnemy = new Circle(Vector2.Zero,0.1f);
     }
 
     float SetScale()
@@ -43,7 +45,7 @@ internal class Enemy
 
     public void Draw()
     {
-        Circle(Position, 0.05f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
         DrawCircle(Position, boundEnemy.Radius, 32);
     }
 
@@ -52,6 +54,7 @@ internal class Enemy
         Vector2 direction = targetPosition - Position;
         direction = Vector2.Normalize(direction);
         Position += direction * speed;
+
 
         // Bewegung für Abstand halten vom Gegner (ranged Enemy)
         // Vector2 direction = targetPosition - Position;
@@ -81,4 +84,6 @@ internal class Enemy
         }
         GL.End();
     }
+
+
 }

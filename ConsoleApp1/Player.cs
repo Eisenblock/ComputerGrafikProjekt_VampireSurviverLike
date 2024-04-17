@@ -3,25 +3,28 @@ using OpenTK.Graphics.OpenGL;
 
 internal class Player
 {
-
-
     public Vector2 Position { get; internal set; }
     public float radius_col;
-
     public float PositionX; 
     public float PositionY;
     public float scale;
-
     public Circle bounds = new Circle(Vector2.Zero,0);
+
 
 
     public Player()
     {
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.1f);
+        PositionX = Position.X;
+        PositionY = Position.Y;
     }
 
-   
+    public Vector2 getPlayerPosition()
+    {
+        return Position;
+    }
+
     internal void Left()
     {
         Position = new Vector2(Position.X - 0.1f, Position.Y);
@@ -68,7 +71,7 @@ internal class Player
 
     public void Draw()
     {
-        Circle(bounds.Center, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
         DrawCircle(Position,bounds.Radius,32);
     }
 
@@ -84,5 +87,19 @@ internal class Player
             GL.Vertex2(x, y);
         }
         GL.End();
+    }
+
+    public bool CheckCollision(Enemy enemy)
+    {
+        float distanceSquared = 1;
+        float radiusSumSquared = 0;
+
+        if (enemy != null)
+        {
+            distanceSquared = (Position - enemy.Position).LengthSquared;
+            radiusSumSquared = (bounds.Radius + enemy.boundEnemy.Radius) * (bounds.Radius + enemy.boundEnemy.Radius);
+            
+        }
+        return distanceSquared < radiusSumSquared;
     }
 }

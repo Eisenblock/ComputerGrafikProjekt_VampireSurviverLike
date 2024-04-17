@@ -10,8 +10,7 @@ internal class Player
     public float scale;
     public Circle bounds = new Circle(Vector2.Zero,0);
 
-
-
+    public int Health = 3;
     public Player()
     {
         Position = new Vector2(0.0f, 0.0f);
@@ -100,6 +99,22 @@ internal class Player
             radiusSumSquared = (bounds.Radius + enemy.boundEnemy.Radius) * (bounds.Radius + enemy.boundEnemy.Radius);
             
         }
+
+        if(distanceSquared < radiusSumSquared)
+        {
+           DecreaseHealth();
+           //Console.WriteLine("Player Health: " + Health);
+        }
         return distanceSquared < radiusSumSquared;
+    }
+
+    public void IncreaseHealth()
+    {
+        Health++;
+    }
+
+    public void DecreaseHealth()
+    {
+        Health--;
     }
 }

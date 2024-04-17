@@ -46,6 +46,14 @@
             "OpenTK": {
               "target": "Package",
               "version": "[4.8.2, )"
+            },
+            "QuickFont": {
+              "target": "Package",
+              "version": "[3.0.2.1, )"
+            },
+            "System.Drawing.Common": {
+              "target": "Package",
+              "version": "[8.0.4, )"
             }
           },
           "imports": [

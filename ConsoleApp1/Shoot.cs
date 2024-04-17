@@ -51,7 +51,7 @@ internal class Shoot
         if(shootBool == true)
         { 
             Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-            ShootDirection(targetPos, 0.0001f);
+            ShootDirection(targetPos, 0.0002f);
             DrawCircle(shootPos, 0.1f, 32);
         }
     }
@@ -86,8 +86,7 @@ internal class Shoot
 
     public void UpdateTimerShoot(double timer)
     {
-
-        if (timer - lastShootTime >= 0.25)
+        if (timer - lastShootTime >= 0.15)
         {
             shootBool = false; // Setzen Sie shootBool auf false, da die Lebensdauer abgelaufen ist
             shootPos = player.Position;

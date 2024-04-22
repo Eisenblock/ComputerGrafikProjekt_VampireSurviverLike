@@ -8,6 +8,8 @@ internal class Player
     public float PositionX; 
     public float PositionY;
     public float scale;
+    
+    public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
 
     public int Health = 3;
@@ -26,7 +28,7 @@ internal class Player
 
 internal void Left()
 {
-    float newX = Position.X - 0.1f;
+    float newX = Position.X - speed;
     if (newX >= -0.99) // Berücksichtigen Sie den Radius des Spielers
     {
         Position = new Vector2(newX, Position.Y);
@@ -35,7 +37,7 @@ internal void Left()
 
 internal void Right()
 {
-    float newX = Position.X + 0.1f;
+    float newX = Position.X + speed;
     if (newX <= 0.99) // Berücksichtigen Sie den Radius des Spielers
     {
         Position = new Vector2(newX, Position.Y);
@@ -44,7 +46,7 @@ internal void Right()
 
 internal void Up()
 {
-    float newY = Position.Y + 0.1f;
+    float newY = Position.Y + speed;
     if (newY <= 0.99) // Berücksichtigen Sie den Radius des Spielers
     {
         Position = new Vector2(Position.X, newY);
@@ -53,7 +55,7 @@ internal void Up()
 
 internal void Down()
 {
-    float newY = Position.Y - 0.1f;
+    float newY = Position.Y - speed;
     if (newY >= -0.99) // Berücksichtigen Sie den Radius des Spielers
     {
         Position = new Vector2(Position.X, newY);

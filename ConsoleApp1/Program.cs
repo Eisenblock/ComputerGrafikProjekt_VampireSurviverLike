@@ -33,6 +33,11 @@ Vector2 mousePosition = Vector2.Zero;
 Vector2 playerpos = new Vector2(0,0);
 Vector2 pos = new Vector2(1,1); 
 
+bool moveLeft = false;
+bool moveRight = false;
+bool moveUp = false;
+bool moveDown = false;
+
 window.UpdateFrame += Update;
 window.RenderFrame += Render;
 window.Resize += Resize;
@@ -42,17 +47,29 @@ window.MouseMove +=  args =>
     mousePosition = new Vector2((float)args.X / window.ClientSize.X * 2 - 1, 1 - (float)args.Y / window.ClientSize.Y * 2);
 };
 
+
 window.KeyDown += args =>
 {
     switch (args.Key)
     {
         case Keys.Escape: window.Close(); break;
-        case Keys.A: player.Left(); break;
-        case Keys.D: player.Right(); break;
-        case Keys.W: player.Up(); break;
-        case Keys.S: player.Down(); break;
+        case Keys.A: moveLeft = true; break;
+        case Keys.D: moveRight = true; break;
+        case Keys.W: moveUp = true; break;
+        case Keys.S: moveDown = true; break;
         case Keys.Space: shoot.PlayerShoots(mousePosition, timer); break;
         case Keys.L: gamestate.ShowUpgradeScreen(); break;
+    }
+};
+
+window.KeyUp += args =>
+{
+    switch (args.Key)
+    {
+        case Keys.A: moveLeft = false; break;
+        case Keys.D: moveRight = false; break;
+        case Keys.W: moveUp = false; break;
+        case Keys.S: moveDown = false; break;
     }
 };
 
@@ -92,6 +109,11 @@ void Render(FrameEventArgs e)
 
 void Update(FrameEventArgs e)
 {
+
+    if (moveLeft) player.Left();
+    if (moveRight) player.Right();
+    if (moveUp) player.Up();
+    if (moveDown) player.Down();
     if (gamestate.state == GameState.UpgradeScreen)
     {
         // Führen Sie die Upgrade-Logik aus

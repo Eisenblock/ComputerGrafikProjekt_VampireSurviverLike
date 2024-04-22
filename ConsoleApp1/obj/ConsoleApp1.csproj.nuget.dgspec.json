@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\nxine\\Desktop\\Alles\\.Hubbyshid\\Leben\\Leben\\Schule\\RWU\\Semester_6\\Computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {}
+    "C:\\Users\\nxine\\source\\repos\\computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\nxine\\Desktop\\Alles\\.Hubbyshid\\Leben\\Leben\\Schule\\RWU\\Semester_6\\Computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {
+    "C:\\Users\\nxine\\source\\repos\\computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\nxine\\Desktop\\Alles\\.Hubbyshid\\Leben\\Leben\\Schule\\RWU\\Semester_6\\Computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectUniqueName": "C:\\Users\\nxine\\source\\repos\\computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "C:\\Users\\nxine\\Desktop\\Alles\\.Hubbyshid\\Leben\\Leben\\Schule\\RWU\\Semester_6\\Computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectPath": "C:\\Users\\nxine\\source\\repos\\computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
         "packagesPath": "C:\\Users\\nxine\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\nxine\\Desktop\\Alles\\.Hubbyshid\\Leben\\Leben\\Schule\\RWU\\Semester_6\\Computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
+        "outputPath": "C:\\Users\\nxine\\source\\repos\\computergrafik\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\nxine\\AppData\\Roaming\\NuGet\\NuGet.Config"

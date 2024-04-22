@@ -100,7 +100,7 @@ class EnemyList
                 if (shoot.CheckCollision(enemy) == true )
                 {   
                     Vector2 pos = enemy.Position;
-                    Console.WriteLine("Treffer Shoot - Enemy");
+                    //Console.WriteLine("Treffer Shoot - Enemy");
                     enemies[i] = new Enemy(pos, true);
                     // Hier fügst du den Code für die Behandlung der Kollision hinzu
                 }

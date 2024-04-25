@@ -13,10 +13,10 @@ class EnemyList
     private double lastPrintedTime = 0;
     private int count;
 
-    public EnemyList(Player player, Shoot shoot, Enemy enemy)
+    public EnemyList(Player player,  Enemy enemy,Shoot shoot)
     {
-        this.player = player;
         this.shoot = shoot;
+        this.player = player;
         this.enemy = enemy;
         enemies = new Enemy[10];
     }

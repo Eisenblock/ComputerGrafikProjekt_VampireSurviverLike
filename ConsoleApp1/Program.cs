@@ -2,7 +2,6 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Drawing;
 using OpenTK.Mathematics;
 
 var window = new GameWindow(
@@ -16,10 +15,11 @@ var window = new GameWindow(
 
 Player player = new Player();
 Enemy enemy = new (new Vector2(0.6f,0.6f),false);
-Shoot shoot = new Shoot(player);
-EnemyList enemyList = new EnemyList(player, shoot,enemy);
+Shoot shoot = new Shoot(player,Vector2.Zero,0,0);
+EnemyList enemyList = new EnemyList(player,enemy,shoot);
 Circle circle = new Circle(Vector2.Zero,0);
 CollisionDetection collisionDetection = new CollisionDetection();
+Shootlist shootlist = new Shootlist(player);
 
 Game gamestate  = new Game(window, player);
 UpgradeScreen upgradeScreen = new UpgradeScreen(window, gamestate, player);
@@ -57,7 +57,7 @@ window.KeyDown += args =>
         case Keys.D: moveRight = true; break;
         case Keys.W: moveUp = true; break;
         case Keys.S: moveDown = true; break;
-        case Keys.Space: shoot.PlayerShoots(mousePosition, timer); break;
+        case Keys.Space: shootlist.InitializeShoot(mousePosition,player,timer); break;
         case Keys.L: gamestate.ShowUpgradeScreen(); break;
     }
 };
@@ -98,7 +98,7 @@ void Render(FrameEventArgs e)
         
         player.Draw();
         enemyList.DrawArray();
-        shoot.Draw();
+        shootlist.DrawShoots();
     
     
         window.SwapBuffers();
@@ -150,7 +150,7 @@ void Update(FrameEventArgs e)
         timer += e.Time;
         timerShoot += e.Time;
         enemyList.UpdateTimer(timer);
-        shoot.UpdateTimerShoot(timerShoot);
+        shootlist.ShootDirectionList(timer);
         enemyList.CheckCollisionPlayer();
         enemyList.CheckCollisionShoot();
     }   

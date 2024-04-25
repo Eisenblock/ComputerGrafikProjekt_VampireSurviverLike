@@ -6,18 +6,21 @@ internal class Shoot
     public bool shootBool = false;
     public Player player;
     public Vector2 shootPos;
-    private Vector2 targetPos;
-    private double lifetime;
-    private double lastPrintedTime = 0;   
+    public Vector2 targetPos;
+    public double lifetime;
+    public double lastPrintedTime ;   
     private float scale;
     private double lastShootTime = 0; 
     Circle boundShoot = new Circle(Vector2.Zero,0.1f);
 
 
-    public Shoot(Player player)
+    public Shoot(Player player,Vector2 target, double time,double timeStart)
     {
         this.player = player;
+        this.lifetime = time;
+        this.lastPrintedTime = timeStart;
         shootPos = this.player.Position;
+        targetPos = target;
         boundShoot = new Circle(shootPos, 0.1f);
     }
 
@@ -48,50 +51,23 @@ internal class Shoot
 
     public void Draw()
     {
-        if(shootBool == true)
-        { 
-            Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-            ShootDirection(targetPos, 0.0002f);
-            DrawCircle(shootPos, 0.1f, 32);
-        }
+      
+            Circle(shootPos, 0.04f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
+            DrawCircle(shootPos, 0.1f, 32);     
     }
 
 
-    public void ShootDirection(Vector2 targetPosition, float speed)
+    public void ShootDirection(float speed)
     {
-        if(shootBool == true)
-        {
-            Vector2 direction = targetPosition - shootPos;
+        
+            Vector2 direction = targetPos - shootPos;
             direction = Vector2.Normalize(direction);
             shootPos += direction * speed;
             targetPos += direction * speed;
-        }
-        else
-        {
-            
-        }      
+
     }
 
-    public void PlayerShoots(Vector2 target,double currentTime )
-    {        
-        if(shootBool != true)
-        {
-            targetPos = target;
-            lastShootTime = currentTime;
-        }
-              
-        shootBool = true;
-       
-    }
-
-    public void UpdateTimerShoot(double timer)
-    {
-        if (timer - lastShootTime >= 0.15)
-        {
-            shootBool = false; // Setzen Sie shootBool auf false, da die Lebensdauer abgelaufen ist
-            shootPos = player.Position;
-        }
-    }
+    
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
@@ -108,6 +84,12 @@ internal class Shoot
         GL.End();
     }
 
+
+    public void TimerShoot(float time)
+    {
+
+    }
+
     public bool CheckCollision(Enemy enemy)
     {
         if (enemy == null){
@@ -118,7 +100,7 @@ internal class Shoot
         float distanceSquared = 1;
         float radiusSumSquared = 0;
               
-        if (enemy != null && shootBool == true )
+        if (enemy != null  )
         {
             distanceSquared = (shootPos - enemy.Position).LengthSquared;
             radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);

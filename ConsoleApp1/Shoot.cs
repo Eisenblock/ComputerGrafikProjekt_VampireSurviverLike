@@ -4,21 +4,32 @@ using OpenTK.Graphics.OpenGL;
 internal class Shoot
 {
     public bool shootBool = false;
-    public Player player;
+    public Entity entity;
+    public bool isLive = false;
     public Vector2 shootPos;
-    private Vector2 targetPos;
-    private double lifetime;
-    private double lastPrintedTime = 0;   
+    public Vector2 targetPos;
+    public double lifetime;
+    public double lastPrintedTime ;   
     private float scale;
-    private double lastShootTime = 0; 
-    Circle boundShoot = new Circle(Vector2.Zero,0.1f);
+    private double lastShootTime = 0;
+    public Circle boundShoot;
+    public bool shotbyPlayer;
 
 
-    public Shoot(Player player)
+    public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
-        this.player = player;
-        shootPos = this.player.Position;
+        this.entity = entity;
+        this.shootBool = shootBool;
+        this.lifetime = time;
+        this.lastPrintedTime = timeStart;
+        shootPos = entity.Position;
+        targetPos = target;
+        this.isLive = isLive;
         boundShoot = new Circle(shootPos, 0.1f);
+        if(entity.IsPlayer)
+            this.shotbyPlayer = true;
+        else
+            this.shotbyPlayer = false;
     }
 
     float SetScale()
@@ -48,83 +59,36 @@ internal class Shoot
 
     public void Draw()
     {
-        if(shootBool == true)
-        { 
-            Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-            ShootDirection(targetPos, 0.0001f);
-            DrawCircle(shootPos, 0.1f, 32);
-        }
+        Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
+        DrawCircle(shootPos, 0.1f, 32);
+        
     }
 
 
-    public void ShootDirection(Vector2 targetPosition, float speed)
+    public void ShootDirection(float speed)
     {
-        if(shootBool == true)
-        {
-            Vector2 direction = targetPosition - shootPos;
+            Vector2 direction = targetPos - shootPos;
             direction = Vector2.Normalize(direction);
             shootPos += direction * speed;
             targetPos += direction * speed;
-        }
-        else
-        {
-            
-        }      
+            boundShoot.Center = shootPos;
     }
 
-    public void PlayerShoots(Vector2 target,double currentTime )
-    {        
-        if(shootBool != true)
-        {
-            targetPos = target;
-            lastShootTime = currentTime;
-        }
-              
-        shootBool = true;
-       
-    }
-
-    public void UpdateTimerShoot(double timer)
-    {
-
-        if (timer - lastShootTime >= 0.25)
-        {
-            shootBool = false; // Setzen Sie shootBool auf false, da die Lebensdauer abgelaufen ist
-            shootPos = player.Position;
-        }
-    }
+    
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
+        scale = SetScale();
         GL.Begin(PrimitiveType.LineLoop);
         GL.Color4(Color4.Green);
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle);
+            float x = center.X + radius * MathF.Cos(angle) / scale;
             float y = center.Y + radius * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
         GL.End();
     }
 
-    public bool CheckCollision(Enemy enemy)
-    {
-        if (enemy == null){
-            Console.WriteLine("Enemy is null");
-            return false;
-        }
-
-        float distanceSquared = 1;
-        float radiusSumSquared = 0;
-              
-        if (enemy != null && shootBool == true )
-        {
-            Console.WriteLine(shootPos);
-            //Console.WriteLine(enemy.Position);
-            distanceSquared = (shootPos - enemy.Position).LengthSquared;
-            radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
-        }
-        return distanceSquared < radiusSumSquared;
-    }
 }

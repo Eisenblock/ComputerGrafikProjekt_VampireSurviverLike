@@ -26,6 +26,14 @@ internal class Player : Entity
         playerDead = false;
     }
 
+    public void ClearAll()
+    {
+        Position = Vector2.Zero;
+        playerDead = false;
+        Health = 5;
+        ResetColor();
+    }
+
     public Vector2 getPlayerPosition()
     {
         return Position;
@@ -125,15 +133,13 @@ internal void Down()
     public void DecreaseHealth(int dmg)
     {
         Health -= dmg;
-        Console.WriteLine("Life" + Health);
+        Console.WriteLine("Life: " + Health);
         if(Health <= 0) 
         {
             playerDead = true;
             Console.WriteLine("Player Dead");
         }
-    {
-        color = Color4.Blue; // Setzen Sie die Farbe auf Blau zurück
-    }
+        color = Color4.Red; // Setzen Sie die Farbe auf Blau zurück
     }
     public void ResetColor()
     {

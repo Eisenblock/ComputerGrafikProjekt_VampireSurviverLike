@@ -116,7 +116,7 @@ void Render(FrameEventArgs e)
 
 void Update(FrameEventArgs e)
 {
-    if (player.health <= 0) 
+    if (player.Health <= 0) 
     { 
         gamestate.state = GameState.GameOver;
     }

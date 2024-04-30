@@ -18,7 +18,7 @@ internal class Enemy : Entity
 
     public bool enemyDead;
     public bool isActive;
-    public int enemyDmg;
+    public int Dmg;
 
 
     public Color4 Color { get; set; }
@@ -28,7 +28,7 @@ internal class Enemy : Entity
         Position = pos;
         isActive = true;
         boundEnemy = new Circle(Position,0.1f);
-        enemyDmg = dmg;
+        this.Dmg = dmg;
 
     }
 
@@ -84,7 +84,7 @@ internal class Enemy : Entity
             Position += direction * speed;
             boundEnemy.Center = Position;
             i++;
-            if(i >= 1000)
+            if(i >= 2000)
             {
                 isActive = true;
                 i = 0;

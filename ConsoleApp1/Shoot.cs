@@ -18,6 +18,7 @@ internal class Shoot
 
     public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
+        this.entity = entity;
         this.shootBool = shootBool;
         this.lifetime = time;
         this.lastPrintedTime = timeStart;

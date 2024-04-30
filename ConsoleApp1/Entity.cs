@@ -7,4 +7,5 @@ public abstract class Entity
 
     public Vector2 health { get; set; }
     public DateTime LastCollision { get; set; } = DateTime.MinValue;
+    public int Dmg { get; set; }
 }

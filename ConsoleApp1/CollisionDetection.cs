@@ -31,15 +31,19 @@ class CollisionDetection
                 {
                     if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
                     {
-                        Console.WriteLine("Hit");
-                        enemy.isActive = false;
-                        if(enemy.enemyDead == true)
+                        if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
                         {
-                            enemy.enemyDmg = 0;
+                            player.ResetColor();
+                            // Console.WriteLine("Hit Bullet");
+                            enemy.isActive = false;
+                            player.DecreaseHealth(enemy.Dmg);
+                            player.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
                         }
-                                           
-                        player.DecreaseHealth(enemy.enemyDmg);
-                    }                  
+                        
+                    }  
+                    if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)  {
+                        player.ResetColor(); // Setzen Sie die Farbe des Spielers zurück, wenn die letzte Kollisionszeit kleiner oder gleich 1 ist
+                    }          
                 }
             }
           
@@ -53,17 +57,13 @@ class CollisionDetection
                 {
                     foreach (Enemy enemy in enemies)
                     {
-                        if (enemy != null){
-                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
+                        if (enemy != null)
                         {
-                            // Überprüfen, ob seit der letzten Kollision mindestens eine Sekunde vergangen ist
-                            if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1)
+                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                             {
                                 // Console.WriteLine("Hit Bullet");
                                 enemy.DecreaseHealth();
-                                enemy.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
                             }
-                        }
                         }
                         
                     }

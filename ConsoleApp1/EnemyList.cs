@@ -6,19 +6,18 @@ class EnemyList
 {    
 
     Player player;
-    Shoot shoot;
     Enemy enemy;
-    public Enemy[] enemies { get; set; }
+    public List<Enemy> enemies { get; set; }
+    private List<Enemy> enemyList_Remove;
     private double spawnTimer = 3; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
 
-    public EnemyList(Player player,  Enemy enemy,Shoot shoot)
+    public EnemyList(Player player,Enemy enemy)
     {
-        this.shoot = shoot;
         this.player = player;
         this.enemy = enemy;
-        enemies = new Enemy[10];
+        enemies = new List<Enemy>();
     }
 
     private void InitializeEnemy()
@@ -39,28 +38,44 @@ class EnemyList
         int randomNumber = random.Next(1, 4); // Generiert eine Zufallszahl zwischen 1 und 3 einschließlich
         if (randomNumber == 1)
         {
-            enemies[count] = new BigEnemy(new Vector2(x, y), false);
+            Enemy enemy = new BigEnemy(new Vector2(x, y), false);
+            enemies.Add(enemy);
+            Console.WriteLine("qqq");
         }
         else if (randomNumber == 2)
         {
-            enemies[count] = new FastEnemy(new Vector2(x, y), false);
+            Enemy enemy = new FastEnemy(new Vector2(x, y), false);
+            enemies.Add(enemy);
+            Console.WriteLine("qqq");
         }
         else if (randomNumber == 3)
         {
-            enemies[count] = new RangedEnemy(new Vector2(x, y), false);
+            Enemy enemy = new RangedEnemy(new Vector2(x, y), false);
+            enemies.Add(enemy);
+            Console.WriteLine("qqq");
         }
+        UpdateList();
     }
 
     public void DrawArray()
     {
-        for (int i = 0; i < count; i++)
+        foreach (Enemy enemy in enemies)
         {
-            if (enemies[i].enemyDead != true)
+            if(enemy.enemyDead != true)
             {
-                //draw enemy mit seiner speziellen Farbe
-                enemies[i].Draw(enemies[i].Color);
+                enemy.Draw(enemy.Color);
+            }
+            else
+            {
+                enemyList_Remove = enemies;
             }
         }
+       
+    }
+
+    private void UpdateList()
+    {
+        enemies.RemoveAll(enemy => enemy.enemyDead == true);
     }
 
     public void UpdateTimer(double timer)
@@ -75,37 +90,5 @@ class EnemyList
             count++;
             lastPrintedTime = flooredTimer;
         }
-    }
-
-    public void CheckCollisionPlayer()
-    {
-        //Console.WriteLine(player.Position);
-        foreach (Enemy enemy in enemies)
-        {
-            if (player.CheckCollision(enemy) == true)
-            {
-                //Console.WriteLine("Treffer Player - Enemy");
-                // Hier fügst du den Code für die Behandlung der Kollision hinzu
-            }
-        }
-    }
-
-    public void CheckCollisionShoot()
-     {
-        int i = 0;
-        foreach (Enemy enemy in enemies)
-         {
-            
-            if(enemy != null && shoot != null){
-                if (shoot.CheckCollision(enemy) == true )
-                {   
-                    Vector2 pos = enemy.Position;
-                    //Console.WriteLine("Treffer Shoot - Enemy");
-                    enemies[i] = new Enemy(pos, true);
-                    // Hier fügst du den Code für die Behandlung der Kollision hinzu
-                }
-            }
-            i++;
-          }
     }
 }

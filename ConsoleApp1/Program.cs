@@ -15,8 +15,7 @@ var window = new GameWindow(
 
 Player player = new Player();
 Enemy enemy = new (new Vector2(0.6f,0.6f),false);
-Shoot shoot = new Shoot(player,Vector2.Zero,0,0);
-EnemyList enemyList = new EnemyList(player,enemy,shoot);
+EnemyList enemyList = new EnemyList(player,enemy);
 Circle circle = new Circle(Vector2.Zero,0);
 CollisionDetection collisionDetection = new CollisionDetection();
 Shootlist shootlist = new Shootlist(player);
@@ -151,8 +150,7 @@ void Update(FrameEventArgs e)
         timerShoot += e.Time;
         enemyList.UpdateTimer(timer);
         shootlist.ShootDirectionList(timer);
-        enemyList.CheckCollisionPlayer();
-        enemyList.CheckCollisionShoot();
+        collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
     }   
     
 }

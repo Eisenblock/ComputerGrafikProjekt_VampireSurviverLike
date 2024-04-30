@@ -20,7 +20,7 @@ internal class Enemy
     {
         enemyDead = dead;
         Position = pos;
-        boundEnemy = new Circle(Vector2.Zero,0.1f);
+        boundEnemy = new Circle(Position,0.1f);
     }
 
     float SetScale()
@@ -57,6 +57,7 @@ internal class Enemy
         Vector2 direction = targetPosition - Position;
         direction = Vector2.Normalize(direction);
         Position += direction * speed;
+        boundEnemy.Center = Position;
     }
 
     public void MoveAway(Vector2 targetPosition, float speed)

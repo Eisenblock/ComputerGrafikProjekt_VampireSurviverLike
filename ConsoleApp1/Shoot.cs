@@ -5,22 +5,24 @@ internal class Shoot
 {
     public bool shootBool = false;
     public Player player;
+    public bool isLive = false;
     public Vector2 shootPos;
     public Vector2 targetPos;
     public double lifetime;
     public double lastPrintedTime ;   
     private float scale;
-    private double lastShootTime = 0; 
-    Circle boundShoot = new Circle(Vector2.Zero,0.1f);
+    private double lastShootTime = 0;
+    public Circle boundShoot;
 
 
-    public Shoot(Player player,Vector2 target, double time,double timeStart)
+    public Shoot(Player player,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
-        this.player = player;
+        this.shootBool = shootBool;
         this.lifetime = time;
         this.lastPrintedTime = timeStart;
-        shootPos = this.player.Position;
+        shootPos = player.Position;
         targetPos = target;
+        this.isLive = isLive;
         boundShoot = new Circle(shootPos, 0.1f);
     }
 
@@ -51,9 +53,10 @@ internal class Shoot
 
     public void Draw()
     {
-      
-            Circle(shootPos, 0.04f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
-            DrawCircle(shootPos, 0.1f, 32);     
+        
+            Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
+            DrawCircle(shootPos, 0.1f, 32);
+        
     }
 
 
@@ -64,7 +67,7 @@ internal class Shoot
             direction = Vector2.Normalize(direction);
             shootPos += direction * speed;
             targetPos += direction * speed;
-
+            boundShoot.Center = shootPos;
     }
 
     
@@ -84,27 +87,4 @@ internal class Shoot
         GL.End();
     }
 
-
-    public void TimerShoot(float time)
-    {
-
-    }
-
-    public bool CheckCollision(Enemy enemy)
-    {
-        if (enemy == null){
-            Console.WriteLine("Enemy is null");
-            return false;
-        }
-
-        float distanceSquared = 1;
-        float radiusSumSquared = 0;
-              
-        if (enemy != null  )
-        {
-            distanceSquared = (shootPos - enemy.Position).LengthSquared;
-            radiusSumSquared = (boundShoot.Radius + enemy.boundEnemy.Radius) * (boundShoot.Radius + enemy.boundEnemy.Radius);
-        }
-        return distanceSquared < radiusSumSquared;
-    }
 }

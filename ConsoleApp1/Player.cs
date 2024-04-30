@@ -94,6 +94,7 @@ internal void Down()
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
+        bounds.Center = Position;
         scale = SetScale();
         GL.Begin(PrimitiveType.LineLoop);
         GL.Color4(Color4.Green);

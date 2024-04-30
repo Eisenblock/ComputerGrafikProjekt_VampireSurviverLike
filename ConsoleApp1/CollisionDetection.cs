@@ -30,12 +30,13 @@ class CollisionDetection
                 if (enemy != null)
                 {
                     if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
-                    {
+                    { 
+                        enemy.isActive = false;
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
                         {
                             player.ResetColor();
                             // Console.WriteLine("Hit Bullet");
-                            enemy.isActive = false;
+                           
                             player.DecreaseHealth(enemy.Dmg);
                             player.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
                         }

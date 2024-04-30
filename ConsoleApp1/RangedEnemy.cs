@@ -6,7 +6,7 @@ using OpenTK.Graphics.OpenGL;
     public Color4 Color { get; set; } = Color4.Pink;
 
     public float speed = 0.00015f;
-    public RangedEnemy(Vector2 pos, bool dead) : base(pos, dead)
+    public RangedEnemy(Vector2 pos, bool dead,int dmg) : base(pos, dead,dmg)
     {
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }

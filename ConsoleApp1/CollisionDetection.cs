@@ -4,10 +4,11 @@ using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Mathematics;
 
 class CollisionDetection
 {
-    int i = 0;
+ 
 
     private bool CheckCollision(Circle circle1, Circle circle2)
     {
@@ -21,8 +22,6 @@ class CollisionDetection
 
      public void CheckCollision(Player player, List<Enemy> enemies, List<Shoot> shoots)
     {
-        int collisionCount = 0;
-        int collisionCount_Shoot = 0;// Variable zur Verfolgung der Anzahl von Kollisionen
 
         if (enemies != null)
         {
@@ -32,18 +31,15 @@ class CollisionDetection
                 {
                     if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
                     {
-                        if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
-                            player.DecreaseHealth();
-                            Console.WriteLine("Touched Player");
-                            player.LastCollision = DateTime.Now;
+                        Console.WriteLine("Hit");
+                        enemy.isActive = false;
+                        if(enemy.enemyDead == true)
+                        {
+                            enemy.enemyDmg = 0;
                         }
-
-                    }
-                    else if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
-                    {
-                        player.ResetColor(); 
-                    }
-                    collisionCount++;
+                                           
+                        player.DecreaseHealth(enemy.enemyDmg);
+                    }                  
                 }
             }
           
@@ -57,7 +53,8 @@ class CollisionDetection
                 {
                     foreach (Enemy enemy in enemies)
                     {
-                        if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
+                        if (enemy != null){
+                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                         {
                             // Überprüfen, ob seit der letzten Kollision mindestens eine Sekunde vergangen ist
                             if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1)
@@ -67,14 +64,15 @@ class CollisionDetection
                                 enemy.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
                             }
                         }
-                        collisionCount_Shoot++;
+                        }
+                        
                     }
                 }
                 if(shoot.isLive == true && shoot.shotbyPlayer == false){
                     if(CheckCollision(shoot.boundShoot,player.bounds) == true)
                     {
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
-                            player.DecreaseHealth();
+                            player.DecreaseHealth(1);
                             Console.WriteLine("Hit Player");
                             player.LastCollision = DateTime.Now;
                             shoot.isLive = false;

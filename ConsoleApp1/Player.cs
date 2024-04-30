@@ -13,20 +13,17 @@ internal class Player : Entity
     
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
+    public bool playerDead;
+    public int Health = 5;
     public Color4 color = Color4.Blue;
-    public int health = 3;
+
     public Player()
     {
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.1f);
         PositionX = Position.X;
         PositionY = Position.Y;
-    }
-    public void ClearAll()
-    {
-        Position = Vector2.Zero;
-        health = 3;
-        ResetColor();
+        playerDead = false;
     }
 
     public Vector2 getPlayerPosition()
@@ -96,8 +93,11 @@ internal void Down()
 
     public void Draw()
     {
-        Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-        DrawCircle(Position,bounds.Radius,32);
+        if (playerDead != true)
+        {
+            Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+            DrawCircle(Position, bounds.Radius, 32);
+        }
     }
 
     private void DrawCircle(Vector2 center, float radius, int segments)
@@ -116,38 +116,25 @@ internal void Down()
         GL.End();
     }
 
-    public bool CheckCollision(Enemy enemy)
-    {
-        float distanceSquared = 1;
-        float radiusSumSquared = 0;
-
-        if (enemy != null)
-        {
-            distanceSquared = (Position - enemy.Position).LengthSquared;
-            radiusSumSquared = (bounds.Radius + enemy.boundEnemy.Radius) * (bounds.Radius + enemy.boundEnemy.Radius);
-            
-        }
-
-        if(distanceSquared < radiusSumSquared)
-        {
-           DecreaseHealth();
-           //Console.WriteLine("Player Health: " + Health);
-        }
-        return distanceSquared < radiusSumSquared;
-    }
-
     public void IncreaseHealth()
     {
-        health++;
+        Health++;
+        Console.WriteLine("Life" +  Health);
     }
 
-    public void DecreaseHealth()
+    public void DecreaseHealth(int dmg)
     {
-        health--;
-        Console.WriteLine("Player Health: " + health);
-        color = Color4.Red; // Ändern Sie die Farbe auf Rot, wenn der Spieler Schaden nimmt
-    }   
-
+        Health -= dmg;
+        Console.WriteLine("Life" + Health);
+        if(Health <= 0) 
+        {
+            playerDead = true;
+            Console.WriteLine("Player Dead");
+        }
+    {
+        color = Color4.Blue; // Setzen Sie die Farbe auf Blau zurück
+    }
+    }
     public void ResetColor()
     {
         color = Color4.Blue; // Setzen Sie die Farbe auf Blau zurück

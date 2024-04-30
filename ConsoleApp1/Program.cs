@@ -13,6 +13,7 @@ var window = new GameWindow(
     }
 );
 
+
 Player player = new Player();
 Enemy enemy = new (new Vector2(0.6f,0.6f),false);
 EnemyList enemyList = new EnemyList(player,enemy);
@@ -20,8 +21,6 @@ Circle circle = new Circle(Vector2.Zero,0);
 CollisionDetection collisionDetection = new CollisionDetection();
 Shootlist shootlist = new Shootlist(player);
 
-Game gamestate  = new Game(window, player);
-UpgradeScreen upgradeScreen = new UpgradeScreen(window, gamestate, player);
 TextRenderer textRenderer = new TextRenderer();
 
 float aspectRatio = 1f;
@@ -30,12 +29,23 @@ double timerShoot = 0;
 double interval = 3;
 Vector2 mousePosition = Vector2.Zero;
 Vector2 playerpos = new Vector2(0,0);
-Vector2 pos = new Vector2(1,1); 
+Vector2 pos = new Vector2(1,1);
 
 bool moveLeft = false;
 bool moveRight = false;
 bool moveUp = false;
 bool moveDown = false;
+
+Action Restart = () =>
+{
+    timerShoot = 0;
+    enemyList.ClearAll();
+    shootlist.ClearAll();
+    player.ClearAll();
+};
+Game gamestate  = new Game(window, player, Restart);
+GameOver gameover = new GameOver(window, gamestate, player, Restart);
+
 
 window.UpdateFrame += Update;
 window.RenderFrame += Render;
@@ -57,7 +67,7 @@ window.KeyDown += args =>
         case Keys.W: moveUp = true; break;
         case Keys.S: moveDown = true; break;
         case Keys.Space: shootlist.InitializeShoot(mousePosition,player,timer); break;
-        case Keys.L: gamestate.ShowUpgradeScreen(); break;
+        case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
     }
 };
 
@@ -76,30 +86,29 @@ window.MouseDown += args =>
 {
     if (args.Button == MouseButton.Left)
     {
-        upgradeScreen.OnMouseClick(mousePosition.X, mousePosition.Y);
+        gameover.OnMouseClick(mousePosition);
     }
 };
 
 
+
 window.Run();
-
-
 
 void Render(FrameEventArgs e)
 {
-    if(gamestate.state == GameState.UpgradeScreen)
+    if(gamestate.state == GameState.GameOver)
     {
-        upgradeScreen.show();
+        gameover.Draw(window);
     }
     else{
         GL.ClearColor(0.2f, 0.2f, 0.2f, 1.0f); // Setzt die Hintergrundfarbe auf dunkelgrau
         GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-        
+
         player.Draw();
         enemyList.DrawArray();
         shootlist.DrawShoots();
-    
-    
+
+
         window.SwapBuffers();
     }
 
@@ -108,51 +117,58 @@ void Render(FrameEventArgs e)
 
 void Update(FrameEventArgs e)
 {
-
-    if (moveLeft) player.Left();
-    if (moveRight) player.Right();
-    if (moveUp) player.Up();
-    if (moveDown) player.Down();
-    if (gamestate.state == GameState.UpgradeScreen)
-    {
-        // Führen Sie die Upgrade-Logik aus
-        upgradeScreen.update(mousePosition);
+    if (player.health <= 0) 
+    { 
+        gamestate.state = GameState.GameOver;
     }
-    else
-    {
-        playerpos = player.Position;
-        // Durchläuft das Array der Feinde und lässt jeden Feind den Spieler verfolgen
-        foreach (var enemy in enemyList.enemies)
+    else{
+        if (moveLeft) player.Left();
+        if (moveRight) player.Right();
+        if (moveUp) player.Up();
+        if (moveDown) player.Down();
+        if (gamestate.state == GameState.UpgradeScreen)
         {
-            if (enemy != null) // Überprüft, ob der Feind existiert
+            // Führen Sie die Upgrade-Logik aus
+            gameover.OnMouseClick(mousePosition);
+        }
+        else
+        {
+            playerpos = player.Position;
+            // Durchläuft das Array der Feinde und lässt jeden Feind den Spieler verfolgen
+            foreach (var enemy in enemyList.enemies)
             {
-                //check welcher Enemy der derzeitige ist
-                if(enemy is BigEnemy bigEnemy)
+                if (enemy != null && enemy.enemyDead == false) // Überprüft, ob der Feind existiert
                 {
-                    bigEnemy.Update(playerpos);
-                }
-                if(enemy is FastEnemy fastEnemy)
-                {
-                    fastEnemy.Update(playerpos);
-                }
-                if(enemy is RangedEnemy rangedEnemy)
-                {
-                    rangedEnemy.Update(playerpos);
-                }
-                else
-                {
-                    enemy.MoveTowards(playerpos, 0.0001f); // Bewegt den Feind in Richtung des Spielers
+                    //check welcher Enemy der derzeitige ist
+                    if(enemy is BigEnemy bigEnemy)
+                    {
+                        bigEnemy.Update(playerpos);
+                    }
+                    if(enemy is FastEnemy fastEnemy)
+                    {
+                        fastEnemy.Update(playerpos);
+                    }
+                    if(enemy is RangedEnemy rangedEnemy)
+                    {
+                        rangedEnemy.Update(playerpos);
+                        shootlist.InitializeShoot(playerpos,rangedEnemy,timer);
+                    }
+                    else
+                    {
+                        enemy.MoveTowards(playerpos, 0.0001f); // Bewegt den Feind in Richtung des Spielers
+                    }
                 }
             }
-        }
 
-        timer += e.Time;
-        timerShoot += e.Time;
-        enemyList.UpdateTimer(timer);
-        shootlist.ShootDirectionList(timer);
-        collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
-    }   
+            timer += e.Time;
+            timerShoot += e.Time;
+            enemyList.UpdateTimer(timer);
+            shootlist.ShootDirectionList(timer);
+            collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
+        }
+    }
     
+
 }
 
 void Resize(ResizeEventArgs e)

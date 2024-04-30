@@ -4,7 +4,7 @@ using OpenTK.Graphics.OpenGL;
 internal class Shoot
 {
     public bool shootBool = false;
-    public Player player;
+    public Entity entity;
     public bool isLive = false;
     public Vector2 shootPos;
     public Vector2 targetPos;
@@ -13,17 +13,22 @@ internal class Shoot
     private float scale;
     private double lastShootTime = 0;
     public Circle boundShoot;
+    public bool shotbyPlayer;
 
 
-    public Shoot(Player player,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
+    public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
         this.shootBool = shootBool;
         this.lifetime = time;
         this.lastPrintedTime = timeStart;
-        shootPos = player.Position;
+        shootPos = entity.Position;
         targetPos = target;
         this.isLive = isLive;
         boundShoot = new Circle(shootPos, 0.1f);
+        if(entity.IsPlayer)
+            this.shotbyPlayer = true;
+        else
+            this.shotbyPlayer = false;
     }
 
     float SetScale()
@@ -53,16 +58,14 @@ internal class Shoot
 
     public void Draw()
     {
-        
-            Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
-            DrawCircle(shootPos, 0.1f, 32);
+        Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
+        DrawCircle(shootPos, 0.1f, 32);
         
     }
 
 
     public void ShootDirection(float speed)
     {
-        
             Vector2 direction = targetPos - shootPos;
             direction = Vector2.Normalize(direction);
             shootPos += direction * speed;

@@ -1,13 +1,16 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
+using System.Drawing.Printing;
 
-internal class Enemy
+internal class Enemy : Entity
 {
+    public override bool IsPlayer => false;
     public float PositionX;
     public float PositionY;
     public int i = 0;
     public float scale;
-    public Vector2 Position { get; internal set; }
+    public int health = 1;
+    public float size { get; set; } = 0.1f;
 
     Player player = new Player();
     //EnemyList enemyList1 = new EnemyList();
@@ -26,6 +29,13 @@ internal class Enemy
     float SetScale()
     {
         return GlobalSettings.AspectRatio;
+    }
+    public void DecreaseHealth()
+    {
+        health--;
+        if(health <= 0){
+            enemyDead = true;
+        }
     }
 
     void Circle(Vector2 pos, float radius, int segments, Color4 color)
@@ -48,7 +58,7 @@ internal class Enemy
 
     public virtual void Draw(Color4 color)
     {
-        Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        Circle(Position, size, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
         DrawCircle(Position, boundEnemy.Radius, 32);
     }
 
@@ -75,6 +85,7 @@ internal class Enemy
             direction = Vector2.Normalize(direction) * -1;
             Position += direction * speed;
         }
+        boundEnemy.Center = Position;
     } 
     
 
@@ -86,8 +97,8 @@ internal class Enemy
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle) / scale;
-            float y = center.Y + radius * MathF.Sin(angle);
+            float x = center.X + size * MathF.Cos(angle) / scale;
+            float y = center.Y + size * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
         GL.End();

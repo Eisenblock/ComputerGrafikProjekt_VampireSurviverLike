@@ -7,30 +7,44 @@ internal class Shootlist
 
     private int lifetime;
     private double lastShoottime;
-    bool shootTrue = true;
+    bool shootTrueE = true;
+    bool shootTrueP = true;
 
     public List<Shoot> shootList;
-    public Shootlist(Player player)
+    public Shootlist(Entity entity)
     {      
         shootList = new List<Shoot>();
     }
-
-    public void InitializeShoot(Vector2 target,Player player, double time)
+    public void ClearAll()
     {
-        if(shootTrue) 
-        { 
-            Shoot shoot = new Shoot(player,target,4,time,true,true);
+        shootList.Clear();
+        lastShoottime = 0;
+        shootTrueE = true;
+        shootTrueP = true;
+    }
+
+    public void InitializeShoot(Vector2 target,Entity entity, double time)
+    {
+        if (entity is Enemy && shootTrueE == true)
+        {
+            Shoot shoot = new Shoot(entity, target, 4, time, true, true);
             shoot.targetPos = target;
             shoot.lastPrintedTime = time;
             lastShoottime = time;
-            shoot.shootPos = player.Position;
-            
+            shoot.shootPos = entity.Position;
             this.shootList.Add(shoot);
-            shootTrue = false;
+            shootTrueE = false;
         }
-        
-
-        Console.WriteLine("pp");
+        else if (entity is Player && shootTrueP == true)
+        {
+            Shoot shoot = new Shoot(entity, target, 4, time, true, true);
+            shoot.targetPos = target;
+            shoot.lastPrintedTime = time;
+            lastShoottime = time;
+            shoot.shootPos = entity.Position;
+            this.shootList.Add(shoot);
+            shootTrueP = false;
+        }
     }
 
     public void ShootDirectionList(double timer)
@@ -55,7 +69,14 @@ internal class Shootlist
             double timeDifference2 = lastShoottime - timer;
             if (timeDifference2 <= -1)
             {
-                shootTrue = true;
+                if (shoot.shotbyPlayer == true)
+                {
+                    shootTrueP = true;
+                }
+                else
+                {
+                    shootTrueE = true;
+                }
             }
         }
 

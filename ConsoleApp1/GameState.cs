@@ -7,11 +7,13 @@ using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
+using System.Drawing.Printing;
 public enum GameState
 {
     Running,
     Paused,
-    UpgradeScreen
+    UpgradeScreen,
+    GameOver
 }
 
 internal class Game
@@ -19,12 +21,14 @@ internal class Game
     private Player player;
     public GameState state;
     GameWindow myWindow;
+    Action restart;
 
-    public Game(GameWindow window, Player player)
+    public Game(GameWindow window, Player player, Action restart)
     {
         this.player = player;
         myWindow = window;
         state = GameState.Running;
+        this.restart = restart;
     }
 
     public void Run()
@@ -42,7 +46,10 @@ internal class Game
                 case GameState.Paused:
                     // Nichts tun, das Spiel ist pausiert
                     break;
-
+                case GameState.GameOver:
+                    var gameOver = new GameOver(myWindow, this, player, restart);
+                    gameOver.show();
+                    break;
                 case GameState.UpgradeScreen:
                     var upgradeScreen = new UpgradeScreen(myWindow, this, player);
                     upgradeScreen.show();
@@ -66,5 +73,13 @@ internal class Game
     public void ShowUpgradeScreen()
     {
         state = GameState.UpgradeScreen;
+    }
+    public void GameOver()
+    {
+        state = GameState.GameOver;
+    }
+    public void Running()
+    {
+        state = GameState.Running;
     }
 }

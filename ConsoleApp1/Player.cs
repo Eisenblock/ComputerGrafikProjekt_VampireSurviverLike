@@ -1,9 +1,11 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
+using System.Drawing.Drawing2D;
+using System.Drawing.Printing;
 
-internal class Player
+internal class Player : Entity
 {
-    public Vector2 Position { get; internal set; }
+    public override bool IsPlayer => true;
     public float radius_col;
     public float PositionX; 
     public float PositionY;
@@ -11,14 +13,20 @@ internal class Player
     
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
-
-    public int Health = 3;
+    public Color4 color = Color4.Blue;
+    public int health = 3;
     public Player()
     {
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.1f);
         PositionX = Position.X;
         PositionY = Position.Y;
+    }
+    public void ClearAll()
+    {
+        Position = Vector2.Zero;
+        health = 3;
+        ResetColor();
     }
 
     public Vector2 getPlayerPosition()
@@ -67,12 +75,12 @@ internal void Down()
         return GlobalSettings.AspectRatio;
     }
 
-    void Circle(Vector2 pos, float radius, int segments)
+    void Circle(Vector2 pos, float radius, int segments, Color4 color)
     {
         scale = SetScale();
             
         GL.Begin(PrimitiveType.TriangleFan);
-        GL.Color4(Color4.Blue);
+        GL.Color4(color);
         GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
 
         for (int i = 0; i <= segments; i++)
@@ -88,7 +96,7 @@ internal void Down()
 
     public void Draw()
     {
-        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
         DrawCircle(Position,bounds.Radius,32);
     }
 
@@ -130,11 +138,18 @@ internal void Down()
 
     public void IncreaseHealth()
     {
-        Health++;
+        health++;
     }
 
     public void DecreaseHealth()
     {
-        Health--;
+        health--;
+        Console.WriteLine("Player Health: " + health);
+        color = Color4.Red; // Ändern Sie die Farbe auf Rot, wenn der Spieler Schaden nimmt
+    }   
+
+    public void ResetColor()
+    {
+        color = Color4.Blue; // Setzen Sie die Farbe auf Blau zurück
     }
 }

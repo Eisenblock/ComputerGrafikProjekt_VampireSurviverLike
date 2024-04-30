@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using System;
+using System.Drawing.Printing;
 
 
 class EnemyList
@@ -12,6 +13,8 @@ class EnemyList
     private double spawnTimer = 3; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
+    private int deadEnemiesCount = 0;
+    private bool bossAlive = false;
 
     public EnemyList(Player player,Enemy enemy)
     {
@@ -20,6 +23,13 @@ class EnemyList
         enemies = new List<Enemy>();
     }
 
+    public void ClearAll()
+    {
+        enemies.Clear();
+        lastPrintedTime = 0;
+        count = 0;
+        deadEnemiesCount = 0;
+    }
     private void InitializeEnemy()
     {
         // Initialize enemy array with Enemy objects
@@ -33,27 +43,36 @@ class EnemyList
         }
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Wiederhole, bis die Position außerhalb des Bereichs -1 bis 1 liegt
 
+        // Enemies Spawnen
+        if (deadEnemiesCount % 10 == 0 && deadEnemiesCount > 0 && bossAlive == false)
+        {
+            Enemy enemy = new BossEnemy(new Vector2(x, y), false);
+            enemies.Add(enemy);
+            bossAlive = true;
+            Console.WriteLine("Boss spawned");
+        }
         // random Gegner spawnen
-        random = new Random();
-        int randomNumber = random.Next(1, 4); // Generiert eine Zufallszahl zwischen 1 und 3 einschließlich
-        if (randomNumber == 1)
+        else
         {
-            Enemy enemy = new BigEnemy(new Vector2(x, y), false);
-            enemies.Add(enemy);
-            Console.WriteLine("qqq");
+            random = new Random();
+            int randomNumber = random.Next(1, 4); // Generiert eine Zufallszahl zwischen 1 und 3 einschließlich
+            if (randomNumber == 1)
+            {
+                Enemy enemy = new BigEnemy(new Vector2(x, y), false);
+                enemies.Add(enemy);
+            }
+            else if (randomNumber == 2)
+            {
+                Enemy enemy = new FastEnemy(new Vector2(x, y), false);
+                enemies.Add(enemy);
+            }
+            else if (randomNumber == 3)
+            {
+                Enemy enemy = new RangedEnemy(new Vector2(x, y), false);
+                enemies.Add(enemy);
+            }
         }
-        else if (randomNumber == 2)
-        {
-            Enemy enemy = new FastEnemy(new Vector2(x, y), false);
-            enemies.Add(enemy);
-            Console.WriteLine("qqq");
-        }
-        else if (randomNumber == 3)
-        {
-            Enemy enemy = new RangedEnemy(new Vector2(x, y), false);
-            enemies.Add(enemy);
-            Console.WriteLine("qqq");
-        }
+        
         UpdateList();
     }
 
@@ -75,14 +94,29 @@ class EnemyList
 
     private void UpdateList()
     {
+        int beforeRemovalCount = enemies.Count;
+        // Überprüfen Sie, ob ein Boss-Feind entfernt wird
+        foreach (var enemy in enemies)
+        {
+            if (enemy.enemyDead == true && enemy is BossEnemy)
+            {
+                bossAlive = false;
+            }
+        }
+
+
         enemies.RemoveAll(enemy => enemy.enemyDead == true);
+        int afterRemovalCount = enemies.Count;
+
+        // Erhöhe die Zählvariable für jeden getöteten Feind
+        deadEnemiesCount += beforeRemovalCount - afterRemovalCount;
     }
 
     public void UpdateTimer(double timer)
     {
+        UpdateList();
         double flooredTimer = Math.Floor(timer);
         if(Math.Floor(flooredTimer) % spawnTimer == 0 && flooredTimer != lastPrintedTime){
-            Console.WriteLine("Spawned enemy at time: " + flooredTimer);
 
             InitializeEnemy();
 

@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Drawing.Printing;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
@@ -25,18 +26,26 @@ class CollisionDetection
 
         if (enemies != null)
         {
-            
-                foreach (Enemy enemy in enemies)
-                {
+            foreach (Enemy enemy in enemies)
+            {
                 if (enemy != null)
                 {
                     if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
                     {
-                        //Console.WriteLine("Hit");
+                        if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
+                            player.DecreaseHealth();
+                            Console.WriteLine("Touched Player");
+                            player.LastCollision = DateTime.Now;
+                        }
+
+                    }
+                    else if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
+                    {
+                        player.ResetColor(); 
                     }
                     collisionCount++;
                 }
-                }
+            }
           
         }
 
@@ -44,17 +53,36 @@ class CollisionDetection
         {
             foreach(Shoot shoot in shoots)
             {
-                if (shoot.isLive == true)
+                if (shoot.isLive == true && shoot.shotbyPlayer == true)
                 {
                     foreach (Enemy enemy in enemies)
                     {
-                        
                         if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                         {
-                            //Console.WriteLine("Hit Bullet");
-                            enemy.enemyDead = true;
+                            // Überprüfen, ob seit der letzten Kollision mindestens eine Sekunde vergangen ist
+                            if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1)
+                            {
+                                // Console.WriteLine("Hit Bullet");
+                                enemy.DecreaseHealth();
+                                enemy.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
+                            }
                         }
                         collisionCount_Shoot++;
+                    }
+                }
+                if(shoot.isLive == true && shoot.shotbyPlayer == false){
+                    if(CheckCollision(shoot.boundShoot,player.bounds) == true)
+                    {
+                        if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
+                            player.DecreaseHealth();
+                            Console.WriteLine("Hit Player");
+                            player.LastCollision = DateTime.Now;
+                            shoot.isLive = false;
+                        }
+                        else
+                        {
+                            player.ResetColor(); // Setzen Sie die Farbe des Spielers zurück, wenn die letzte Kollisionszeit größer oder gleich 1 ist
+                        }
                     }
                 }
             }

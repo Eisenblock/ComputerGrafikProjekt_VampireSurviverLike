@@ -1,13 +1,14 @@
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-internal class BigEnemy : Enemy
+internal class BossEnemy : Enemy
 {
-    public Color4 Color { get; set; } = Color4.Green;
+    public Color4 Color { get; set; } = Color4.Red;
 
-    public float speed = 0.00005f;
-    public BigEnemy(Vector2 pos, bool dead) : base(pos, dead)
+    public float speed = 0.000005f;
+    public BossEnemy(Vector2 pos, bool dead) : base(pos, dead)
     {
-        health = 2;
+        health = 5;
+        size = 0.2f;
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }
 

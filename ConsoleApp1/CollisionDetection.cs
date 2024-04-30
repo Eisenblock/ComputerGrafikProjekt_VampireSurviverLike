@@ -62,13 +62,18 @@ class CollisionDetection
                         {
                             if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                             {
-                                // Console.WriteLine("Hit Bullet");
-                                enemy.DecreaseHealth();
+                                if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1){
+                                    Console.WriteLine("Hit Bullet");
+                                    enemy.DecreaseHealth();
+                                    enemy.LastCollision = DateTime.Now;
+                                    enemy.isActive=false;
+                                }
+
                             }
-                        }
-                        
+                        } 
                     }
-                }
+                } 
+
                 if(shoot.isLive == true && shoot.shotbyPlayer == false){
                     if(CheckCollision(shoot.boundShoot,player.bounds) == true)
                     {

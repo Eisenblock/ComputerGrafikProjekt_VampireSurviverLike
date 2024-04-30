@@ -40,17 +40,20 @@ internal class Shoot
 
     void Circle(Vector2 pos, float radius, int segments)
     {
+        if(shotbyPlayer == true)
+            GL.Color4(Color4.Aqua);
+        else
+            GL.Color4(Color4.Red);
+
         scale = SetScale();
-        
         GL.Begin(PrimitiveType.TriangleFan);
-        GL.Color4(Color4.Aqua);
         GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
 
         for (int i = 0; i <= segments; i++)
         {
             double theta = 2.0 * Math.PI * i / segments;
-            float dx = (float)(radius * Math.Cos(theta) / scale);
-            float dy = (float)(radius * Math.Sin(theta));
+            float dx = (float)(radius * Math.Cos(theta) / scale / 1.8);
+            float dy = (float)(radius * Math.Sin(theta) / 1.8);
             GL.Vertex2(pos.X + dx, pos.Y + dy);
         }
 
@@ -84,8 +87,8 @@ internal class Shoot
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle) / scale;
-            float y = center.Y + radius * MathF.Sin(angle);
+            float x = center.X + radius * MathF.Cos(angle) / scale / 1.8f;
+            float y = center.Y + radius * MathF.Sin(angle) / 1.8f;
             GL.Vertex2(x, y);
         }
         GL.End();

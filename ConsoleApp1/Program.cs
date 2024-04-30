@@ -14,9 +14,8 @@ var window = new GameWindow(
 );
 
 Player player = new Player();
-Enemy enemy = new (new Vector2(0.6f,0.6f),false);
+Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
 EnemyList enemyList = new EnemyList(player,enemy);
-Circle circle = new Circle(Vector2.Zero,0);
 CollisionDetection collisionDetection = new CollisionDetection();
 Shootlist shootlist = new Shootlist(player);
 

@@ -5,7 +5,7 @@ internal class BigEnemy : Enemy
     public Color4 Color { get; set; } = Color4.Red;
 
     public float speed = 0.00005f;
-    public BigEnemy(Vector2 pos, bool dead) : base(pos, dead)
+    public BigEnemy(Vector2 pos, bool dead, int dmg) : base(pos, dead, dmg)
     {
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }

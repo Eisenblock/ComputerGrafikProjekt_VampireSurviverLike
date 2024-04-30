@@ -38,19 +38,19 @@ class EnemyList
         int randomNumber = random.Next(1, 4); // Generiert eine Zufallszahl zwischen 1 und 3 einschließlich
         if (randomNumber == 1)
         {
-            Enemy enemy = new BigEnemy(new Vector2(x, y), false);
+            Enemy enemy = new BigEnemy(new Vector2(x, y), false,1);
             enemies.Add(enemy);
             Console.WriteLine("qqq");
         }
         else if (randomNumber == 2)
         {
-            Enemy enemy = new FastEnemy(new Vector2(x, y), false);
+            Enemy enemy = new FastEnemy(new Vector2(x, y), false,1);
             enemies.Add(enemy);
             Console.WriteLine("qqq");
         }
         else if (randomNumber == 3)
         {
-            Enemy enemy = new RangedEnemy(new Vector2(x, y), false);
+            Enemy enemy = new RangedEnemy(new Vector2(x, y), false,1);
             enemies.Add(enemy);
             Console.WriteLine("qqq");
         }

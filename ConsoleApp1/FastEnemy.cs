@@ -5,7 +5,7 @@ internal class FastEnemy : Enemy
     public Color4 Color { get; set; } = Color4.Purple;
 
     public float speed = 0.0001f;
-    public FastEnemy(Vector2 pos, bool dead) : base(pos, dead)
+    public FastEnemy(Vector2 pos, bool dead,int dmg) : base(pos, dead, dmg)
     {
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }

@@ -11,14 +11,16 @@ internal class Player
     
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
+    public bool playerDead;
+    public int Health = 5;
 
-    public int Health = 3;
     public Player()
     {
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.1f);
         PositionX = Position.X;
         PositionY = Position.Y;
+        playerDead = false;
     }
 
     public Vector2 getPlayerPosition()
@@ -88,8 +90,11 @@ internal void Down()
 
     public void Draw()
     {
-        Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-        DrawCircle(Position,bounds.Radius,32);
+        if (playerDead != true)
+        {
+            Circle(Position, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+            DrawCircle(Position, bounds.Radius, 32);
+        }
     }
 
     private void DrawCircle(Vector2 center, float radius, int segments)
@@ -108,33 +113,21 @@ internal void Down()
         GL.End();
     }
 
-    public bool CheckCollision(Enemy enemy)
-    {
-        float distanceSquared = 1;
-        float radiusSumSquared = 0;
-
-        if (enemy != null)
-        {
-            distanceSquared = (Position - enemy.Position).LengthSquared;
-            radiusSumSquared = (bounds.Radius + enemy.boundEnemy.Radius) * (bounds.Radius + enemy.boundEnemy.Radius);
-            
-        }
-
-        if(distanceSquared < radiusSumSquared)
-        {
-           DecreaseHealth();
-           //Console.WriteLine("Player Health: " + Health);
-        }
-        return distanceSquared < radiusSumSquared;
-    }
-
     public void IncreaseHealth()
     {
         Health++;
+        Console.WriteLine("Life" +  Health);
     }
 
-    public void DecreaseHealth()
+    public void DecreaseHealth(int dmg)
     {
-        Health--;
+        Health -= dmg;
+        Console.WriteLine("Life" + Health);
+        if(Health <= 0) 
+        {
+            playerDead = true;
+            Console.WriteLine("Player Dead");
+        }
+        
     }
 }

@@ -3,10 +3,11 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using OpenTK.Mathematics;
 
 class CollisionDetection
 {
-    int i = 0;
+ 
 
     private bool CheckCollision(Circle circle1, Circle circle2)
     {
@@ -20,8 +21,6 @@ class CollisionDetection
 
      public void CheckCollision(Player player, List<Enemy> enemies, List<Shoot> shoots)
     {
-        int collisionCount = 0;
-        int collisionCount_Shoot = 0;// Variable zur Verfolgung der Anzahl von Kollisionen
 
         if (enemies != null)
         {
@@ -32,9 +31,15 @@ class CollisionDetection
                 {
                     if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
                     {
-                        //Console.WriteLine("Hit");
-                    }
-                    collisionCount++;
+                        Console.WriteLine("Hit");
+                        enemy.isActive = false;
+                        if(enemy.enemyDead == true)
+                        {
+                            enemy.enemyDmg = 0;
+                        }
+                                           
+                        player.DecreaseHealth(enemy.enemyDmg);
+                    }                  
                 }
                 }
           
@@ -48,13 +53,15 @@ class CollisionDetection
                 {
                     foreach (Enemy enemy in enemies)
                     {
-                        
-                        if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
+                        if (enemy != null)
                         {
-                            //Console.WriteLine("Hit Bullet");
-                            enemy.enemyDead = true;
+
+                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
+                            {
+                                //Console.WriteLine("Hit Bullet");
+                                enemy.enemyDead = true;
+                            }
                         }
-                        collisionCount_Shoot++;
                     }
                 }
             }

@@ -14,13 +14,19 @@ internal class Enemy
     public Circle boundEnemy;
 
     public bool enemyDead;
+    public bool isActive;
+    public int enemyDmg;
+
 
     public Color4 Color { get; set; }
-    public Enemy(Vector2 pos, bool dead ) 
+    public Enemy(Vector2 pos, bool dead , int dmg) 
     {
         enemyDead = dead;
         Position = pos;
+        isActive = true;
         boundEnemy = new Circle(Position,0.1f);
+        enemyDmg = dmg;
+
     }
 
     float SetScale()
@@ -54,10 +60,27 @@ internal class Enemy
 
     public void MoveTowards(Vector2 targetPosition, float speed)
     {       
-        Vector2 direction = targetPosition - Position;
-        direction = Vector2.Normalize(direction);
-        Position += direction * speed;
-        boundEnemy.Center = Position;
+        if(isActive == true)
+        {
+            Vector2 direction = targetPosition - Position;  
+            direction = Vector2.Normalize(direction);
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+        }
+        else
+        {
+            Vector2 direction =( targetPosition - Position)*-1;
+            direction = Vector2.Normalize(direction);
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+            i++;
+            if(i >= 1000)
+            {
+                isActive = true;
+                i = 0;
+            }
+        }
+        
     }
 
     public void MoveAway(Vector2 targetPosition, float speed)

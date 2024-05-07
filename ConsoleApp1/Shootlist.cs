@@ -62,7 +62,7 @@ internal class Shootlist
             }
             else
             {
-                shoot.ShootDirection(0.0001f);
+                shoot.ShootDirection(0.0003f);
             }
 
             //attachspeed

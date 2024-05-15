@@ -22,17 +22,17 @@ internal class Player : Entity
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
     public bool playerDead;
-    public int Health = 5;
+    public int Health = 300;
     public Color4 color = Color4.Blue;
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
 
     public Player()
     {
-        Texture = "assets/topdown_shooter_assets/sPlayer.png";
-        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+        Texture = "assets/topdown_shooter_assets/sPlayer_Idle.png";
+        TextureID = texturer.LoadTexture(Texture,4)[0]; // Call the LoadTexture method on the instance
 
         Position = new Vector2(0.0f, 0.0f);
-        bounds = new Circle(Position, 0.1f);
+        bounds = new Circle(Position, 0.05f);
         PositionX = Position.X;
         PositionY = Position.Y;
         playerDead = false;
@@ -115,7 +115,7 @@ internal void Down()
         if (!playerDead)
         {
             GL.Color4(Color4.White);
-            var rect = new RectangleF(Position.X-0.1f, Position.Y-0.1f, 0.2f, 0.2f);
+            var rect = new RectangleF(Position.X-0.05f, Position.Y-0.05f, 0.1f / scale, 0.1f);
             var tex_rect = new RectangleF(0, 0, 1, 1);
             texturer.Draw(TextureID, rect, tex_rect);
             DrawCircle(Position, bounds.Radius, 32);    
@@ -132,7 +132,7 @@ internal void Down()
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle) / scale;
+            float x = center.X-0.02f + radius * MathF.Cos(angle) / scale;
             float y = center.Y + radius * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }

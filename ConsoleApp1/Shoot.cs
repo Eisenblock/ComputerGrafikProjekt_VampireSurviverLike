@@ -23,7 +23,7 @@ internal class Shoot
     public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
         Texture = "assets/topdown_shooter_assets/sBullet.png";
-        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+        TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
 
         this.entity = entity;
         this.shootBool = shootBool;
@@ -70,7 +70,7 @@ internal class Shoot
     public void Draw()
     {
         if(shotbyPlayer == true)
-            GL.Color4(Color4.Blue);
+            GL.Color4(Color4.Cyan);
         else
             GL.Color4(Color4.Red);
 

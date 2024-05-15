@@ -29,7 +29,7 @@ internal class Enemy : Entity
     public Enemy(Vector2 pos, bool dead , int dmg) 
     {
         Texture = "assets/topdown_shooter_assets/sEnemy_Dead.png";
-        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+        TextureID = texturer.LoadTexture(Texture, 1)[0]; // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
 
         enemyDead = dead;
         Position = pos;

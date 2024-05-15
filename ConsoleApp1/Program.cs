@@ -23,6 +23,7 @@ public static class Program
         
         Background background = new Background();
         Player player = new Player();
+        Gun gun = new Gun(player);
         Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
         EnemyList enemyList = new EnemyList(player,enemy);
         CollisionDetection collisionDetection = new CollisionDetection();
@@ -111,6 +112,7 @@ public static class Program
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
                 background.Draw();
                 player.Draw();
+                gun.Draw();
                 enemyList.DrawArray();
                 shootlist.DrawShoots();
 
@@ -165,7 +167,7 @@ public static class Program
                             }
                         }
                     }
-
+                    gun.Update(player, mousePosition);
                     timer += e.Time;
                     timerShoot += e.Time;
                     enemyList.UpdateTimer(timer);

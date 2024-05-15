@@ -18,7 +18,7 @@ internal class Background
     public Background()
     {
         Texture = "assets/topdown_shooter_assets/sMap.png";
-        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+        TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
     }
 
     float SetScale()

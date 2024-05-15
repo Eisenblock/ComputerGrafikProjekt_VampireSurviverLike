@@ -2,9 +2,17 @@
 using OpenTK.Graphics.OpenGL;
 using System.Drawing.Drawing2D;
 using System.Drawing.Printing;
+using System.Drawing;
+using System.Drawing.Imaging;
+using ImageMagick;
+using Image = System.Drawing.Image;
+
 
 internal class Player : Entity
 {
+    public static Vector2 WindowSize => Program.WindowSize;
+    public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
+    public string Texture { get; private set; }
     public override bool IsPlayer => true;
     public float radius_col;
     public float PositionX; 
@@ -16,23 +24,26 @@ internal class Player : Entity
     public bool playerDead;
     public int Health = 5;
     public Color4 color = Color4.Blue;
+    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
 
     public Player()
     {
+        Texture = "assets/topdown_shooter_assets/sPlayer.png";
+        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.1f);
         PositionX = Position.X;
         PositionY = Position.Y;
         playerDead = false;
     }
-
-    public void ClearAll()
-    {
-        Position = Vector2.Zero;
-        playerDead = false;
-        Health = 5;
-        ResetColor();
-    }
+public void ClearAll()
+{
+    Position = Vector2.Zero;
+    playerDead = false;
+    Health = 5;
+    ResetColor();
+}
 
     public Vector2 getPlayerPosition()
     {
@@ -101,12 +112,16 @@ internal void Down()
 
     public void Draw()
     {
-        if (playerDead != true)
+        if (!playerDead)
         {
-            Circle(Position, 0.1f, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
-            DrawCircle(Position, bounds.Radius, 32);
+            GL.Color4(Color4.White);
+            var rect = new RectangleF(Position.X-0.1f, Position.Y-0.1f, 0.2f, 0.2f);
+            var tex_rect = new RectangleF(0, 0, 1, 1);
+            texturer.Draw(TextureID, rect, tex_rect);
+            DrawCircle(Position, bounds.Radius, 32);    
         }
     }
+
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {

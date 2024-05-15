@@ -1,5 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
+using System.Drawing;
 
 internal class Shoot
 {
@@ -14,10 +15,16 @@ internal class Shoot
     private double lastShootTime = 0;
     public Circle boundShoot;
     public bool shotbyPlayer;
+    public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
+    public string Texture { get; private set; }
+    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
 
 
     public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
     {
+        Texture = "assets/topdown_shooter_assets/sBullet.png";
+        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+
         this.entity = entity;
         this.shootBool = shootBool;
         this.lifetime = time;
@@ -62,11 +69,16 @@ internal class Shoot
 
     public void Draw()
     {
-        Circle(shootPos, 0.1f, 32); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten         
-        DrawCircle(shootPos, 0.1f, 32);
-        
-    }
+        if(shotbyPlayer == true)
+            GL.Color4(Color4.Blue);
+        else
+            GL.Color4(Color4.Red);
 
+        var rect = new RectangleF(shootPos.X-0.05f, shootPos.Y-0.05f, 0.1f, 0.1f);
+        var tex_rect = new RectangleF(0f, 0f, 1f, 1f);
+        texturer.Draw(TextureID, rect, tex_rect); // Hintergrundbild zeichnen   
+        DrawCircle(shootPos, 0.1f, 32);
+    }
 
     public void ShootDirection(float speed)
     {

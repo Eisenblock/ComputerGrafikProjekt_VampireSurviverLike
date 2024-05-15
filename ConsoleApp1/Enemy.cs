@@ -1,6 +1,7 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
 using System.Drawing.Printing;
+using System.Drawing;
 
 internal class Enemy : Entity
 {
@@ -19,11 +20,17 @@ internal class Enemy : Entity
     public bool enemyDead;
     public bool isActive;
     public int Dmg;
+    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    public string Texture { get; private set; }
+    public int TextureID { get; private set; }
 
 
     public Color4 Color { get; set; }
     public Enemy(Vector2 pos, bool dead , int dmg) 
     {
+        Texture = "assets/topdown_shooter_assets/sEnemy_Dead.png";
+        TextureID = texturer.LoadTexture(Texture); // Call the LoadTexture method on the instance
+
         enemyDead = dead;
         Position = pos;
         isActive = true;
@@ -64,7 +71,10 @@ internal class Enemy : Entity
 
     public virtual void Draw(Color4 color)
     {
-        Circle(Position, size, 32, color); // Zeichnet einen Kreis mit Radius 0.1 und 32 Segmenten
+        GL.Color4(Color4.White);
+        var rect = new RectangleF(Position.X-0.1f, Position.Y-0.1f, 0.2f, 0.2f);
+        var tex_rect = new RectangleF(0, 0, 1, 1);
+        texturer.Draw(TextureID, rect, tex_rect);  
         DrawCircle(Position, boundEnemy.Radius, 32);
     }
 

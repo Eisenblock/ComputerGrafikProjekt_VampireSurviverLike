@@ -18,22 +18,22 @@ internal class Gun
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
     Vector2 MousePosition;
 
-    public Gun(Player player)
+    public Gun()
     {
         Texture = "assets/topdown_shooter_assets/sGun.png";
         TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
     }
 
-    public void Update(Player player, Vector2 mousePosition)
+    public void Update(Entity entity, Vector2 mousePosition)
     {
-        Position = player.Position;
+        Position = entity.Position;
         MousePosition = mousePosition;
     } 
 
     public void Draw()
     {
         GL.Color4(Color4.White);
-         var rect = new RectangleF(-0.02f, -0.04f, 0.1f, 0.1f);
+        var rect = new RectangleF(0.025f, -0.025f, 0.1f, 0.1f);
         var tex_rect = new RectangleF(0, 0, 1, 1);
 
         // Calculate the angle between the player and the mouse
@@ -43,8 +43,7 @@ internal class Gun
         angle = angle * (180f / (float)Math.PI);
 
         // Translate to the player's position
-        GL.Translate(Position.X, Position.Y, 0);
-        Console.WriteLine(MousePosition.X- Position.X);
+        GL.Translate(Position.X + 0.025f, Position.Y, 0);
 
         // If the mouse is to the left of the player, flip the sprite
         if (MousePosition.X < Position.X)

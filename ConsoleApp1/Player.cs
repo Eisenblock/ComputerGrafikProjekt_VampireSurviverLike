@@ -11,8 +11,7 @@ using Image = System.Drawing.Image;
 internal class Player : Entity
 {
     public static Vector2 WindowSize => Program.WindowSize;
-    public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
-    public string Texture { get; private set; }
+    public List<int> TextureID_Idle { get; private set; } // Hier speichern wir die Textur-ID/ Hier speichern wir die Textur-ID
     public override bool IsPlayer => true;
     public float radius_col;
     public float PositionX; 
@@ -22,69 +21,86 @@ internal class Player : Entity
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
     public bool playerDead;
-    public int Health = 300;
+    public int Health = 5;
     public Color4 color = Color4.Blue;
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    bool ismoving = false;
+    public List<int> TextureID_Run { get; private set; } // Hier speichern wir die Textur-ID
+    public List<int> current_TextureID; // Hier speichern wir die Textur-ID
+
+    Texturer Texturer = new Texturer(); // Create an instance of the Texturer class
+
 
     public Player()
     {
-        Texture = "assets/topdown_shooter_assets/sPlayer_Idle.png";
-        TextureID = texturer.LoadTexture(Texture,4)[0]; // Call the LoadTexture method on the instance
+        string Texture_Idle = "assets/topdown_shooter_assets/sPlayer_Idle.png";
+        TextureID_Idle = Texturer.LoadTexture(Texture_Idle,4); // Call the LoadTexture method on the instance
+        string Texture_Run = "assets/topdown_shooter_assets/sPlayer_Run.png";
+        TextureID_Run = Texturer.LoadTexture(Texture_Run,7); // Call the LoadTexture method on the instance
+        current_TextureID = TextureID_Idle;
 
         Position = new Vector2(0.0f, 0.0f);
-        bounds = new Circle(Position, 0.05f);
+        bounds = new Circle(Position, 0.065f);
         PositionX = Position.X;
         PositionY = Position.Y;
         playerDead = false;
     }
-public void ClearAll()
-{
-    Position = Vector2.Zero;
-    playerDead = false;
-    Health = 5;
-    ResetColor();
-}
+    public void ClearAll()
+    {
+        Position = Vector2.Zero;
+        playerDead = false;
+        Health = 5;
+        ResetColor();
+    }
 
     public Vector2 getPlayerPosition()
     {
         return Position;
     }
 
-internal void Left()
-{
-    float newX = Position.X - speed;
-    if (newX >= -0.99) // Berücksichtigen Sie den Radius des Spielers
+    internal void Stop()
     {
-        Position = new Vector2(newX, Position.Y);
+        ismoving = false;
     }
-}
 
-internal void Right()
-{
-    float newX = Position.X + speed;
-    if (newX <= 0.99) // Berücksichtigen Sie den Radius des Spielers
+    internal void Left()
     {
-        Position = new Vector2(newX, Position.Y);
+        ismoving = true;
+        float newX = Position.X - speed;
+        if (newX >= -0.85)
+        {
+            Position = new Vector2(newX, Position.Y);
+        }
     }
-}
 
-internal void Up()
-{
-    float newY = Position.Y + speed;
-    if (newY <= 0.99) // Berücksichtigen Sie den Radius des Spielers
+    internal void Right()
     {
-        Position = new Vector2(Position.X, newY);
+        ismoving = true;
+        float newX = Position.X + speed;
+        if (newX <= 0.85)
+        {
+            Position = new Vector2(newX, Position.Y);
+        }
     }
-}
 
-internal void Down()
-{
-    float newY = Position.Y - speed;
-    if (newY >= -0.99) // Berücksichtigen Sie den Radius des Spielers
+    internal void Up()
     {
-        Position = new Vector2(Position.X, newY);
+        ismoving = true;
+        float newY = Position.Y + speed;
+        if (newY <= 0.85)
+        {
+            Position = new Vector2(Position.X, newY);
+        }
     }
-}
+
+    internal void Down()
+    {
+        ismoving = true;
+        float newY = Position.Y - speed;
+        if (newY >= -0.85)
+        {
+            Position = new Vector2(Position.X, newY);
+        }
+    }
 
     float SetScale()
     {
@@ -110,18 +126,54 @@ internal void Down()
         GL.End();
     }
 
-    public void Draw()
+
+    public void Draw(double time, Vector2 mouse)
     {
+        var isFacingRight = true;
         if (!playerDead)
         {
-            GL.Color4(Color4.White);
-            var rect = new RectangleF(Position.X-0.05f, Position.Y-0.05f, 0.1f / scale, 0.1f);
+            GL.Color4(Color4.Red);
+            var hittime = DateTime.Now - LastCollision;
+            if(hittime.TotalSeconds >= 0.5){
+                ResetColor();
+            }
+            var rect = new RectangleF(Position.X-0.05f, Position.Y-0.05f, 0.15f, 0.15f);
             var tex_rect = new RectangleF(0, 0, 1, 1);
-            texturer.Draw(TextureID, rect, tex_rect);
+            
+            // Flipped texture coordinates
+            var flipped_rect = new Rectangle( 1, 0, -1, 1);
+
+            // Use the normal or flipped texture coordinates based on the direction the player is facing
+            if (mouse.X < Position.X){
+                isFacingRight = false;
+            }
+            var currentTexCoords = isFacingRight ? tex_rect : flipped_rect;
+
+            // Check if enough time has passed since the last frame change
+            if (time - lastFrameTime >= frameDuration)
+            {
+                // Determine the new texture ID
+                List<int> new_TextureID = ismoving ? TextureID_Run : TextureID_Idle;
+
+                // If the texture ID has changed, reset the current frame
+                if (new_TextureID != current_TextureID)
+                {
+                    Console.WriteLine("Texture changed");
+                    currentFrame = 0;
+                }
+                // Update the current texture ID
+                current_TextureID = new_TextureID;
+
+                // Update the current frame
+                currentFrame = (currentFrame + 1) % current_TextureID.Count;
+
+                // Update the time of the last frame change
+                lastFrameTime = time;
+            }
+            Texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
             DrawCircle(Position, bounds.Radius, 32);    
         }
     }
-
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
@@ -132,8 +184,8 @@ internal void Down()
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X-0.02f + radius * MathF.Cos(angle) / scale;
-            float y = center.Y + radius * MathF.Sin(angle);
+            float x = center.X+0.025f + radius * MathF.Cos(angle) / scale;
+            float y = center.Y+0.02f+ + radius * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
         GL.End();
@@ -154,10 +206,9 @@ internal void Down()
             playerDead = true;
             Console.WriteLine("Player Dead");
         }
-        color = Color4.Red; // Setzen Sie die Farbe auf Blau zurück
     }
     public void ResetColor()
     {
-        color = Color4.Blue; // Setzen Sie die Farbe auf Blau zurück
+        GL.Color4(Color4.White);
     }
 }

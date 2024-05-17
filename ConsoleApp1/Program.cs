@@ -16,20 +16,22 @@ public static class Program
             new NativeWindowSettings()
             {
                 Profile = ContextProfile.Compatability,
-                ClientSize = new Vector2i(800, 600) // Setzen Sie die Fenstergröße auf 800x600 Pixel
+                ClientSize = new Vector2i(1000, 800) // Setzen Sie die Fenstergröße auf 800x600 Pixel
             }
         );
         WindowSize = window.ClientSize;
-        
+        window.CursorState = CursorState.Hidden;
+
         Background background = new Background();
         Player player = new Player();
-        Gun gun = new Gun(player);
+        Gun gun = new Gun();
         Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
         EnemyList enemyList = new EnemyList(player,enemy);
         CollisionDetection collisionDetection = new CollisionDetection();
         Shootlist shootlist = new Shootlist(player);
         Texturer texturer = new Texturer();
         TextRenderer textRenderer = new TextRenderer();
+        Mouse mouse = new Mouse();
 
         float aspectRatio = 1f;
         double timer = 3;
@@ -111,11 +113,11 @@ public static class Program
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
                 background.Draw();
-                player.Draw();
+                player.Draw(timer, mousePosition);
                 gun.Draw();
-                enemyList.DrawArray();
+                enemyList.DrawArray(timer);
                 shootlist.DrawShoots();
-
+                mouse.Draw();
 
                 window.SwapBuffers();
             }
@@ -134,6 +136,7 @@ public static class Program
                 if (moveRight) player.Right();
                 if (moveUp) player.Up();
                 if (moveDown) player.Down();
+                if (moveLeft == false && moveRight  == false && moveUp == false && moveDown == false) player.Stop();
                 if (gamestate.state == GameState.UpgradeScreen)
                 {
                     // Führen Sie die Upgrade-Logik aus
@@ -167,6 +170,7 @@ public static class Program
                             }
                         }
                     }
+                    mouse.Update(mousePosition);
                     gun.Update(player, mousePosition);
                     timer += e.Time;
                     timerShoot += e.Time;

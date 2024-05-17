@@ -28,7 +28,6 @@ public List<int> LoadTexture(string path, int frameCount)
     }
     using var image = new MagickImage(path);
     var format = PixelInternalFormat.Rgb;
-    Console.WriteLine(image.ChannelCount);
     switch (image.ChannelCount)
     {
         case 3: break;

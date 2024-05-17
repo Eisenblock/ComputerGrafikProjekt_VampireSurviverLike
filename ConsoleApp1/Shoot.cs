@@ -70,7 +70,7 @@ internal class Shoot
     public void Draw()
     {
         if(shotbyPlayer == true)
-            GL.Color4(Color4.Cyan);
+            GL.Color4(Color4.Green);
         else
             GL.Color4(Color4.Red);
 

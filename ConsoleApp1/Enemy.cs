@@ -12,6 +12,7 @@ internal class Enemy : Entity
     public float scale;
     public int health = 1;
     public float size { get; set; } = 0.1f;
+    public double time;
 
     Player player = new Player();
     //EnemyList enemyList1 = new EnemyList();
@@ -21,15 +22,14 @@ internal class Enemy : Entity
     public bool isActive;
     public int Dmg;
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
-    public string Texture { get; private set; }
-    public int TextureID { get; private set; }
+    public List<int> TextureID { get; private set; }
 
 
     public Color4 Color { get; set; }
     public Enemy(Vector2 pos, bool dead , int dmg) 
     {
-        Texture = "assets/topdown_shooter_assets/sEnemy_Dead.png";
-        TextureID = texturer.LoadTexture(Texture, 1)[0]; // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
+        string Texture = "assets/topdown_shooter_assets/sEnemy_Run.png";
+        TextureID = texturer.LoadTexture(Texture, 7); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
 
         enemyDead = dead;
         Position = pos;
@@ -69,13 +69,50 @@ internal class Enemy : Entity
         GL.End();
     }
 
-    public virtual void Draw(Color4 color)
+    public void setTargetPosition(Vector2 targetPosition)
     {
-        GL.Color4(Color4.White);
-        var rect = new RectangleF(Position.X-0.1f, Position.Y-0.1f, 0.2f, 0.2f);
+        player.Position = targetPosition;
+    }
+
+    public void setTime(double time)
+    {
+        this.time = time;
+    }
+
+    public virtual void Draw(float scale)
+    {
+        var isFacingRight = true;
+        if (isActive == false)
+        {
+            GL.Color4(Color4.Red);
+        }
+        else
+        {
+            GL.Color4(Color4.White);
+        }
+        var rect = new RectangleF(Position.X - size /2, Position.Y  - size/2, size, size);
         var tex_rect = new RectangleF(0, 0, 1, 1);
-        texturer.Draw(TextureID, rect, tex_rect);  
-        DrawCircle(Position, boundEnemy.Radius, 32);
+        
+        // Flipped texture coordinates
+        var flipped_rect = new Rectangle( 1, 0, -1, 1);
+
+        // Use the normal or flipped texture coordinates based on the direction the player is facing
+        if (player.Position.X < Position.X){
+            isFacingRight = false;
+        }
+        var currentTexCoords = isFacingRight ? tex_rect : flipped_rect;
+
+        // Check if enough time has passed since the last frame change
+        if (time - lastFrameTime >= frameDuration)
+        {
+            // Update the current frame
+            currentFrame = (currentFrame + 1) % TextureID.Count;
+
+            // Update the time of the last frame change
+            lastFrameTime = time; 
+        }
+        texturer.Draw(TextureID[currentFrame], rect, currentTexCoords);
+        DrawCircle(Position, boundEnemy.Radius, 32);  
     }
 
     public void MoveTowards(Vector2 targetPosition, float speed)
@@ -130,8 +167,8 @@ internal class Enemy : Entity
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + size * MathF.Cos(angle) / scale;
-            float y = center.Y + size * MathF.Sin(angle);
+            float x = center.X + size/2 * MathF.Cos(angle);
+            float y = center.Y + size/2 * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
         GL.End();

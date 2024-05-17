@@ -6,13 +6,16 @@ using OpenTK.Graphics.OpenGL;
     public Color4 Color { get; set; } = Color4.Pink;
 
     public float speed = 0.00015f;
+    Gun gun = new Gun();
     public RangedEnemy(Vector2 pos, bool dead,int dmg) : base(pos, dead,dmg)
     {
-        // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
+
     }
 
     public void Update(Vector2 targetPosition)
     {
         MoveAway(targetPosition, speed); 
+        gun.Update(this, targetPosition);
+        gun.Draw();
     }
 }

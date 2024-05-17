@@ -10,7 +10,7 @@ class EnemyList
     Enemy enemy;
     public List<Enemy> enemies { get; set; }
     private List<Enemy> enemyList_Remove;
-    private double spawnTimer = 3; //wie schnell sollen gegner spawnen
+    private double spawnTimer = 0.5; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
     private int deadEnemiesCount = 0;
@@ -76,13 +76,15 @@ class EnemyList
         UpdateList();
     }
 
-    public void DrawArray()
+    public void DrawArray(double timer)
     {
         foreach (Enemy enemy in enemies)
         {
             if(enemy.enemyDead != true)
             {
-                enemy.Draw(enemy.Color);
+                enemy.setTargetPosition(player.Position);
+                enemy.setTime(timer);
+                enemy.Draw(enemy.scale);
             }
             else
             {
@@ -120,7 +122,7 @@ class EnemyList
 
             InitializeEnemy();
 
-            DrawArray();
+            DrawArray(timer);
             count++;
             lastPrintedTime = flooredTimer;
         }

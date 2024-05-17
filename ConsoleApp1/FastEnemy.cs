@@ -10,9 +10,9 @@ internal class FastEnemy : Enemy
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }
 
-    public override void Draw(Color4 color)
+    public override void Draw(float scale)
     {
-        base.Draw(Color); 
+        base.Draw(scale); 
     }
 
     public void Update(Vector2 targetPosition)

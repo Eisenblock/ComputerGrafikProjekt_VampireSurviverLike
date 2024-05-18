@@ -99,8 +99,8 @@ internal class Shoot
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + radius * MathF.Cos(angle) / scale / 1.8f;
-            float y = center.Y + radius * MathF.Sin(angle) / 1.8f;
+            float x = center.X + radius * MathF.Cos(angle) / scale / 2.8f;
+            float y = center.Y + radius * MathF.Sin(angle) / 2.8f;
             GL.Vertex2(x, y);
         }
         GL.End();

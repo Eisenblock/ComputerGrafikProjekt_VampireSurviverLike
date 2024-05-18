@@ -16,6 +16,9 @@ using OpenTK.Graphics.OpenGL;
     {
         MoveAway(targetPosition, speed); 
         gun.Update(this, targetPosition);
+    }
+    public void DrawGun()
+    {
         gun.Draw();
     }
 }

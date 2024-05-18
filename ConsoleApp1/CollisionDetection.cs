@@ -29,12 +29,11 @@ class CollisionDetection
             {
                 if (enemy != null)
                 {
-                    if(CheckCollision(player.bounds,enemy.boundEnemy) == true)
+                    if(CheckCollision(player.bounds,enemy.boundEnemy) == true && enemy.enemyDead == false)
                     { 
                         enemy.isActive = false;
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
                         {
-                            player.ResetColor();
                             // Console.WriteLine("Hit Bullet");
                            
                             player.DecreaseHealth(enemy.Dmg);
@@ -43,7 +42,6 @@ class CollisionDetection
                         
                     }  
                     if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)  {
-                        player.ResetColor(); // Setzen Sie die Farbe des Spielers zurück, wenn die letzte Kollisionszeit kleiner oder gleich 1 ist
                     }          
                 }
             }
@@ -82,10 +80,6 @@ class CollisionDetection
                             Console.WriteLine("Hit Player");
                             player.LastCollision = DateTime.Now;
                             shoot.isLive = false;
-                        }
-                        else
-                        {
-                            player.ResetColor(); // Setzen Sie die Farbe des Spielers zurück, wenn die letzte Kollisionszeit größer oder gleich 1 ist
                         }
                     }
                 }

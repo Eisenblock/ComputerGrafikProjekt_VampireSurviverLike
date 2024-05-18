@@ -57,22 +57,23 @@ internal class GameOver
         myWindow.SwapBuffers();
     }
 
-    public void OnMouseClick(Vector2 mouseposition)
-    {
-        Console.WriteLine("Mouse Clicked at: " + mouseposition.X + ", " + mouseposition.Y);
-        // Überprüfen Sie, ob der Mausklick innerhalb des weißen Quadrats liegt
-        if (mouseposition.X >= -size && mouseposition.X <= size && mouseposition.Y >= -size && mouseposition.Y <= size)
-        {
-            OnButtonClicked();
-        }
-    }
+    // public void OnMouseClick(Vector2 mouseposition)
+    // {
+    //     Console.WriteLine("Mouse Clicked at: " + mouseposition.X + ", " + mouseposition.Y);
+    //     // Überprüfen Sie, ob der Mausklick innerhalb des weißen Quadrats liegt
+    //     if (mouseposition.X >= -size && mouseposition.X <= size && mouseposition.Y >= -size && mouseposition.Y <= size)
+    //     {
+    //         OnButtonClicked();
+    //     }
+    // }
 
-    private void OnButtonClicked()
+    public void Restart()
     {
-        // Führen Sie den Code aus, der ausgeführt werden soll, wenn auf das weiße Quadrat geklickt wird
-        Console.WriteLine("Button Clicked");
-        isPaused = false;
-        restart();
-        game.Running();
+        if(player.Health <= 0)
+        {
+            isPaused = false;
+            restart();
+            game.Running();
+        }
     }
 }

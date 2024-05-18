@@ -10,7 +10,7 @@ class EnemyList
     Enemy enemy;
     public List<Enemy> enemies { get; set; }
     private List<Enemy> enemyList_Remove;
-    private double spawnTimer = 0.5; //wie schnell sollen gegner spawnen
+    private double spawnTimer = 2.5; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
     private int deadEnemiesCount = 0;
@@ -80,16 +80,9 @@ class EnemyList
     {
         foreach (Enemy enemy in enemies)
         {
-            if(enemy.enemyDead != true)
-            {
-                enemy.setTargetPosition(player.Position);
-                enemy.setTime(timer);
-                enemy.Draw(enemy.scale);
-            }
-            else
-            {
-                enemyList_Remove = enemies;
-            }
+            enemy.setTargetPosition(player.Position);
+            enemy.setTime(timer);
+            enemy.Draw(enemy.scale);
         }
        
     }
@@ -106,8 +99,7 @@ class EnemyList
             }
         }
 
-
-        enemies.RemoveAll(enemy => enemy.enemyDead == true);
+        enemies.RemoveAll(enemy => enemy.enemyDead == true && (DateTime.Now - enemy.LastCollision).TotalSeconds >= 1);
         int afterRemovalCount = enemies.Count;
 
         // Erhöhe die Zählvariable für jeden getöteten Feind

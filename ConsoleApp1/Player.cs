@@ -49,7 +49,6 @@ internal class Player : Entity
         Position = Vector2.Zero;
         playerDead = false;
         Health = 5;
-        ResetColor();
     }
 
     public Vector2 getPlayerPosition()
@@ -132,10 +131,10 @@ internal class Player : Entity
         var isFacingRight = true;
         if (!playerDead)
         {
-            GL.Color4(Color4.Red);
+            GL.Color4(Color4.White);
             var hittime = DateTime.Now - LastCollision;
-            if(hittime.TotalSeconds >= 0.5){
-                ResetColor();
+            if(hittime.TotalSeconds <= 0.3){
+                GL.Color4(Color4.Red);
             }
             var rect = new RectangleF(Position.X-0.05f, Position.Y-0.05f, 0.15f, 0.15f);
             var tex_rect = new RectangleF(0, 0, 1, 1);
@@ -206,9 +205,5 @@ internal class Player : Entity
             playerDead = true;
             Console.WriteLine("Player Dead");
         }
-    }
-    public void ResetColor()
-    {
-        GL.Color4(Color4.White);
     }
 }

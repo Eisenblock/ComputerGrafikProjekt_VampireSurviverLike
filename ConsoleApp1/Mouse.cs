@@ -23,6 +23,7 @@ public class Mouse{
 
     public void Draw()
     {
+        GL.Color4(Color4.White);
         var rect = new RectangleF(Position.X-0.065f, Position.Y-0.065f, 0.15f, 0.15f);
         var tex_rect = new RectangleF(0, 0, 1, 1);
         texturer.Draw(TextureID, rect, tex_rect);

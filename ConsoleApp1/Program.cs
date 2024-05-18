@@ -76,8 +76,8 @@ public static class Program
                 case Keys.D: moveRight = true; break;
                 case Keys.W: moveUp = true; break;
                 case Keys.S: moveDown = true; break;
-                case Keys.Space: shootlist.InitializeShoot(mousePosition,player,timer); break;
                 case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
+                case Keys.R: gameover.Restart(); break;
             }
         };
 
@@ -96,7 +96,7 @@ public static class Program
         {
             if (args.Button == MouseButton.Left)
             {
-                gameover.OnMouseClick(mousePosition);
+                shootlist.InitializeShoot(mousePosition,player,timer);
             }
         };
 
@@ -113,9 +113,17 @@ public static class Program
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
                 background.Draw();
-                player.Draw(timer, mousePosition);
+
                 gun.Draw();
+                foreach (var enemies in enemyList.enemies)
+                {
+                    if (enemies is RangedEnemy rangedEnemy)
+                    {
+                        rangedEnemy.DrawGun();
+                    }
+                }
                 enemyList.DrawArray(timer);
+                player.Draw(timer, mousePosition);
                 shootlist.DrawShoots();
                 mouse.Draw();
 
@@ -140,7 +148,7 @@ public static class Program
                 if (gamestate.state == GameState.UpgradeScreen)
                 {
                     // Führen Sie die Upgrade-Logik aus
-                    gameover.OnMouseClick(mousePosition);
+                    gameover.Restart();
                 }
                 else
                 {

@@ -15,8 +15,6 @@ class CollisionDetection
         float distanceSquared = (circle1.Center - circle2.Center).LengthSquared;
         float radiusSumSquared = (circle1.Radius + circle2.Radius) * (circle1.Radius + circle2.Radius);
         
-        //Console.WriteLine("<" + circle1.Center);
-        //Console.WriteLine( "<" + circle2.Center);
         return distanceSquared < radiusSumSquared;
     }
 
@@ -33,9 +31,7 @@ class CollisionDetection
                     { 
                         enemy.isActive = false;
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
-                        {
-                            // Console.WriteLine("Hit Bullet");
-                           
+                        {                           
                             player.DecreaseHealth(enemy.Dmg);
                             player.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
                         }
@@ -61,7 +57,6 @@ class CollisionDetection
                             if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                             {
                                 if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1){
-                                    Console.WriteLine("Hit Bullet");
                                     enemy.DecreaseHealth();
                                     enemy.LastCollision = DateTime.Now;
                                     enemy.isActive=false;
@@ -77,7 +72,6 @@ class CollisionDetection
                     {
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
                             player.DecreaseHealth(1);
-                            Console.WriteLine("Hit Player");
                             player.LastCollision = DateTime.Now;
                             shoot.isLive = false;
                         }

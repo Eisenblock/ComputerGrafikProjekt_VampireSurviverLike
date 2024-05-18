@@ -10,7 +10,6 @@ internal class Enemy : Entity
     public float PositionY;
     public int i = 0;
     public float scale;
-    public int health = 1;
     public float size { get; set; } = 0.1f;
     public double time;
 
@@ -30,6 +29,7 @@ internal class Enemy : Entity
     public Color4 Color { get; set; }
     public Enemy(Vector2 pos, bool dead , int dmg) 
     {
+
         string Texture_Run = "assets/topdown_shooter_assets/sEnemy_Run.png";
         TextureID_Run = texturer.LoadTexture(Texture_Run, 7); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
 
@@ -38,6 +38,7 @@ internal class Enemy : Entity
         enemyDead = dead;
         Position = pos;
         isActive = true;
+        health = 1;
         boundEnemy = new Circle(Position,0.1f);
         this.Dmg = dmg;
 

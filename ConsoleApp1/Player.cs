@@ -21,7 +21,6 @@ internal class Player : Entity
     public float speed = 0.00015f;
     public Circle bounds = new Circle(Vector2.Zero,0);
     public bool playerDead;
-    public int Health = 5;
     public Color4 color = Color4.Blue;
     bool ismoving = false;
     public List<int> TextureID_Run { get; private set; } // Hier speichern wir die Textur-ID
@@ -42,13 +41,15 @@ internal class Player : Entity
         bounds = new Circle(Position, 0.065f);
         PositionX = Position.X;
         PositionY = Position.Y;
+        max_Health = 6;
+        health = 6;
         playerDead = false;
     }
     public void ClearAll()
     {
         Position = Vector2.Zero;
         playerDead = false;
-        Health = 5;
+        health = 5;
     }
 
     public Vector2 getPlayerPosition()
@@ -157,7 +158,6 @@ internal class Player : Entity
                 // If the texture ID has changed, reset the current frame
                 if (new_TextureID != current_TextureID)
                 {
-                    Console.WriteLine("Texture changed");
                     currentFrame = 0;
                 }
                 // Update the current texture ID
@@ -192,15 +192,15 @@ internal class Player : Entity
 
     public void IncreaseHealth()
     {
-        Health++;
-        Console.WriteLine("Life" +  Health);
+        health++;
+        Console.WriteLine("Life" +  health);
     }
 
     public void DecreaseHealth(int dmg)
     {
-        Health -= dmg;
-        Console.WriteLine("Life: " + Health);
-        if(Health <= 0) 
+        health -= dmg;
+        Console.WriteLine("Life: " + health);
+        if(health <= 0) 
         {
             playerDead = true;
             Console.WriteLine("Player Dead");

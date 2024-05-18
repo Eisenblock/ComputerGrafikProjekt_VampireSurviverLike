@@ -22,8 +22,9 @@ public static class Program
         WindowSize = window.ClientSize;
         window.CursorState = CursorState.Hidden;
 
-        Background background = new Background();
         Player player = new Player();
+        Map map = new Map();
+        GUI gui = new GUI(player);
         Gun gun = new Gun();
         Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
         EnemyList enemyList = new EnemyList(player,enemy);
@@ -112,8 +113,8 @@ public static class Program
             }
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-                background.Draw();
-
+                map.Draw();
+                gui.Draw();
                 gun.Draw();
                 foreach (var enemies in enemyList.enemies)
                 {
@@ -135,7 +136,7 @@ public static class Program
 
         void Update(FrameEventArgs e)
         {
-            if (player.Health <= 0) 
+            if (player.health <= 0) 
             { 
                 gamestate.state = GameState.GameOver;
             }

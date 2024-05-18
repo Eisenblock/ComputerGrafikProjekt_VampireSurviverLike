@@ -69,7 +69,7 @@ internal class GameOver
 
     public void Restart()
     {
-        if(player.Health <= 0)
+        if(player.health <= 0)
         {
             isPaused = false;
             restart();

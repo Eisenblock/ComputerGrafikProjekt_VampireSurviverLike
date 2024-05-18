@@ -6,20 +6,25 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using ImageMagick;
 using Image = System.Drawing.Image;
+using ImageMagick.Formats;
+using System.Numerics;
 
 
-internal class Background
+internal class Map
 {
-    public static Vector2 WindowSize => Program.WindowSize;
+    public static OpenTK.Mathematics.Vector2 WindowSize => Program.WindowSize;
     public string Texture_Map;
     public int TextureID_Map;
     public string Texture_Wall;
     public int TextureID_Wall;
+    public List<int> TextureID_Hearts;
 
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    Player player = new Player();
 
-    public Background()
+    public Map()
     {
+        this.player = player;
         Texture_Map = "assets/topdown_shooter_assets/sMap.png";
         TextureID_Map = texturer.LoadTexture(Texture_Map,1)[0]; // Call the LoadTexture method on the instance
 

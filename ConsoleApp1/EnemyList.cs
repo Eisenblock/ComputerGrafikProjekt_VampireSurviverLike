@@ -6,17 +6,17 @@ using System.Drawing.Printing;
 class EnemyList
 {    
 
-    Player player;
+    Entity player;
     Enemy enemy;
     public List<Enemy> enemies { get; set; }
     private List<Enemy> enemyList_Remove;
-    private double spawnTimer = 2.5; //wie schnell sollen gegner spawnen
+    private double spawnTimer = 0.5; //wie schnell sollen gegner spawnen
     private double lastPrintedTime = 0;
     private int count;
     private int deadEnemiesCount = 0;
     private bool bossAlive = false;
 
-    public EnemyList(Player player,Enemy enemy)
+    public EnemyList(Entity player,Enemy enemy)
     {
         this.player = player;
         this.enemy = enemy;
@@ -50,6 +50,8 @@ class EnemyList
             enemies.Add(enemy);
             bossAlive = true;
             Console.WriteLine("Boss spawned");
+            GUI gui = new GUI(enemy);
+            gui.Draw();
         }
         // random Gegner spawnen
         else

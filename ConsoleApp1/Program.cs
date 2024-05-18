@@ -27,7 +27,7 @@ public static class Program
         GUI gui = new GUI(player);
         Gun gun = new Gun();
         Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
-        EnemyList enemyList = new EnemyList(player,enemy);
+        EnemyList enemyList = new EnemyList(player,enemy, gui);
         CollisionDetection collisionDetection = new CollisionDetection();
         Shootlist shootlist = new Shootlist(player);
         Texturer texturer = new Texturer();

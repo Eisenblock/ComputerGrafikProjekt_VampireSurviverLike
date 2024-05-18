@@ -15,9 +15,11 @@ class EnemyList
     private int count;
     private int deadEnemiesCount = 0;
     private bool bossAlive = false;
+    GUI gui;
 
-    public EnemyList(Entity player,Enemy enemy)
+    public EnemyList(Entity player,Enemy enemy, GUI gui)
     {
+        this.gui = gui;
         this.player = player;
         this.enemy = enemy;
         enemies = new List<Enemy>();
@@ -44,14 +46,13 @@ class EnemyList
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Wiederhole, bis die Position außerhalb des Bereichs -1 bis 1 liegt
 
         // Enemies Spawnen
-        if (deadEnemiesCount % 10 == 0 && deadEnemiesCount > 0 && bossAlive == false)
+        if (deadEnemiesCount % 1 == 0 && deadEnemiesCount > 0 && bossAlive == false)
         {
             Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2);
             enemies.Add(enemy);
             bossAlive = true;
             Console.WriteLine("Boss spawned");
             GUI gui = new GUI(enemy);
-            gui.Draw();
         }
         // random Gegner spawnen
         else

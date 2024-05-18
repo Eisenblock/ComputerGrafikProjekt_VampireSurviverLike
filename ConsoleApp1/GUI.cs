@@ -8,6 +8,7 @@ using ImageMagick;
 using Image = System.Drawing.Image;
 using ImageMagick.Formats;
 using System.Numerics;
+using System.Security.Cryptography.X509Certificates;
 
 
 internal class GUI
@@ -48,6 +49,7 @@ internal class GUI
         }
         else
         {
+            Console.WriteLine("DrawHeartsEnemy");
             DrawHeartsEnemy();
         }
     }
@@ -55,13 +57,11 @@ internal class GUI
     public void DrawHeartsPlayer()
     {
         var current_health = entity.health;
-        Console.WriteLine("DrawHeartsPlayer: " + entity.health);
         OpenTK.Mathematics.Vector2 pos = new OpenTK.Mathematics.Vector2(-1f, -1f);
         for (int i = 0; i < entity.max_Health/2; i++)
         {
             if (current_health >= 2)
             {
-                Console.WriteLine("Draw full heart");
                 // Draw full heart
                 texturer.Draw(TextureID_Hearts[0], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
                 current_health -= 2;
@@ -83,12 +83,14 @@ internal class GUI
     {
         var current_health = entity.health;
         OpenTK.Mathematics.Vector2 pos = new OpenTK.Mathematics.Vector2(-1f, -1f);
+        Console.WriteLine(entity.max_Health);
         for (int i = 0; i < entity.max_Health/2; i++)
         {
             if (current_health >= 2)
             {
+                Console.WriteLine("Draw full heart");
                 // Draw full heart
-                texturer.Draw(TextureID_Hearts[0], new RectangleF(entity.Position.X, entity.Position.Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
+                texturer.Draw(TextureID_Hearts[0], new RectangleF(entity.Position.X+0.4f, entity.Position.Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
                 current_health -= 2;
             }
             else if (current_health == 1)

@@ -8,6 +8,7 @@ internal class BossEnemy : Enemy
     public BossEnemy(Vector2 pos, bool dead, int dmg) : base(pos, dead, dmg)
     {
         health = 5;
+        max_Health = health;
         size = 0.5f;
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }

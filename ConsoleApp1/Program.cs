@@ -171,7 +171,10 @@ public static class Program
                             if(enemy is RangedEnemy rangedEnemy)
                             {
                                 rangedEnemy.Update(playerpos);
-                                shootlist.InitializeShoot(playerpos,rangedEnemy,timer);
+                                if (enemy.range.Length < 1)
+                                {
+                                    shootlist.InitializeShoot(playerpos, rangedEnemy, timer);
+                                }
                             }
                             else
                             {

@@ -1,11 +1,13 @@
 ﻿using OpenTK.Mathematics;
+using System;
 
 internal class Shootlist
 {
 
     Shoot shoot;
+    Enemy enemy;
 
-    private int lifetime;
+    
     private double lastShoottime;
     bool shootTrueE = true;
     bool shootTrueP = true;
@@ -27,7 +29,7 @@ internal class Shootlist
     {
         if (entity is Enemy && shootTrueE == true)
         {
-            Shoot shoot = new Shoot(entity, target, 4, time, true, true);
+            Shoot shoot = new Shoot(entity, target, 2, time, true, true);
             shoot.targetPos = target;
             shoot.lastPrintedTime = time;
             lastShoottime = time;

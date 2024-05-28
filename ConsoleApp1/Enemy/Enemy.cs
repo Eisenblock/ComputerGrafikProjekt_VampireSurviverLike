@@ -12,6 +12,7 @@ internal class Enemy : Entity
     public float scale;
     public float size { get; set; } = 0.1f;
     public double time;
+    public Vector2 range;
 
     Player player = new Player();
     //EnemyList enemyList1 = new EnemyList();
@@ -126,44 +127,58 @@ internal class Enemy : Entity
     }
 
     public void MoveTowards(Vector2 targetPosition, float speed)
-    {       
-        if(isActive == true)
+    {
+
+        float damping = 0.90f;
+        if (isActive)
         {
-            Vector2 direction = targetPosition - Position;  
-            direction = Vector2.Normalize(direction);
-            Position += direction * speed;
-            boundEnemy.Center = Position;
+            MoveTowardsTarget();
         }
         else
         {
-            Vector2 direction =( targetPosition - Position)*-1;
-            direction = Vector2.Normalize(direction);
-            Position += direction * speed;
-            boundEnemy.Center = Position;
+            MoveAwayFromTarget();
             i++;
-            if(i >= 2000)
+            if (i >= 2000)
             {
                 isActive = true;
                 i = 0;
             }
         }
-        
+
+        void MoveTowardsTarget()
+        {
+            Vector2 direction = targetPosition - Position;
+            direction = Vector2.Normalize(direction);
+            speed *= damping; // Geschwindigkeit dämpfen
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+        }
+
+        void MoveAwayFromTarget()
+        {
+            Vector2 direction = Position - targetPosition; // Korrigiere die Richtung für das Wegbewegen
+            direction = Vector2.Normalize(direction);
+            speed *= damping; // Geschwindigkeit dämpfen
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+        }
+
     }
 
     public void MoveAway(Vector2 targetPosition, float speed)
     {
         //Bewegung für Abstand halten vom Gegner (ranged Enemy)
-        Vector2 direction = targetPosition - Position;
-        float distance = direction.Length;
+        range = targetPosition - Position;
+        float distance = range.Length;
         if (distance > 1f)
         {
-            direction = Vector2.Normalize(direction);
-            Position += direction * speed;
+            range = Vector2.Normalize(range);
+            Position += range * speed;
         }
         else
         {
-            direction = Vector2.Normalize(direction) * -1;
-            Position += direction * speed;
+            range = Vector2.Normalize(range) * -1;
+            Position += range * speed;
         }
         boundEnemy.Center = Position;
     } 

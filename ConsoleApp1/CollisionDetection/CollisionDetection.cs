@@ -56,11 +56,15 @@ class CollisionDetection
                         {
                             if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
                             {
-                                if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1){
+                                shoot.isLive = false;
+                                enemy.DecreaseHealth();
+                                enemy.LastCollision = DateTime.Now;
+                                enemy.isActive = false;
+                                /*if ((DateTime.Now - enemy.LastCollision).TotalSeconds >= 1){
                                     enemy.DecreaseHealth();
                                     enemy.LastCollision = DateTime.Now;
                                     enemy.isActive=false;
-                                }
+                                }*/
 
                             }
                         } 
@@ -70,11 +74,11 @@ class CollisionDetection
                 if(shoot.isLive == true && shoot.shotbyPlayer == false){
                     if(CheckCollision(shoot.boundShoot,player.bounds) == true)
                     {
-                        if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1){
+                       
                             player.DecreaseHealth(1);
                             player.LastCollision = DateTime.Now;
                             shoot.isLive = false;
-                        }
+                        
                     }
                 }
             }

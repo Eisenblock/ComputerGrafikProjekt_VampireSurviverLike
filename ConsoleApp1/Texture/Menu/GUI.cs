@@ -63,19 +63,19 @@ internal class GUI
             if (current_health >= 2)
             {
                 // Draw full heart
-                texturer.Draw(TextureID_Hearts[0], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
+                //texturer.Draw(TextureID_Hearts[0], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
                 current_health -= 2;
             }
             else if (current_health == 1)
             {
                 // Draw half heart
-                texturer.Draw(TextureID_Hearts[1], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
+                //texturer.Draw(TextureID_Hearts[1], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
                 current_health -= 1;
             }
             else
             {
                 // Draw empty heart
-                texturer.Draw(TextureID_Hearts[2], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
+                //texturer.Draw(TextureID_Hearts[2], new RectangleF(-1f + i * 0.15f, -1f, 0.15f, 0.15f), new RectangleF(0f, 0f, 1f, 1f));
             }
         }
     }

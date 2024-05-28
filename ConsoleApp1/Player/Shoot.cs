@@ -76,8 +76,12 @@ internal class Shoot
 
         var rect = new RectangleF(shootPos.X-0.05f, shootPos.Y-0.05f, 0.1f, 0.1f);
         var tex_rect = new RectangleF(0f, 0f, 1f, 1f);
-        texturer.Draw(TextureID, rect, tex_rect); // Hintergrundbild zeichnen   
-        DrawCircle(shootPos, 0.1f, 32);
+
+        if (isLive == true)
+        {
+            texturer.Draw(TextureID, rect, tex_rect); // Hintergrundbild zeichnen   
+            DrawCircle(shootPos, 0.1f, 32);
+        }
     }
 
     public void ShootDirection(float speed)

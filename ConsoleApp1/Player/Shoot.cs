@@ -1,6 +1,8 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
+using System;
 using System.Drawing;
+using NAudio.Wave;
 
 internal class Shoot
 {
@@ -18,12 +20,13 @@ internal class Shoot
     public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
     public string Texture { get; private set; }
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    SoundsPlayer soundsPlayer = new SoundsPlayer(); // Create an instance of the SoundsPlayer class
 
 
-    public Shoot(Entity entity,Vector2 target, double time,double timeStart,bool shootBool,bool isLive)
+    public Shoot(Entity entity, Vector2 target, double time, double timeStart, bool shootBool, bool isLive)
     {
-        Texture = "assets/topdown_shooter_assets/sBullet.png";
-        TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
+        Texture = "assets/sBullet.png";
+        TextureID = texturer.LoadTexture(Texture, 1)[0]; // Call the LoadTexture method on the instance
 
         this.entity = entity;
         this.shootBool = shootBool;
@@ -33,12 +36,19 @@ internal class Shoot
         targetPos = target;
         this.isLive = isLive;
         boundShoot = new Circle(shootPos, 0.1f);
-        if(entity.IsPlayer)
+        if (entity.IsPlayer)
+        {
             this.shotbyPlayer = true;
+            var shoot_sound = "assets/Shoot.wav";
+            soundsPlayer.PlaySoundAsync(shoot_sound, false);
+        }      
         else
+        {
             this.shotbyPlayer = false;
+        }
     }
 
+    
     float SetScale()
     {
         return GlobalSettings.AspectRatio;

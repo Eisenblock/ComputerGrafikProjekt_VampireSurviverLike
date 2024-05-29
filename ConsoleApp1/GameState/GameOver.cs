@@ -5,7 +5,6 @@ using OpenTK.Mathematics;
 using System.Threading;
 using OpenTK.Windowing.Desktop;
 using OpenTK.Windowing.Common;
-using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using System.Runtime.Intrinsics;
 
@@ -17,9 +16,15 @@ internal class GameOver
     private GameWindow myWindow;
     private float size;
     private Action restart;
+    SoundsPlayer soundsPlayer;
+    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    int TextureID;
 
-    public GameOver(GameWindow window, Game game, Player player, Action restart)
+    public GameOver(GameWindow window, Game game, Player player, Action restart, SoundsPlayer soundsPlayer)
     {
+        string Texture = "assets/GameOver.jpg";
+        TextureID = texturer.LoadTexture(Texture, 1)[0]; // Call the LoadTexture method on the instance
+        this.soundsPlayer = soundsPlayer;
         this.player = player;
         this.game = game;
         myWindow = window;
@@ -33,27 +38,12 @@ internal class GameOver
         Draw(myWindow);
     }
 
+
     public void Draw(GameWindow myWindow)
     {
-        size = 0.2f;
-        GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
-        GL.Begin(PrimitiveType.Quads);
-        GL.Color3(Color.Black);
-        GL.Vertex2(-1, -1);
-        GL.Vertex2(1, -1);
-        GL.Vertex2(1, 1);
-        GL.Vertex2(-1, 1);
-        GL.End();
-
-        // Zeichnen Sie ein weißes Quadrat als Knopf
-        GL.Begin(PrimitiveType.Quads);
-        GL.Color3(Color.White);
-        GL.Vertex2(-size, -size);
-        GL.Vertex2(-size, size);
-        GL.Vertex2(size, size);
-        GL.Vertex2(size, -size);
-        GL.End();
-
+        var rect = new RectangleF(-1f,-1f, 2f, 2f);
+        var tex_rect = new RectangleF(0f, 0f, 1f, 1f);
+        texturer.Draw(TextureID, rect, tex_rect); // Hintergrundbild zeichnen
         myWindow.SwapBuffers();
     }
 

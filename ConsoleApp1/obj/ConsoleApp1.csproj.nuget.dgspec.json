@@ -1,27 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {}
+    "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {}
   },
   "projects": {
-    "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {
+    "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+        "projectUniqueName": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
         "projectName": "ConsoleApp1",
-        "projectPath": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
-        "packagesPath": "C:\\Users\\paulk\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
+        "projectPath": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+        "packagesPath": "C:\\Users\\nxine\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
-          "C:\\Users\\paulk\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\nxine\\AppData\\Roaming\\NuGet\\NuGet.Config"
         ],
         "originalTargetFrameworks": [
           "net8.0"
         ],
         "sources": {
-          "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
           "https://api.nuget.org/v3/index.json": {}
         },
         "frameworks": {
@@ -48,6 +46,10 @@
             "Magick.NET-Q8-AnyCPU": {
               "target": "Package",
               "version": "[13.8.0, )"
+            },
+            "NAudio": {
+              "target": "Package",
+              "version": "[2.2.1, )"
             },
             "OpenTK": {
               "target": "Package",
@@ -78,7 +80,7 @@
               "privateAssets": "all"
             }
           },
-          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
+          "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
         }
       }
     }

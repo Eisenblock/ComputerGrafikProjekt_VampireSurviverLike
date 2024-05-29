@@ -13,7 +13,6 @@ internal class UpgradeScreen
 {
     private Game game;
     private Player player;
-    private TextRenderer textRenderer;
     private bool isPaused;
     private Thread inputThread;
     private GameWindow myWindow;

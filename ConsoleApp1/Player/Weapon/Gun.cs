@@ -20,7 +20,7 @@ internal class Gun
 
     public Gun()
     {
-        Texture = "assets/topdown_shooter_assets/sGun.png";
+        Texture = "assets/sGun.png";
         TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
     }
 

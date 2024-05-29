@@ -31,10 +31,10 @@ internal class Enemy : Entity
     public Enemy(Vector2 pos, bool dead , int dmg) 
     {
 
-        string Texture_Run = "assets/topdown_shooter_assets/sEnemy_Run.png";
+        string Texture_Run = "assets/sEnemy_Run.png";
         TextureID_Run = texturer.LoadTexture(Texture_Run, 7); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
 
-        string Texture_Dead = "assets/topdown_shooter_assets/sEnemy_Dead.png";
+        string Texture_Dead = "assets/sEnemy_Dead.png";
         TextureID_Dead = texturer.LoadTexture(Texture_Dead, 1); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
         enemyDead = dead;
         Position = pos;

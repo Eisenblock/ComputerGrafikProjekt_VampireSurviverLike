@@ -4,6 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using System.Drawing;
+using System.Windows.Forms;
 
 public static class Program
 {
@@ -21,6 +22,7 @@ public static class Program
         );
         WindowSize = window.ClientSize;
         window.CursorState = CursorState.Hidden;
+        window.CursorState = CursorState.Grabbed;      
 
         Player player = new Player();
         Map map = new Map();
@@ -29,9 +31,9 @@ public static class Program
         Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
         EnemyList enemyList = new EnemyList(player,enemy, gui);
         CollisionDetection collisionDetection = new CollisionDetection();
+        SoundsPlayer soundsPlayer = new SoundsPlayer();
         Shootlist shootlist = new Shootlist(player);
         Texturer texturer = new Texturer();
-        TextRenderer textRenderer = new TextRenderer();
         Mouse mouse = new Mouse();
 
         float aspectRatio = 1f;
@@ -54,8 +56,9 @@ public static class Program
             shootlist.ClearAll();
             player.ClearAll();
         };
-        Game gamestate  = new Game(window, player, Restart);
-        GameOver gameover = new GameOver(window, gamestate, player, Restart);
+        Game gamestate  = new Game(window, player, Restart, soundsPlayer);
+        GameOver gameover = new GameOver(window, gamestate, player, Restart, soundsPlayer);
+        Running running = new Running(soundsPlayer);
 
 
         window.UpdateFrame += Update;
@@ -77,7 +80,7 @@ public static class Program
                 case Keys.D: moveRight = true; break;
                 case Keys.W: moveUp = true; break;
                 case Keys.S: moveDown = true; break;
-                case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
+                // case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
                 case Keys.R: gameover.Restart(); break;
             }
         };

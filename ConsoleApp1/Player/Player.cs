@@ -27,15 +27,20 @@ internal class Player : Entity
     public List<int> current_TextureID; // Hier speichern wir die Textur-ID
 
     Texturer Texturer = new Texturer(); // Create an instance of the Texturer class
-
+    SoundsPlayer SoundsPlayer = new SoundsPlayer(); // Create an instance of the SoundsPlayer class
+    string damage_sound;
+    string death_sound;
 
     public Player()
     {
-        string Texture_Idle = "assets/topdown_shooter_assets/sPlayer_Idle.png";
+        string Texture_Idle = "assets/sPlayer_Idle.png";
         TextureID_Idle = Texturer.LoadTexture(Texture_Idle,4); // Call the LoadTexture method on the instance
-        string Texture_Run = "assets/topdown_shooter_assets/sPlayer_Run.png";
+        string Texture_Run = "assets/sPlayer_Run.png";
         TextureID_Run = Texturer.LoadTexture(Texture_Run,7); // Call the LoadTexture method on the instance
         current_TextureID = TextureID_Idle;
+
+        damage_sound = "assets/Damage.wav";
+        death_sound = "assets/GameOver.wav";
 
         Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.065f);
@@ -199,11 +204,13 @@ internal class Player : Entity
     public void DecreaseHealth(int dmg)
     {
         health -= dmg;
+        SoundsPlayer.PlaySoundAsync(damage_sound, false);
         Console.WriteLine("Life: " + health);
         if(health <= 0) 
         {
             playerDead = true;
             Console.WriteLine("Player Dead");
+            SoundsPlayer.PlaySoundAsync(death_sound, false);
         }
     }
 }

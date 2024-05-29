@@ -54,7 +54,7 @@ class CollisionDetection
                     {
                         if (enemy != null)
                         {
-                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true)
+                            if (CheckCollision(shoot.boundShoot, enemy.boundEnemy) == true && enemy.enemyDead == false)
                             {
                                 shoot.isLive = false;
                                 enemy.DecreaseHealth();

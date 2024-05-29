@@ -1,12 +1,6 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing;
-using System.Drawing.Imaging;
-using ImageMagick;
-using Image = System.Drawing.Image;
-
 
 internal class Player : Entity
 {
@@ -54,7 +48,7 @@ internal class Player : Entity
     {
         Position = Vector2.Zero;
         playerDead = false;
-        health = 5;
+        health = max_Health;
     }
 
     public Vector2 getPlayerPosition()

@@ -170,7 +170,7 @@ internal class Enemy : Entity
         //Bewegung für Abstand halten vom Gegner (ranged Enemy)
         range = targetPosition - Position;
         float distance = range.Length;
-        if (distance > 1f)
+        if (distance > 0.75f)
         {
             range = Vector2.Normalize(range);
             Position += range * speed;

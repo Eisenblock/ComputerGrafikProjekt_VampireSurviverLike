@@ -3,11 +3,8 @@ using System;
 
 internal class Shootlist
 {
-
     Shoot shoot;
-    Enemy enemy;
-
-    
+    Enemy enemy;    
     private double lastShoottime;
     bool shootTrueE = true;
     bool shootTrueP = true;
@@ -69,13 +66,17 @@ internal class Shootlist
 
             //attachspeed
             double timeDifference2 = lastShoottime - timer;
-            if (timeDifference2 <= -1)
+            if (timeDifference2 <= -0.5)
             {
                 if (shoot.shotbyPlayer == true)
                 {
                     shootTrueP = true;
                 }
-                else
+            }
+            double timeDifference3 = lastShoottime - timer;
+            if (timeDifference3 <= -0.75)
+            {
+                if (shoot.shotbyPlayer == false)
                 {
                     shootTrueE = true;
                 }

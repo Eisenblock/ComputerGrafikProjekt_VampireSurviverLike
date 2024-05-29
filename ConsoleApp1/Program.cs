@@ -17,7 +17,7 @@ public static class Program
             new NativeWindowSettings()
             {
                 Profile = ContextProfile.Compatability,
-                ClientSize = new Vector2i(1000, 800) // Setzen Sie die Fenstergröße auf 800x600 Pixel
+                ClientSize = new Vector2i(1200, 1000) // Setzen Sie die Fenstergröße auf 800x600 Pixel
             }
         );
         WindowSize = window.ClientSize;

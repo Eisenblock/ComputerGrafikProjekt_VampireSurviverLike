@@ -13,24 +13,37 @@ public enum GameState
     Running,
     Paused,
     UpgradeScreen,
-    GameOver
+    GameOver,
+    MainMenu,
+    Controls,
 }
 
 internal class Game
 {
     private Player player;
     public GameState state;
+    public GameState previousState;
     GameWindow myWindow;
     Action restart;
     SoundsPlayer soundsPlayer;
+    public MainMenu mainMenu;
+    public PauseMenu pauseMenu;
+    public GameOver gameOver;
+    public Running running;
+    public Controls controls;
 
     public Game(GameWindow window, Player player, Action restart, SoundsPlayer soundsPlayer)
     {
         this.soundsPlayer = soundsPlayer;
         this.player = player;
         myWindow = window;
-        state = GameState.Running;
+        state = GameState.MainMenu;
         this.restart = restart;
+        mainMenu = new MainMenu(myWindow, this);
+        running = new Running(soundsPlayer);
+        pauseMenu = new PauseMenu(myWindow, this);
+        gameOver = new GameOver(myWindow, this, restart);
+        controls = new Controls(myWindow, this);
     }
 
     public void Run()
@@ -39,18 +52,21 @@ internal class Game
         {
             switch (state)
             {
+                case GameState.MainMenu:
+                    break;
+
                 case GameState.Running:
-                    // Führen Sie die Spiellogik aus
-                    var running = new Running(soundsPlayer);
                     break;
 
                 case GameState.Paused:
-                    // Nichts tun, das Spiel ist pausiert
                     break;
+
+                case GameState.Controls:
+                    break;
+
                 case GameState.GameOver:
-                    var gameOver = new GameOver(myWindow, this, player, restart, soundsPlayer);
-                    gameOver.show();
                     break;
+
                 case GameState.UpgradeScreen:
                     var upgradeScreen = new UpgradeScreen(myWindow, this, player);
                     upgradeScreen.show();
@@ -61,26 +77,46 @@ internal class Game
         }
     }
 
+    public void setPreviousState()
+    {
+        previousState = state;
+    } 
+    public void MainMenu()
+    {
+        setPreviousState();
+        state = GameState.MainMenu;
+    }
+
     public void Pause()
     {
+        setPreviousState();
         state = GameState.Paused;
     }
 
     public void Resume()
     {
+        setPreviousState();
         state = GameState.Running;
     }
 
     public void ShowUpgradeScreen()
     {
+        setPreviousState();
         state = GameState.UpgradeScreen;
     }
     public void GameOver()
     {
+        setPreviousState();
         state = GameState.GameOver;
     }
     public void Running()
     {
+        setPreviousState();
         state = GameState.Running;
+    }
+    public void Controls()
+    {
+        setPreviousState();
+        state = GameState.Controls;
     }
 }

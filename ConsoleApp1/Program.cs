@@ -5,6 +5,8 @@ using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using System.Drawing;
 using System.Windows.Forms;
+using System.Data;
+using System.Security.Cryptography.X509Certificates;
 
 public static class Program
 {
@@ -20,9 +22,7 @@ public static class Program
                 ClientSize = new Vector2i(1200, 1000) // Setzen Sie die Fenstergröße auf 800x600 Pixel
             }
         );
-        WindowSize = window.ClientSize;
-        window.CursorState = CursorState.Hidden;
-        window.CursorState = CursorState.Grabbed;      
+        WindowSize = window.ClientSize;   
 
         Player player = new Player();
         Map map = new Map();
@@ -57,8 +57,6 @@ public static class Program
             player.ClearAll();
         };
         Game gamestate  = new Game(window, player, Restart, soundsPlayer);
-        GameOver gameover = new GameOver(window, gamestate, player, Restart, soundsPlayer);
-        Running running = new Running(soundsPlayer);
 
 
         window.UpdateFrame += Update;
@@ -70,18 +68,17 @@ public static class Program
             mousePosition = new Vector2((float)args.X / window.ClientSize.X * 2 - 1, 1 - (float)args.Y / window.ClientSize.Y * 2);
         };
 
-
         window.KeyDown += args =>
         {
             switch (args.Key)
             {
-                case Keys.Escape: window.Close(); break;
+                case Keys.Escape: gamestate.Pause(); break;
                 case Keys.A: moveLeft = true; break;
                 case Keys.D: moveRight = true; break;
                 case Keys.W: moveUp = true; break;
                 case Keys.S: moveDown = true; break;
                 // case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
-                case Keys.R: gameover.Restart(); break;
+                case Keys.R: gamestate.gameOver.Restart(); break;
             }
         };
 
@@ -100,7 +97,25 @@ public static class Program
         {
             if (args.Button == MouseButton.Left)
             {
-                shootlist.InitializeShoot(mousePosition,player,timer);
+                if(gamestate.state == GameState.Running){
+                    shootlist.InitializeShoot(mousePosition,player,timer);
+                }
+                else if(gamestate.state == GameState.MainMenu)
+                {
+                    gamestate.mainMenu.OnMouseClick(mousePosition);
+                }
+                else if(gamestate.state == GameState.Paused)
+                {
+                    gamestate.pauseMenu.OnMouseClick(mousePosition);
+                }  
+                else if(gamestate.state == GameState.GameOver)
+                {
+                    gamestate.gameOver.OnMouseClick(mousePosition);
+                } 
+                else if(gamestate.state == GameState.Controls)
+                {
+                    gamestate.controls.OnMouseClick(mousePosition);
+                } 
             }
         };
 
@@ -108,11 +123,32 @@ public static class Program
 
         window.Run();
 
+        void setMouseInMenu()
+        {
+            window.CursorState = CursorState.Normal;
+            window.CursorState = CursorState.Normal;
+        }
+        void setMouseInGame()
+        {
+            window.CursorState = CursorState.Grabbed;
+            window.CursorState = CursorState.Hidden;
+        }
+
         void Render(FrameEventArgs e)
         {
-            if(gamestate.state == GameState.GameOver)
+            if(gamestate.state == GameState.Paused)
             {
-                gameover.Draw(window);
+                gamestate.pauseMenu.Draw(window);
+            }
+            else if(gamestate.state == GameState.GameOver)
+            {
+                gamestate.gameOver.Draw(window);
+            }
+            else if(gamestate.state == GameState.MainMenu){
+                gamestate.mainMenu.Draw(window);
+            }
+            else if(gamestate.state == GameState.Controls){
+                gamestate.controls.Draw(window);
             }
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
@@ -139,11 +175,39 @@ public static class Program
 
         void Update(FrameEventArgs e)
         {
-            if (player.health <= 0) 
-            { 
-                gamestate.state = GameState.GameOver;
+            if(player.health <= 0)
+            {
+                gamestate.GameOver();
             }
-            else{
+            if(gamestate.state != GameState.Running)
+            {
+                if(CursorState.Normal != window.CursorState)
+                {
+                    setMouseInMenu();
+                }
+                if (gamestate.state == GameState.GameOver) 
+                {
+                    gamestate.gameOver.Update(mousePosition);
+                }
+                else if(gamestate.state == GameState.MainMenu)
+                {
+                    gamestate.mainMenu.Update(mousePosition);
+                }
+                else if(gamestate.state == GameState.Paused)
+                {
+                    gamestate.pauseMenu.Update(mousePosition);
+                }
+                else if(gamestate.state == GameState.Controls)
+                {
+                    gamestate.controls.Update(mousePosition);
+                }
+            }
+            else
+            {
+                if(CursorState.Normal == window.CursorState)
+                {
+                    setMouseInGame();
+                }
                 if (moveLeft) player.Left();
                 if (moveRight) player.Right();
                 if (moveUp) player.Up();
@@ -152,7 +216,7 @@ public static class Program
                 if (gamestate.state == GameState.UpgradeScreen)
                 {
                     // Führen Sie die Upgrade-Logik aus
-                    gameover.Restart();
+                    gamestate.gameOver.Restart();
                 }
                 else
                 {
@@ -195,8 +259,6 @@ public static class Program
                     collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
                 }
             }
-            
-
         }
 
         void Resize(ResizeEventArgs e)

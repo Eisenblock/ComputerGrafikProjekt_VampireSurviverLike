@@ -7,7 +7,7 @@ using OpenTK.Graphics.OpenGL;
 
     public float speed = 0.00015f;
     Gun gun = new Gun();
-    public RangedEnemy(Vector2 pos, bool dead,int dmg) : base(pos, dead,dmg)
+    public RangedEnemy(Vector2 pos, bool dead,int dmg, Vector2 _range) : base(pos, dead,dmg,_range)
     {
 
     }
@@ -21,4 +21,6 @@ using OpenTK.Graphics.OpenGL;
     {
         gun.Draw();
     }
+
+
 }

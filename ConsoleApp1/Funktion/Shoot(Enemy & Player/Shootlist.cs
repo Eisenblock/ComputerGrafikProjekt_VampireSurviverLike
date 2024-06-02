@@ -66,7 +66,7 @@ internal class Shootlist
 
             //attachspeed
             double timeDifference2 = lastShoottime - timer;
-            if (timeDifference2 <= -0.5)
+            if (timeDifference2 <= -0.1)
             {
                 if (shoot.shotbyPlayer == true)
                 {

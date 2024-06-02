@@ -8,6 +8,12 @@
   </PropertyGroup>
 
   <ItemGroup>
+    <Compile Remove="Menu\**" />
+    <EmbeddedResource Remove="Menu\**" />
+    <None Remove="Menu\**" />
+  </ItemGroup>
+
+  <ItemGroup>
     <PackageReference Include="Magick.NET-Q8-AnyCPU" Version="13.8.0" />
     <PackageReference Include="NAudio" Version="2.2.1" />
     <PackageReference Include="OpenTK" Version="4.8.2" />
@@ -16,8 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
-    <Folder Include="Menu\" />
-    <Folder Include="Player\Effect\" />
+    <Folder Include="Funktion\Player\Effect\" />
   </ItemGroup>
 
 </Project>

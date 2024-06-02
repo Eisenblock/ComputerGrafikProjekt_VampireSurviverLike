@@ -28,7 +28,7 @@ public static class Program
         Map map = new Map();
         GUI gui = new GUI(player);
         Gun gun = new Gun();
-        Enemy enemy = new (new Vector2(0.6f,0.6f),false,1);
+        Enemy enemy = new (new Vector2(0.6f,0.6f),false,1,Vector2.Zero);
         EnemyList enemyList = new EnemyList(player,enemy, gui);
         CollisionDetection collisionDetection = new CollisionDetection();
         SoundsPlayer soundsPlayer = new SoundsPlayer();
@@ -174,8 +174,9 @@ public static class Program
                             if(enemy is RangedEnemy rangedEnemy)
                             {
                                 rangedEnemy.Update(playerpos);
-                                if (enemy.range.Length < 1)
-                                {
+                                
+                                if (enemy.range.Length < 0.9f)
+                                {                                
                                     shootlist.InitializeShoot(playerpos, rangedEnemy, timer);
                                 }
                             }

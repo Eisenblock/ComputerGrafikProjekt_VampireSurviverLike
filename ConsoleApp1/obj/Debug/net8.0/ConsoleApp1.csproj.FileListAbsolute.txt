@@ -231,3 +231,9 @@ C:\Users\nxine\source\repos\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp
 C:\Users\nxine\source\repos\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Midi.dll
 C:\Users\nxine\source\repos\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Wasapi.dll
 C:\Users\nxine\source\repos\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.WinMM.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Asio.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Core.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Midi.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Wasapi.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.WinMM.dll

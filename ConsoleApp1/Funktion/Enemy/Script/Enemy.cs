@@ -13,10 +13,12 @@ internal class Enemy : Entity
     public float size { get; set; } = 0.1f;
     public double time;
     public Vector2 range;
+    public Vector2 range2;
 
     Player player = new Player();
     //EnemyList enemyList1 = new EnemyList();
     public Circle boundEnemy;
+    Shootlist shootlist;
 
     public bool enemyDead;
     public bool isActive;
@@ -28,7 +30,7 @@ internal class Enemy : Entity
 
 
     public Color4 Color { get; set; }
-    public Enemy(Vector2 pos, bool dead , int dmg) 
+    public Enemy(Vector2 pos, bool dead , int dmg, Vector2 _range) 
     {
 
         string Texture_Run = "assets/sEnemy_Run.png";
@@ -40,6 +42,7 @@ internal class Enemy : Entity
         Position = pos;
         isActive = true;
         health = 1;
+        range = _range;
         boundEnemy = new Circle(Position,0.1f);
         this.Dmg = dmg;
 
@@ -169,19 +172,23 @@ internal class Enemy : Entity
     {
         //Bewegung für Abstand halten vom Gegner (ranged Enemy)
         range = targetPosition - Position;
+        range2 = targetPosition - Position;
         float distance = range.Length;
-        if (distance > 0.75f)
+        if (distance > 0.5f)
         {
-            range = Vector2.Normalize(range);
-            Position += range * speed;
+            range2 = Vector2.Normalize(range);
+            Position += range2 * speed;
         }
         else
         {
-            range = Vector2.Normalize(range) * -1;
-            Position += range * speed;
+            range2 = Vector2.Normalize(range) * -1;
+            Position += range2 * speed;
         }
         boundEnemy.Center = Position;
+        Position = Vector2.Clamp(Position, new Vector2(-0.95f, -0.95f), new Vector2(0.95f, 0.95f));
     } 
+
+
     
 
     private void DrawCircle(Vector2 center, float radius, int segments)

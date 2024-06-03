@@ -199,7 +199,7 @@ internal class Enemy : Entity
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + size/2 * MathF.Cos(angle);
+            float x = center.X + size/2 * MathF.Cos(angle) / scale;
             float y = center.Y + size/2 * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }

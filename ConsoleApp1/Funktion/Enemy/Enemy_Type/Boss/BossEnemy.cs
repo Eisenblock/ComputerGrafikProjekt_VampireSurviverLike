@@ -2,8 +2,6 @@ using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
 internal class BossEnemy : Enemy
 {
-    public Color4 Color { get; set; } = Color4.Red;
-
     public float speed = 0.000005f;
     public BossEnemy(Vector2 pos, bool dead, int dmg, Vector2 _range) : base(pos, dead, dmg, _range)
     {

@@ -153,7 +153,6 @@ public static class Program
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
                 map.Draw();
-                gui.Draw();
                 gun.Draw();
                 foreach (var enemies in enemyList.enemies)
                 {
@@ -165,6 +164,7 @@ public static class Program
                 enemyList.DrawArray(timer);
                 player.Draw(timer, mousePosition);
                 shootlist.DrawShoots();
+                gui.Draw();
                 mouse.Draw();
 
                 window.SwapBuffers();

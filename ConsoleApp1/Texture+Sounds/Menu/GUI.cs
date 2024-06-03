@@ -18,14 +18,23 @@ internal class GUI
     public List<int> TextureID_Hearts;
 
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
-    Entity entity;
+    List<Entity> entitylist = new List<Entity>(); // Initialize the entitylist
 
     public GUI(Entity entity)
     {
-        this.entity = entity;
+        entitylist.Add(entity);
 
         Texture_Hearts = "assets/Hearts.png";
         TextureID_Hearts = texturer.LoadTexture(Texture_Hearts,3); // Call the LoadTexture method on the instance
+    }
+    public void AddBoss(Entity entity)
+    {
+        entitylist.Add(entity);
+    }
+
+    public void RemoveBoss(Entity entity)
+    {
+        entitylist.Remove(entity);
     }
 
     float SetScale()
@@ -40,22 +49,24 @@ internal class GUI
         var rect_wall = new RectangleF(rect_map.Left - 0.1f, rect_map.Top - 0.1f, rect_map.Width + 0.2f, rect_map.Height + 0.2f);
         var tex_rect = new RectangleF(0f, 0f, 1f, 1f);
 
-        if (entity.IsPlayer)
+        foreach (Entity entity in entitylist)
         {
-            DrawHeartsPlayer();
-        }
-        else
-        {
-            Console.WriteLine("DrawHeartsEnemy");
-            DrawHeartsEnemy();
+            if (entity.IsPlayer)
+            {
+                DrawHeartsPlayer();
+            }
+            else
+            {
+                DrawHeartsEnemy();
+            }
         }
     }
 
     public void DrawHeartsPlayer()
     {
-        var current_health = entity.health;
+        var current_health = entitylist[0].health;
         OpenTK.Mathematics.Vector2 pos = new OpenTK.Mathematics.Vector2(-1f, -1f);
-        for (int i = 0; i < entity.max_Health/2; i++)
+        for (int i = 0; i < entitylist[0].max_Health/2; i++)
         {
             if (current_health >= 2)
             {
@@ -78,29 +89,32 @@ internal class GUI
     }
     public void DrawHeartsEnemy()
     {
-        var current_health = entity.health;
-        OpenTK.Mathematics.Vector2 pos = new OpenTK.Mathematics.Vector2(-1f, -1f);
-        Console.WriteLine(entity.max_Health);
-        for (int i = 0; i < entity.max_Health/2; i++)
+        for(int i = 1; i < entitylist.Count; i++)
         {
-            if (current_health >= 2)
+            var current_health = entitylist[i].health;
+            float offset_X = -0.05f;
+            float offset_Y = 0.15f;
+            for (int j = 0; j <= entitylist[i].max_Health/2; j++)
             {
-                Console.WriteLine("Draw full heart");
-                // Draw full heart
-                texturer.Draw(TextureID_Hearts[0], new RectangleF(entity.Position.X+0.4f, entity.Position.Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
-                current_health -= 2;
-            }
-            else if (current_health == 1)
-            {
-                // Draw half heart
-                texturer.Draw(TextureID_Hearts[1], new RectangleF(entity.Position.X, entity.Position.Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
-                current_health -= 1;
-            }
-            else
-            {
-                // Draw empty heart
-                texturer.Draw(TextureID_Hearts[2], new RectangleF(entity.Position.X, entity.Position.Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
+                if (current_health >= 2)
+                {
+                    // Draw full heart
+                    texturer.Draw(TextureID_Hearts[0], new RectangleF(entitylist[i].Position.X+offset_X, entitylist[i].Position.Y+offset_Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
+                    current_health -= 2;
+                }
+                else if (current_health == 1)
+                {
+                    // Draw half heart
+                    texturer.Draw(TextureID_Hearts[1], new RectangleF(entitylist[i].Position.X+offset_X, entitylist[i].Position.Y+offset_Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
+                    current_health -= 1;
+                }
+                else
+                {
+                    // Draw empty heart
+                    texturer.Draw(TextureID_Hearts[2], new RectangleF(entitylist[i].Position.X+offset_X, entitylist[i].Position.Y+offset_Y, 0.05f, 0.05f), new RectangleF(0f, 0f, 1f, 1f));
+                }
+                offset_X += 0.05f;
             }
         }
-    }
+     }
 }

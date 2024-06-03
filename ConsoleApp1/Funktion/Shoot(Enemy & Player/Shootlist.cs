@@ -5,10 +5,9 @@ internal class Shootlist
 {
     Shoot shoot;
     Enemy enemy;    
-    private double lastShoottime;
+    
     bool shootTrueE = true;
     bool shootTrueP = true;
-
     public List<Shoot> shootList;
     public Shootlist(Entity entity)
     {      
@@ -17,32 +16,31 @@ internal class Shootlist
     public void ClearAll()
     {
         shootList.Clear();
-        lastShoottime = 0;
         shootTrueE = true;
         shootTrueP = true;
     }
 
     public void InitializeShoot(Vector2 target,Entity entity, double time)
     {
-        if (entity is Enemy && shootTrueE == true)
+        if (entity is Enemy && entity.shootTrue == true)
         {
             Shoot shoot = new Shoot(entity, target, 2, time, true, true);
             shoot.targetPos = target;
             shoot.lastPrintedTime = time;
-            lastShoottime = time;
+            entity.lastShoottime = time;
             shoot.shootPos = entity.Position;
             this.shootList.Add(shoot);
-            shootTrueE = false;
+            entity.shootTrue = false;
         }
-        else if (entity is Player && shootTrueP == true)
+        else if (entity is Player && entity.shootTrue == true)
         {
             Shoot shoot = new Shoot(entity, target, 4, time, true, true);
             shoot.targetPos = target;
             shoot.lastPrintedTime = time;
-            lastShoottime = time;
+            entity.lastShoottime = time;
             shoot.shootPos = entity.Position;
             this.shootList.Add(shoot);
-            shootTrueP = false;
+            entity.shootTrue = false;
         }
     }
 
@@ -64,21 +62,21 @@ internal class Shootlist
                 shoot.ShootDirection(0.0003f);
             }
 
-            //attachspeed
-            double timeDifference2 = lastShoottime - timer;
+            //attackspeed
+            double timeDifference2 = shoot.entity.lastShoottime - timer;
             if (timeDifference2 <= -0.5)
             {
                 if (shoot.shotbyPlayer == true)
                 {
-                    shootTrueP = true;
+                    shoot.entity.shootTrue = true;
                 }
             }
-            double timeDifference3 = lastShoottime - timer;
+            double timeDifference3 = shoot.entity.lastShoottime - timer;
             if (timeDifference3 <= -0.75)
             {
                 if (shoot.shotbyPlayer == false)
                 {
-                    shootTrueE = true;
+                    shoot.entity.shootTrue = true;
                 }
             }
         }

@@ -14,7 +14,7 @@ internal class Shoot
     public double lifetime;
     public double lastPrintedTime ;   
     private float scale;
-    private double lastShootTime = 0;
+    public double lastShootTime;
     public Circle boundShoot;
     public bool shotbyPlayer;
     public int TextureID { get; private set; } // Hier speichern wir die Textur-ID

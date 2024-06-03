@@ -9,7 +9,7 @@ internal class BossEnemy : Enemy
     {
         health = 5;
         max_Health = health;
-        size = 0.5f;
+        size = 0.4f;
         // Konstruktor der Unterklasse. Ruft den Konstruktor der Basisklasse auf.
     }
 

@@ -70,7 +70,7 @@ internal class Enemy : Entity
         for (int i = 0; i <= segments; i++)
         {
             double theta = 2.0 * Math.PI * i / segments;
-            float dx = (float)(radius * Math.Cos(theta) / scale);
+            float dx = (float)(radius * Math.Cos(theta) / size);
             float dy = (float)(radius * Math.Sin(theta));
             GL.Vertex2(pos.X + dx, pos.Y + dy);
         }

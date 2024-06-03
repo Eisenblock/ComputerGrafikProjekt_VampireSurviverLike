@@ -14,6 +14,7 @@ class EnemyList
     private double lastPrintedTime = 0;
     private int count;
     private int deadEnemiesCount = 0;
+    private int neededKills = 5;
     private bool bossAlive = false;
     GUI gui;
 
@@ -46,13 +47,13 @@ class EnemyList
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Wiederhole, bis die Position außerhalb des Bereichs -1 bis 1 liegt
 
         // Enemies Spawnen
-        if (deadEnemiesCount % 10 == 0 && deadEnemiesCount > 0 && bossAlive == false)
+        if (deadEnemiesCount % neededKills == 0 && deadEnemiesCount > 0 && bossAlive == false)
         {
             Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2, Vector2.Zero);
             enemies.Add(enemy);
             bossAlive = true;
             Console.WriteLine("Boss spawned");
-            GUI gui = new GUI(enemy);
+            gui.AddBoss(enemy);
         }
         // random Gegner spawnen
         else
@@ -94,11 +95,14 @@ class EnemyList
     {
         int beforeRemovalCount = enemies.Count;
         // Überprüfen Sie, ob ein Boss-Feind entfernt wird
-        foreach (var enemy in enemies)
+        for (int i = 0; i < enemies.Count; i++)
         {
-            if (enemy.enemyDead == true && enemy is BossEnemy)
+            if (enemies[i].enemyDead == true && enemies[i] is BossEnemy && bossAlive == true)
             {
                 bossAlive = false;
+                gui.RemoveBoss(enemies[i]);
+                NextWave();
+                break;
             }
         }
 
@@ -108,18 +112,29 @@ class EnemyList
         // Erhöhe die Zählvariable für jeden getöteten Feind
         deadEnemiesCount += beforeRemovalCount - afterRemovalCount;
     }
+    public void NextWave()
+    {
+        neededKills += 5;
+        spawnTimer -= 0.25;
+        if (spawnTimer < 0.5)
+        {
+            spawnTimer = 0.5;
+        }
+    }
 
     public void UpdateTimer(double timer)
     {
         UpdateList();
-        double flooredTimer = Math.Floor(timer);
-        if(Math.Floor(flooredTimer) % spawnTimer == 0 && flooredTimer != lastPrintedTime){
+        double roundedTimer = Math.Round(timer, 1);
+        Console.WriteLine("Timer: " + roundedTimer);
+        Console.WriteLine("spawntimer: " + spawnTimer);
+        if(roundedTimer % spawnTimer == 0 && roundedTimer != lastPrintedTime){
 
             InitializeEnemy();
 
             DrawArray(timer);
             count++;
-            lastPrintedTime = flooredTimer;
+            lastPrintedTime = roundedTimer;
         }
     }
 }

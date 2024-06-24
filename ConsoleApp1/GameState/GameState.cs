@@ -1,13 +1,4 @@
-using System.Drawing; 
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
-using OpenTK.Mathematics;
-using System.Threading;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.Common;
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Drawing.Printing;
 public enum GameState
 {
     Running,
@@ -20,61 +11,35 @@ public enum GameState
 
 internal class Game
 {
+    //instances of other classes
     private Player player;
     public GameState state;
     public GameState previousState;
     GameWindow myWindow;
     Action restart;
+    Score score = new Score();
     SoundsPlayer soundsPlayer;
+    
+    //instances of the State classes
     public MainMenu mainMenu;
     public PauseMenu pauseMenu;
     public GameOver gameOver;
     public Running running;
     public Controls controls;
-
-    public Game(GameWindow window, Player player, Action restart, SoundsPlayer soundsPlayer)
+    
+    public Game(GameWindow window, Player player, Action restart, SoundsPlayer soundsPlayer, Score score)
     {
+        this.score = score;
         this.soundsPlayer = soundsPlayer;
         this.player = player;
         myWindow = window;
         state = GameState.MainMenu;
         this.restart = restart;
         mainMenu = new MainMenu(myWindow, this);
-        running = new Running(soundsPlayer);
+        running = new Running(myWindow, soundsPlayer,score);
         pauseMenu = new PauseMenu(myWindow, this);
-        gameOver = new GameOver(myWindow, this, restart);
+        gameOver = new GameOver(myWindow, this, restart,score);
         controls = new Controls(myWindow, this);
-    }
-
-    public void Run()
-    {
-        while (true) 
-        {
-            switch (state)
-            {
-                case GameState.MainMenu:
-                    break;
-
-                case GameState.Running:
-                    break;
-
-                case GameState.Paused:
-                    break;
-
-                case GameState.Controls:
-                    break;
-
-                case GameState.GameOver:
-                    break;
-
-                case GameState.UpgradeScreen:
-                    var upgradeScreen = new UpgradeScreen(myWindow, this, player);
-                    upgradeScreen.show();
-                    break;
-            }
-
-            Thread.Sleep(100); // Verhindern Sie, dass die Schleife zu schnell läuft
-        }
     }
 
     public void setPreviousState()
@@ -107,6 +72,7 @@ internal class Game
     public void GameOver()
     {
         setPreviousState();
+        score.SaveHighscore();
         state = GameState.GameOver;
     }
     public void Running()

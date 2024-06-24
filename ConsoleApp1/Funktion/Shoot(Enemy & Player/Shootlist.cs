@@ -1,13 +1,12 @@
 ﻿using OpenTK.Mathematics;
-using System;
 
 internal class Shootlist
 {
-    Shoot shoot;
-    Enemy enemy;    
-    
+    //variables
     bool shootTrueE = true;
     bool shootTrueP = true;
+    double playerSpeed = -0.5;
+    double enemySpeed = -0.75;
     public List<Shoot> shootList;
     public Shootlist(Entity entity)
     {      
@@ -15,32 +14,27 @@ internal class Shootlist
     }
     public void ClearAll()
     {
+        // Clear the shootList
         shootList.Clear();
         shootTrueE = true;
         shootTrueP = true;
     }
 
-    public void InitializeShoot(Vector2 target,Entity entity, double time)
+    public void InitializeShoot(Vector2 target, Entity entity, double time)
     {
-        if (entity is Enemy && entity.shootTrue == true)
+        if (entity.shootTrue)
         {
-            Shoot shoot = new Shoot(entity, target, 2, time, true, true);
-            shoot.targetPos = target;
-            shoot.lastPrintedTime = time;
-            entity.lastShoottime = time;
-            shoot.shootPos = entity.Position;
-            this.shootList.Add(shoot);
-            entity.shootTrue = false;
-        }
-        else if (entity is Player && entity.shootTrue == true)
-        {
-            Shoot shoot = new Shoot(entity, target, 4, time, true, true);
-            shoot.targetPos = target;
-            shoot.lastPrintedTime = time;
-            entity.lastShoottime = time;
-            shoot.shootPos = entity.Position;
-            this.shootList.Add(shoot);
-            entity.shootTrue = false;
+            int speed = entity is Enemy ? 2 : entity is Player ? 4 : 0; //Speed of the shoot depends on the entity
+            if (speed > 0)
+            {
+                Shoot shoot = new Shoot(entity, target, speed, time, true, true);
+                shoot.targetPos = target;
+                shoot.lastPrintedTime = time;
+                entity.lastShoottime = time;
+                shoot.shootPos = entity.Position;
+                this.shootList.Add(shoot);
+                entity.shootTrue = false;
+            }
         }
     }
 
@@ -48,10 +42,11 @@ internal class Shootlist
     {
         List<Shoot> shootsToRemove = new List<Shoot>();
 
-        //lifetime : wird aus Array gelösht
+        // Update the position of the shoots
         foreach (Shoot shoot in shootList.ToList())
         {
             double timeDifference = shoot.lastPrintedTime - timer;
+            // Remove the shoot if the lifetime is over
             if (timeDifference <= -shoot.lifetime)
             {
                 shootsToRemove.Add(shoot);
@@ -64,7 +59,7 @@ internal class Shootlist
 
             //attackspeed
             double timeDifference2 = shoot.entity.lastShoottime - timer;
-            if (timeDifference2 <= -0.5)
+            if (timeDifference2 <= playerSpeed)
             {
                 if (shoot.shotbyPlayer == true)
                 {
@@ -72,7 +67,7 @@ internal class Shootlist
                 }
             }
             double timeDifference3 = shoot.entity.lastShoottime - timer;
-            if (timeDifference3 <= -0.75)
+            if (timeDifference3 <= enemySpeed)
             {
                 if (shoot.shotbyPlayer == false)
                 {
@@ -81,7 +76,7 @@ internal class Shootlist
             }
         }
 
-        // Entferne die zu entfernenden Shoot-Objekte aus der Liste
+        // Remove the shoots from the shootList
         foreach (Shoot shootToRemove in shootsToRemove)
         {
             this.shootList.Remove(shootToRemove);

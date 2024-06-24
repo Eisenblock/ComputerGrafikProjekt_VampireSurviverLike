@@ -2,9 +2,8 @@ using OpenTK.Mathematics;
 
 public abstract class Entity
 {
-    public Vector2 Position { get; set; }
+    public Vector2 Position { get; set; } = Vector2.Zero;
     public abstract bool IsPlayer { get; }
-
     public float health { get; set; }
     public float max_Health { get; set; }
     public DateTime LastCollision { get; set; } = DateTime.MinValue;

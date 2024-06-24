@@ -1,43 +1,39 @@
 ﻿using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Printing;
 using System.Drawing;
 
 internal class Enemy : Entity
 {
+    //instances of other classes
+    Texturer texturer = new Texturer(); 
+    Player player = new Player();
+    Particles particles;
+
+    //variables
+    public float speed = 0.00015f;
     public override bool IsPlayer => false;
-    public float PositionX;
-    public float PositionY;
     public int i = 0;
     public float scale;
     public float size { get; set; } = 0.1f;
     public double time;
     public Vector2 range;
     public Vector2 range2;
-
-    Player player = new Player();
-    //EnemyList enemyList1 = new EnemyList();
     public Circle boundEnemy;
-    Shootlist shootlist;
-
     public bool enemyDead;
     public bool isActive;
-    public int Dmg;
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    
+    //variables for the animation
     public List<int> TextureID_Run;
     public List<int> TextureID_Dead;
-    public List<int> current_TextureID;
+    public List<int> current_TextureID = new List<int>();
+    bool particleDrawn = false;
 
-
-    public Color4 Color { get; set; }
-    public Enemy(Vector2 pos, bool dead , int dmg, Vector2 _range) 
+    public Enemy(Vector2 pos, bool dead , int dmg, Vector2 _range, List<int>particlesList) 
     {
-
         string Texture_Run = "assets/sEnemy_Run.png";
-        TextureID_Run = texturer.LoadTexture(Texture_Run, 7); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
-
+        TextureID_Run = texturer.LoadTexture(Texture_Run, 7,1); 
         string Texture_Dead = "assets/sEnemy_Dead.png";
-        TextureID_Dead = texturer.LoadTexture(Texture_Dead, 1); // Call the LoadTexture method on the instance and assign the first element of the returned list to TextureID
+        TextureID_Dead = texturer.LoadTexture(Texture_Dead, 1,1);
         enemyDead = dead;
         Position = pos;
         isActive = true;
@@ -45,7 +41,7 @@ internal class Enemy : Entity
         range = _range;
         boundEnemy = new Circle(Position,0.1f);
         this.Dmg = dmg;
-
+        particles = new Particles(particlesList);
     }
 
     float SetScale()
@@ -54,28 +50,11 @@ internal class Enemy : Entity
     }
     public void DecreaseHealth()
     {
+        particleDrawn = true;
         health--;
         if(health <= 0){
             enemyDead = true;
         }
-    }
-
-    void Circle(Vector2 pos, float radius, int segments, Color4 color)
-    {
-        scale = SetScale();
-        GL.Begin(PrimitiveType.TriangleFan);
-        GL.Color4(color);
-        GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
-
-        for (int i = 0; i <= segments; i++)
-        {
-            double theta = 2.0 * Math.PI * i / segments;
-            float dx = (float)(radius * Math.Cos(theta) / size);
-            float dy = (float)(radius * Math.Sin(theta));
-            GL.Vertex2(pos.X + dx, pos.Y + dy);
-        }
-
-        GL.End();
     }
 
     public void setTargetPosition(Vector2 targetPosition)
@@ -90,6 +69,14 @@ internal class Enemy : Entity
 
     public virtual void Draw(float scale)
     {
+        if(particleDrawn)
+        {
+            Vector2 direction = player.Position - Position;
+            direction = Vector2.Normalize(direction);
+            bool temp = particles.Draw(Position, size, direction);
+            particleDrawn = temp;
+        }
+        
         var isFacingRight = true;
         GL.Color4(Color4.White);
         var hittime = DateTime.Now - LastCollision;
@@ -152,16 +139,16 @@ internal class Enemy : Entity
         {
             Vector2 direction = targetPosition - Position;
             direction = Vector2.Normalize(direction);
-            speed *= damping; // Geschwindigkeit dämpfen
+            speed *= damping; // speed dampen
             Position += direction * speed;
             boundEnemy.Center = Position;
         }
 
         void MoveAwayFromTarget()
         {
-            Vector2 direction = Position - targetPosition; // Korrigiere die Richtung für das Wegbewegen
+            Vector2 direction = Position - targetPosition; // Change direction
             direction = Vector2.Normalize(direction);
-            speed *= damping; // Geschwindigkeit dämpfen
+            speed *= damping; // speed dampen
             Position += direction * speed;
             boundEnemy.Center = Position;
         }
@@ -170,7 +157,7 @@ internal class Enemy : Entity
 
     public void MoveAway(Vector2 targetPosition, float speed)
     {
-        //Bewegung für Abstand halten vom Gegner (ranged Enemy)
+        // Keeping distance from the player
         range = targetPosition - Position;
         range2 = targetPosition - Position;
         float distance = range.Length;
@@ -186,10 +173,7 @@ internal class Enemy : Entity
         }
         boundEnemy.Center = Position;
         Position = Vector2.Clamp(Position, new Vector2(-0.95f, -0.95f), new Vector2(0.95f, 0.95f));
-    } 
-
-
-    
+    }
 
     private void DrawCircle(Vector2 center, float radius, int segments)
     {
@@ -205,6 +189,4 @@ internal class Enemy : Entity
         }
         GL.End();
     }
-
-
 }

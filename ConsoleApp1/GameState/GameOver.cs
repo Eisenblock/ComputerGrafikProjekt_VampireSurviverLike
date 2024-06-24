@@ -1,68 +1,92 @@
-using System.Drawing; 
-using OpenTK.Graphics.OpenGL;
-using OpenTK.Input;
 using OpenTK.Mathematics;
-using System.Threading;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using System.Runtime.Intrinsics;
 
 internal class GameOver
 {
+    //instances of other classes
     private Game game;
-    private Player player;
-    private bool isPaused;
     private GameWindow myWindow;
-    private float size;
     private Action restart;
-    SoundsPlayer soundsPlayer;
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+    Texturer texturer = new Texturer();
+    MenuHelper menuHelper = new MenuHelper();
+    Score score;
+
+    //variables
+    private bool isPaused;  
+
+    //variables for the animation
     int BackgroundID;
+    int TitleID;
     int PlayID;
     int MenuID;
     int ExitID;
+    int ScoreTextID;
+    int HighscoreTextID;
+    List<int> NumbersID;
     int col_PlayID;
     int col_MenuID;
     int col_ExitID;
     int current_Play;
     int current_Menu;
     int current_Exit;
-    MenuHelper menuHelper = new MenuHelper();
 
-    public GameOver(GameWindow window, Game game, Action restart)
+    public GameOver(GameWindow window, Game game, Action restart, Score score)
     {
-        
-        string Texture = "assets/GameOver.png";
-        BackgroundID = texturer.LoadTexture(Texture, 1)[0]; // Call the LoadTexture method on the instance
+        // Load the textures
+        string Texture = "assets/MenuBackground.png";
+        BackgroundID = texturer.LoadTexture(Texture, 1,1)[0];
+        string Title = "assets/GAME_OVER.png";
+        TitleID = texturer.LoadTexture(Title, 1,1)[0];
+        string ScoreTexture = "assets/YOURSCORE.png";
+        ScoreTextID = texturer.LoadTexture(ScoreTexture, 1,1)[0];
+        string HighScoreTexture = "assets/HIGHSCORE.png";
+        HighscoreTextID = texturer.LoadTexture(HighScoreTexture, 1,1)[0];
+        string NumbersTexture = "assets/numbers.png";
+        NumbersID = texturer.LoadTexture(NumbersTexture, 10,1);
+
         string PlayTexture = "assets/NewGame Button.png";
-        PlayID = texturer.LoadTexture(PlayTexture, 1)[0];
+        PlayID = texturer.LoadTexture(PlayTexture, 1,1)[0];
         current_Play = PlayID;
         string ControlsTexture = "assets/Menu Button.png";
-        MenuID = texturer.LoadTexture(ControlsTexture, 1)[0];
+        MenuID = texturer.LoadTexture(ControlsTexture, 1,1)[0];
         current_Menu = MenuID;
         string ExitTexture = "assets/Exit Button.png";
-        ExitID = texturer.LoadTexture(ExitTexture, 1)[0];
+        ExitID = texturer.LoadTexture(ExitTexture, 1,1)[0];
         current_Exit = ExitID;
 
-
         string col_PlayTexture = "assets/col_NewGame Button.png";
-        col_PlayID = texturer.LoadTexture(col_PlayTexture, 1)[0];
+        col_PlayID = texturer.LoadTexture(col_PlayTexture, 1,1)[0];
         string col_MenuTexture = "assets/col_Menu Button.png";
-        col_MenuID = texturer.LoadTexture(col_MenuTexture, 1)[0];
+        col_MenuID = texturer.LoadTexture(col_MenuTexture, 1,1)[0];
         string col_ExitTexture = "assets/col_Exit Button.png";
-        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1)[0];
+        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1,1)[0];
 
+        this.score = score;
         this.game = game;
         this.restart = restart;
         myWindow = window;
         isPaused = false;
     }
 
+    public void Restart()
+    {
+        restart();
+    }
+
     public void Draw(GameWindow myWindow)
     {
-        menuHelper.Draw(myWindow, new List<int> {BackgroundID, current_Play, current_Menu, current_Exit},true);
+        //Load the Score and Highscore
+        List<int> scoreID = score.ScoreToTexture();
+        List<int> highscoreID = score.HighscoreToTexture();
+
+        //Draw the Screen
+        menuHelper.DrawBackground(myWindow,BackgroundID);
+        menuHelper.DrawTitle(TitleID, -5f);
+        menuHelper.DrawScoresAndHighscores(myWindow, new List<int>{ScoreTextID, HighscoreTextID}, scoreID, highscoreID);
+        menuHelper.DrawButtons(myWindow, new List<int> {current_Play, current_Menu, current_Exit});
+        myWindow.SwapBuffers();
     }
+
     public void ResetButtons()
     {
         current_Play = PlayID;
@@ -109,13 +133,6 @@ internal class GameOver
 
     public void OnMouseClick(Vector2 mouseposition)
     {
-        // Überprüfen Sie, ob der Mausklick innerhalb der Buttons liegt
         Hovering(mouseposition, true);
-    }
-
-    public void Restart()
-    {
-        isPaused = false;
-        restart();
     }
 }

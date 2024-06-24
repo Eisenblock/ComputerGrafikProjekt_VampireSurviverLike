@@ -4,61 +4,66 @@ using System.Drawing;
 
 internal class Player : Entity
 {
-    public static Vector2 WindowSize => Program.WindowSize;
-    public List<int> TextureID_Idle { get; private set; } // Hier speichern wir die Textur-ID/ Hier speichern wir die Textur-ID
-    public override bool IsPlayer => true;
-    public float radius_col;
-    public float PositionX; 
-    public float PositionY;
-    public float scale;
-    
-    public float speed = 0.00015f;
-    public Circle bounds = new Circle(Vector2.Zero,0);
-    public bool playerDead;
-    public Color4 color = Color4.Blue;
-    bool ismoving = false;
-    public List<int> TextureID_Run { get; private set; } // Hier speichern wir die Textur-ID
-    public List<int> current_TextureID; // Hier speichern wir die Textur-ID
+    //instances of other classes
+    Texturer Texturer = new Texturer();
+    SoundsPlayer SoundsPlayer = new SoundsPlayer(); 
 
-    Texturer Texturer = new Texturer(); // Create an instance of the Texturer class
-    SoundsPlayer SoundsPlayer = new SoundsPlayer(); // Create an instance of the SoundsPlayer class
+    //variables    
+    public override bool IsPlayer => true;
+    public float scale;
+    public float speed = 0.00015f;
+    public Circle bounds;
+    public bool playerDead = false;
+    bool ismoving = false;
+
+    //variables for the animation
+    public List<int> TextureID_Run { get; private set; } 
+    public List<int> TextureID_Idle { get; private set; } 
+    public List<int> current_TextureID; 
+
+    //variables for the sound
     string damage_sound;
     string death_sound;
 
     public Player()
     {
+        // Load the textures
         string Texture_Idle = "assets/sPlayer_Idle.png";
-        TextureID_Idle = Texturer.LoadTexture(Texture_Idle,4); // Call the LoadTexture method on the instance
+        TextureID_Idle = Texturer.LoadTexture(Texture_Idle,4,1); 
         string Texture_Run = "assets/sPlayer_Run.png";
-        TextureID_Run = Texturer.LoadTexture(Texture_Run,7); // Call the LoadTexture method on the instance
+        TextureID_Run = Texturer.LoadTexture(Texture_Run,7,1);
         current_TextureID = TextureID_Idle;
-
+        // Load the sounds
         damage_sound = "assets/Damage.wav";
         death_sound = "assets/GameOver.wav";
 
-        Position = new Vector2(0.0f, 0.0f);
         bounds = new Circle(Position, 0.065f);
-        PositionX = Position.X;
-        PositionY = Position.Y;
         max_Health = 6;
         health = 6;
-        playerDead = false;
+        scale = SetScale();
     }
     public void ClearAll()
     {
         Position = Vector2.Zero;
         playerDead = false;
         health = max_Health;
-    }
-
-    public Vector2 getPlayerPosition()
-    {
-        return Position;
+        lastShoottime = 0;
     }
 
     internal void Stop()
     {
         ismoving = false;
+    }
+
+    public async Task DecreaseHealth(int dmg)
+    {
+        health -= dmg;
+        await SoundsPlayer.PlaySoundAsync(damage_sound, false);
+        if(health <= 0) 
+        {
+            playerDead = true;
+            await SoundsPlayer.PlaySoundAsync(death_sound, false);
+        }
     }
 
     internal void Left()
@@ -105,27 +110,20 @@ internal class Player : Entity
     {
         return GlobalSettings.AspectRatio;
     }
-
-    void Circle(Vector2 pos, float radius, int segments, Color4 color)
+    private void DrawCircle(Vector2 center, float radius, int segments)
     {
-        scale = SetScale();
-            
-        GL.Begin(PrimitiveType.TriangleFan);
-        GL.Color4(color);
-        GL.Vertex2(pos.X, pos.Y); // Mitte des Kreises
-
-        for (int i = 0; i <= segments; i++)
+        bounds.Center = Position;
+        GL.Begin(PrimitiveType.LineLoop);
+        GL.Color4(Color4.Green);
+        for (int i = 0; i < segments; i++)
         {
-            double theta = 2.0 * Math.PI * i / segments;
-            float dx = (float)(radius * Math.Cos(theta) / scale);
-            float dy = (float)(radius * Math.Sin(theta));
-            GL.Vertex2(pos.X + dx, pos.Y + dy);
+            float angle = i / (float)segments * 2.0f * MathF.PI;
+            float x = center.X+0.025f + radius * MathF.Cos(angle) / scale;
+            float y = center.Y+0.02f+ + radius * MathF.Sin(angle);
+            GL.Vertex2(x, y);
         }
-
         GL.End();
     }
-
-
     public void Draw(double time, Vector2 mouse)
     {
         var isFacingRight = true;
@@ -133,9 +131,11 @@ internal class Player : Entity
         {
             GL.Color4(Color4.White);
             var hittime = DateTime.Now - LastCollision;
+            // Change the color of the player if it was hit recently
             if(hittime.TotalSeconds <= 0.3){
                 GL.Color4(Color4.Red);
             }
+            
             var rect = new RectangleF(Position.X-0.05f, Position.Y-0.05f, 0.15f, 0.15f);
             var tex_rect = new RectangleF(0, 0, 1, 1);
             
@@ -170,41 +170,6 @@ internal class Player : Entity
             }
             Texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
             DrawCircle(Position, bounds.Radius, 32);    
-        }
-    }
-
-    private void DrawCircle(Vector2 center, float radius, int segments)
-    {
-        bounds.Center = Position;
-        scale = SetScale();
-        GL.Begin(PrimitiveType.LineLoop);
-        GL.Color4(Color4.Green);
-        for (int i = 0; i < segments; i++)
-        {
-            float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X+0.025f + radius * MathF.Cos(angle) / scale;
-            float y = center.Y+0.02f+ + radius * MathF.Sin(angle);
-            GL.Vertex2(x, y);
-        }
-        GL.End();
-    }
-
-    public void IncreaseHealth()
-    {
-        health++;
-        Console.WriteLine("Life" +  health);
-    }
-
-    public void DecreaseHealth(int dmg)
-    {
-        health -= dmg;
-        SoundsPlayer.PlaySoundAsync(damage_sound, false);
-        Console.WriteLine("Life: " + health);
-        if(health <= 0) 
-        {
-            playerDead = true;
-            Console.WriteLine("Player Dead");
-            SoundsPlayer.PlaySoundAsync(death_sound, false);
         }
     }
 }

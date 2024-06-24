@@ -1,31 +1,32 @@
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing;
-using System.Drawing.Imaging;
-using ImageMagick;
-using Image = System.Drawing.Image;
-
 
 internal class Gun
 {
-    public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
-    public string Texture { get; private set; }
+    //instances of other classes
+    Texturer texturer = new Texturer();
+
+    //variables
     public Vector2 Position; 
     public float scale;
     public Circle bounds = new Circle(Vector2.Zero,0);
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
     Vector2 MousePosition;
 
+    //variables for the animation
+     public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
+    public string Texture { get; private set; }
+    
     public Gun()
     {
+        // Load the textures
         Texture = "assets/sGun.png";
-        TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
+        TextureID = texturer.LoadTexture(Texture,1,1)[0];
     }
 
     public void Update(Entity entity, Vector2 mousePosition)
     {
+        // Update the position of the gun
         Position = entity.Position;
         MousePosition = mousePosition;
     } 

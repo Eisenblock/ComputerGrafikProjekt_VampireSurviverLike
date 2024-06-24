@@ -1,16 +1,18 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Input; // Add the missing import statement
+
 
 internal class MainMenu
 {
-    Game game;
-    private GameWindow myWindow;
+    //instances of other classes
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
     MenuHelper menuHelper = new MenuHelper();
+    Game game;
+    private GameWindow myWindow;
+   
+    //variables for the animation
     int BackgroundID;
+    int TitleID;
     int PlayID;
     int ControlsID;
     int ExitID;
@@ -20,36 +22,42 @@ internal class MainMenu
     int current_Play;
     int current_Control;
     int current_Exit;
-    Vector2 mouseposition;
 
     public MainMenu(GameWindow window, Game game)
     {
-        string Texture = "assets/MainMenu.png";
-        BackgroundID = texturer.LoadTexture(Texture, 1)[0];
+        // Load the textures
+        string Texture = "assets/MenuBackground.png";
+        BackgroundID = texturer.LoadTexture(Texture, 1,1)[0];
+        string Title = "assets/GUNTATO.png";
+        TitleID = texturer.LoadTexture(Title, 1,1)[0];
+
         string PlayTexture = "assets/Play Button.png";
-        PlayID = texturer.LoadTexture(PlayTexture, 1)[0];
+        PlayID = texturer.LoadTexture(PlayTexture, 1,1)[0];
         current_Play = PlayID;
         string ControlsTexture = "assets/Controls Button.png";
-        ControlsID = texturer.LoadTexture(ControlsTexture, 1)[0];
+        ControlsID = texturer.LoadTexture(ControlsTexture, 1,1)[0];
         current_Control = ControlsID;
         string ExitTexture = "assets/Exit Button.png";
-        ExitID = texturer.LoadTexture(ExitTexture, 1)[0];
+        ExitID = texturer.LoadTexture(ExitTexture, 1,1)[0];
         current_Exit = ExitID;
 
-
         string col_PlayTexture = "assets/col_Play Button.png";
-        col_PlayID = texturer.LoadTexture(col_PlayTexture, 1)[0];
+        col_PlayID = texturer.LoadTexture(col_PlayTexture, 1,1)[0];
         string col_ControlsTexture = "assets/col_Controls Button.png";
-        col_ControlsID = texturer.LoadTexture(col_ControlsTexture, 1)[0];
+        col_ControlsID = texturer.LoadTexture(col_ControlsTexture, 1,1)[0];
         string col_ExitTexture = "assets/col_Exit Button.png";
-        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1)[0];
+        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1,1)[0];
 
         this.game = game;
         myWindow = window;
     }
     public void Draw(GameWindow myWindow)
     {
-        menuHelper.Draw(myWindow, new List<int> {BackgroundID, current_Play, current_Control, current_Exit},true);
+        // Draw the screen
+        menuHelper.DrawBackground(myWindow,BackgroundID);
+        menuHelper.DrawTitle(TitleID, -5f);
+        menuHelper.DrawButtons(myWindow,new List<int>{current_Play, current_Control, current_Exit});
+        myWindow.SwapBuffers();
     }
 
     public void ResetButtons()
@@ -95,7 +103,6 @@ internal class MainMenu
 
     public void OnMouseClick(Vector2 mouseposition)
     {
-        // Überprüfen Sie, ob der Mausklick innerhalb der Buttons liegt
         Hovering(mouseposition, true);
     }
 

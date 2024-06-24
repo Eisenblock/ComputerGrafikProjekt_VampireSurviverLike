@@ -1,16 +1,17 @@
 using OpenTK.Mathematics;
 using OpenTK.Windowing.Desktop;
-using OpenTK.Windowing.Common;
-using OpenTK.Windowing.GraphicsLibraryFramework;
-using OpenTK.Input; // Add the missing import statement
 
 internal class PauseMenu
 {
+    //instances of other classes
     Game game;
     private GameWindow myWindow;
     Texturer texturer = new Texturer(); // Create an instance of the Texturer class
     MenuHelper menuHelper = new MenuHelper();
+
+    //variables for the animation
     int BackgroundID;
+    int TitleID;
     int ResumeID;
     int ControlsID;
     int ExitID;
@@ -20,36 +21,41 @@ internal class PauseMenu
     int current_Resume;
     int current_Control;
     int current_Exit;
-    Vector2 mouseposition;
 
     public PauseMenu(GameWindow window, Game game)
     {
-        string Texture = "assets/PauseMenu.png";
-        BackgroundID = texturer.LoadTexture(Texture, 1)[0];
+        // Load the textures
+        string Texture = "assets/MenuBackground.png";
+        BackgroundID = texturer.LoadTexture(Texture, 1,1)[0];
+        string Title = "assets/PAUSED.png";
+        TitleID = texturer.LoadTexture(Title, 1,1)[0];
+        
         string PlayTexture = "assets/Resume Button.png";
-        ResumeID = texturer.LoadTexture(PlayTexture, 1)[0];
+        ResumeID = texturer.LoadTexture(PlayTexture, 1,1)[0];
         current_Resume = ResumeID;
         string ControlsTexture = "assets/Controls Button.png";
-        ControlsID = texturer.LoadTexture(ControlsTexture, 1)[0];
+        ControlsID = texturer.LoadTexture(ControlsTexture, 1,1)[0];
         current_Control = ControlsID;
         string ExitTexture = "assets/Exit Button.png";
-        ExitID = texturer.LoadTexture(ExitTexture, 1)[0];
+        ExitID = texturer.LoadTexture(ExitTexture, 1,1)[0];
         current_Exit = ExitID;
 
-
         string col_ResumeTexture = "assets/col_Resume Button.png";
-        col_ResumeID = texturer.LoadTexture(col_ResumeTexture, 1)[0];
+        col_ResumeID = texturer.LoadTexture(col_ResumeTexture, 1,1)[0];
         string col_ControlsTexture = "assets/col_Controls Button.png";
-        col_ControlsID = texturer.LoadTexture(col_ControlsTexture, 1)[0];
+        col_ControlsID = texturer.LoadTexture(col_ControlsTexture, 1,1)[0];
         string col_ExitTexture = "assets/col_Exit Button.png";
-        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1)[0];
+        col_ExitID = texturer.LoadTexture(col_ExitTexture, 1,1)[0];
 
         this.game = game;
         myWindow = window;
     }
     public void Draw(GameWindow myWindow)
     {
-        menuHelper.Draw(myWindow, new List<int> {BackgroundID, current_Resume, current_Control, current_Exit}, true);
+        menuHelper.DrawBackground(myWindow,BackgroundID);
+        menuHelper.DrawTitle(TitleID, -5f);
+        menuHelper.DrawButtons(myWindow,new List<int>{current_Resume, current_Control, current_Exit});
+        myWindow.SwapBuffers();
     }
 
     public void ResetButtons()
@@ -96,8 +102,6 @@ internal class PauseMenu
 
     public void OnMouseClick(Vector2 mouseposition)
     {
-        // Überprüfen Sie, ob der Mausklick innerhalb der Buttons liegt
-        Console.WriteLine("Mouse Clicked");
         Hovering(mouseposition, true);
     }
 

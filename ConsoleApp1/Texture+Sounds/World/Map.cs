@@ -1,39 +1,28 @@
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing;
-using System.Drawing.Imaging;
-using ImageMagick;
-using Image = System.Drawing.Image;
-using ImageMagick.Formats;
-using System.Numerics;
 
 
 internal class Map
 {
-    public static OpenTK.Mathematics.Vector2 WindowSize => Program.WindowSize;
+    //instances of other classes
+    Texturer texturer = new Texturer(); 
+
+    //variables for the map
     public string Texture_Map;
     public int TextureID_Map;
     public string Texture_Wall;
     public int TextureID_Wall;
     public List<int> TextureID_Hearts;
 
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
-    SoundsPlayer soundsPlayer = new SoundsPlayer(); // Create an instance of the SoundsPlayer class
-
     public Map()
     {
+        // Load the textures
         Texture_Map = "assets/sMap.png";
-        TextureID_Map = texturer.LoadTexture(Texture_Map,1)[0]; // Call the LoadTexture method on the instance
+        TextureID_Map = texturer.LoadTexture(Texture_Map,1,1)[0]; // Call the LoadTexture method on the instance
 
         Texture_Wall = "assets/sWall.png";
-        TextureID_Wall = texturer.LoadTexture(Texture_Wall,1)[0]; // Call the LoadTexture method on the instance
-    }
-
-    float SetScale()
-    {
-        return GlobalSettings.AspectRatio;
+        TextureID_Wall = texturer.LoadTexture(Texture_Wall,1,1)[0]; // Call the LoadTexture method on the instance
     }
 
     public void Draw()
@@ -44,7 +33,7 @@ internal class Map
         var tex_rect = new RectangleF(0f, 0f, 1f, 1f);
 
 
-        texturer.Draw(TextureID_Map, rect_map, tex_rect); // Hintergrundbild zeichnen
-        texturer.Draw(TextureID_Wall, rect_wall, tex_rect); // Hintergrundbild zeichnen
+        texturer.Draw(TextureID_Map, rect_map, tex_rect); //Draw the map
+        texturer.Draw(TextureID_Wall, rect_wall, tex_rect); //Draw the wall
     }
 }

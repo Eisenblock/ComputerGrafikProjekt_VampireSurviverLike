@@ -1,19 +1,24 @@
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Printing;
 using System.Drawing;
 
-public class Mouse{
+public class Mouse
+{
+    //instances of other classes
+    Texturer texturer = new Texturer();
 
+    //variables
     public Vector2 Position { get; set; }
+
+    //variables for the animation
     public string Texture { get; set; }
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
-    public int TextureID { get; private set; } // Hier speichern wir die Textur-ID
+    public int TextureID { get; private set; }
 
     public Mouse()
     {
+        // Load the textures
         Texture = "assets/crosshair.png";
-        TextureID = texturer.LoadTexture(Texture,1)[0]; // Call the LoadTexture method on the instance
+        TextureID = texturer.LoadTexture(Texture,1,1)[0];
     }
 
     public void Update(Vector2 pos)

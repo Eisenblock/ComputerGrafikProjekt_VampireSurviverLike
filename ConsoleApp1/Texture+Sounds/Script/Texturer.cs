@@ -1,16 +1,9 @@
- using OpenTK.Mathematics;
+using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing;
-using System.Drawing.Imaging;
 using ImageMagick;
-using System.IO;
-using Image = System.Drawing.Image;
-using OpenTK.Windowing.GraphicsLibraryFramework;
 
 class Texturer{
-
     public Vector2i WindowSize => Program.WindowSize;
 
     public Texturer()
@@ -19,12 +12,12 @@ class Texturer{
         GL.BlendFunc(BlendingFactor.SrcAlpha, BlendingFactor.OneMinusSrcAlpha);
         GL.Enable(EnableCap.Blend);
     }
-    public List<int> LoadTexture(string path, int frameCount)
+    public List<int> LoadTexture(string path, int horizontalFrameCount, int verticalFrameCount)
     {
         if (!File.Exists(path))
         {
             Console.WriteLine("Texture file not found: " + path);
-            return null; // Rückgabe einer ungültigen Textur-ID
+            return null; // Return an invalid texture ID
         }
         using var image = new MagickImage(path);
         var format = PixelInternalFormat.Rgb;
@@ -36,38 +29,43 @@ class Texturer{
         }
         image.Flip();
 
-        // Calculate the width of each frame
-        int frameWidth = image.Width / frameCount;
+        // Calculate the width and height of each frame
+        int frameWidth = image.Width / horizontalFrameCount;
+        int frameHeight = image.Height / verticalFrameCount;
 
         // Create a list to store the handles for each frame
         List<int> handles = new List<int>();
 
-        // Loop through each frame
-        for (int i = 0; i < frameCount; i++)
+        // Loop through each row and then each column
+        for (int j = verticalFrameCount -1; j >= 0; j--)
         {
-            // Get the pixels for this frame
+            for (int i = 0; i < horizontalFrameCount; i++)
+            {
+                int xPosition = i * frameWidth;
+                int yPosition = j * frameHeight;
 
-            // Erstelle einen Ausschnitt des Bildes basierend auf dem aktuellen Frame
-            using var croppedImage = image.Clone(new MagickGeometry(i * frameWidth, 0, frameWidth, image.Height));
+                // Create a section of the image based on the current frame
+                using var croppedImage = image.Clone(new MagickGeometry(xPosition, yPosition, frameWidth, frameHeight));
 
-            // Konvertiere den ausgeschnittenen Ausschnitt in ein Byte-Array
-            var bytes = croppedImage.GetPixelsUnsafe().ToArray();
+                // Convert the cropped section into a byte array
+                var bytes = croppedImage.GetPixelsUnsafe().ToArray();
 
-            // Generate a texture for this frame
-            var handle = GL.GenTexture();
-            GL.BindTexture(TextureTarget.Texture2D, handle);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Linear);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
+                // Generate a texture for this frame
+                var handle = GL.GenTexture();
+                GL.BindTexture(TextureTarget.Texture2D, handle);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapS, (int)TextureWrapMode.ClampToEdge);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureWrapT, (int)TextureWrapMode.ClampToEdge);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMagFilter, (int)TextureMinFilter.Linear);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.TextureMinFilter, (int)TextureMinFilter.Linear);
 
-            GL.TexImage2D(TextureTarget.Texture2D, 0, (OpenTK.Graphics.OpenGL.PixelInternalFormat)format, frameWidth, image.Height, 0, (OpenTK.Graphics.OpenGL.PixelFormat)format, OpenTK.Graphics.OpenGL.PixelType.UnsignedByte, bytes);
-            GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
-            GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 1);
-            GL.BindTexture(TextureTarget.Texture2D, 0);
+                GL.TexImage2D(TextureTarget.Texture2D, 0, (OpenTK.Graphics.OpenGL.PixelInternalFormat)format, frameWidth, frameHeight, 0, (OpenTK.Graphics.OpenGL.PixelFormat)format, OpenTK.Graphics.OpenGL.PixelType.UnsignedByte, bytes);
+                GL.GenerateMipmap(GenerateMipmapTarget.Texture2D);
+                GL.TexParameter(TextureTarget.Texture2D, TextureParameterName.GenerateMipmap, 1);
+                GL.BindTexture(TextureTarget.Texture2D, 0);
 
-            // Add the handle to the list
-            handles.Add(handle);
+                // Add the handle to the list
+                handles.Add(handle);
+            }
         }
 
         return handles;

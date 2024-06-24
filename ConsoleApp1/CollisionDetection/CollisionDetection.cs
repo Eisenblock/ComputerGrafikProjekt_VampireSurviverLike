@@ -1,15 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Drawing.Printing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-using OpenTK.Mathematics;
-
-class CollisionDetection
+﻿class CollisionDetection
 {
- 
-
     private bool CheckCollision(Circle circle1, Circle circle2)
     {
         float distanceSquared = (circle1.Center - circle2.Center).LengthSquared;
@@ -18,9 +8,8 @@ class CollisionDetection
         return distanceSquared < radiusSumSquared;
     }
 
-     public void CheckCollision(Player player, List<Enemy> enemies, List<Shoot> shoots)
+    public void CheckCollision(Player player, List<Enemy> enemies, List<Shoot> shoots)
     {
-
         if (enemies != null)
         {
             foreach (Enemy enemy in enemies)
@@ -33,7 +22,7 @@ class CollisionDetection
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
                         {                           
                             player.DecreaseHealth(enemy.Dmg);
-                            player.LastCollision = DateTime.Now; // Aktualisieren des Zeitstempels der letzten Kollision
+                            player.LastCollision = DateTime.Now; // Update the last collision time
                         }
                         
                     }  
@@ -74,11 +63,9 @@ class CollisionDetection
                 if(shoot.isLive == true && shoot.shotbyPlayer == false){
                     if(CheckCollision(shoot.boundShoot,player.bounds) == true)
                     {
-                       
                             player.DecreaseHealth(1);
                             player.LastCollision = DateTime.Now;
                             shoot.isLive = false;
-                        
                     }
                 }
             }

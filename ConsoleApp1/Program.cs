@@ -3,10 +3,6 @@ using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
-using System.Drawing;
-using System.Windows.Forms;
-using System.Data;
-using System.Security.Cryptography.X509Certificates;
 
 public static class Program
 {
@@ -22,52 +18,60 @@ public static class Program
                 ClientSize = new Vector2i(1200, 1000) // Setzen Sie die Fenstergröße auf 800x600 Pixel
             }
         );
-        WindowSize = window.ClientSize;   
+        WindowSize = window.ClientSize;  
+
+        // Set mouse to normal state
+        void setMouseInMenu()
+        {
+            window.CursorState = CursorState.Normal;
+            window.CursorState = CursorState.Normal;
+        }
+        // Set mouse to hidden state
+        void setMouseInGame()
+        {
+            window.CursorState = CursorState.Grabbed;
+            window.CursorState = CursorState.Hidden;
+        } 
+
+        //instances of other classes
+        Score score = new Score();
+        score.LoadHighscore();
 
         Player player = new Player();
         Map map = new Map();
         GUI gui = new GUI(player);
         Gun gun = new Gun();
-        Enemy enemy = new (new Vector2(0.6f,0.6f),false,1,Vector2.Zero);
-        EnemyList enemyList = new EnemyList(player,enemy, gui);
+        Enemy enemy = new (new Vector2(0.6f,0.6f),false,1,Vector2.Zero, new List<int>());
+        EnemyList enemyList = new EnemyList(player, gui, score);
         CollisionDetection collisionDetection = new CollisionDetection();
         SoundsPlayer soundsPlayer = new SoundsPlayer();
         Shootlist shootlist = new Shootlist(player);
-        Texturer texturer = new Texturer();
         Mouse mouse = new Mouse();
-
-        float aspectRatio = 1f;
+        
+        //variables
         double timer = 3;
-        double timerShoot = 0;
-        double interval = 3;
         Vector2 mousePosition = Vector2.Zero;
-        Vector2 playerpos = new Vector2(0,0);
-        Vector2 pos = new Vector2(1,1);
-
         bool moveLeft = false;
         bool moveRight = false;
         bool moveUp = false;
         bool moveDown = false;
 
+        //functions
         Action Restart = () =>
         {
-            timerShoot = 0;
             enemyList.ClearAll();
             shootlist.ClearAll();
             player.ClearAll();
+            score.ResetScore();
         };
-        Game gamestate  = new Game(window, player, Restart, soundsPlayer);
 
-
+        //Load gamestates
+        Game gamestate  = new Game(window, player, Restart, soundsPlayer, score);
         window.UpdateFrame += Update;
         window.RenderFrame += Render;
         window.Resize += Resize;
 
-        window.MouseMove +=  args =>
-        {
-            mousePosition = new Vector2((float)args.X / window.ClientSize.X * 2 - 1, 1 - (float)args.Y / window.ClientSize.Y * 2);
-        };
-
+        //Eventhandler button pressed
         window.KeyDown += args =>
         {
             switch (args.Key)
@@ -82,6 +86,7 @@ public static class Program
             }
         };
 
+        //Eventhandler button released
         window.KeyUp += args =>
         {
             switch (args.Key)
@@ -93,6 +98,13 @@ public static class Program
             }
         };
 
+        //Eventhandler mouse
+        window.MouseMove +=  args =>
+        {
+            mousePosition = new Vector2((float)args.X / window.ClientSize.X * 2 - 1, 1 - (float)args.Y / window.ClientSize.Y * 2);
+        };
+
+        //Eventhandler mouse click
         window.MouseDown += args =>
         {
             if (args.Button == MouseButton.Left)
@@ -119,23 +131,13 @@ public static class Program
             }
         };
 
-
-
+        //Run the game
         window.Run();
 
-        void setMouseInMenu()
-        {
-            window.CursorState = CursorState.Normal;
-            window.CursorState = CursorState.Normal;
-        }
-        void setMouseInGame()
-        {
-            window.CursorState = CursorState.Grabbed;
-            window.CursorState = CursorState.Hidden;
-        }
-
+        //Render the game
         void Render(FrameEventArgs e)
         {
+            //Draw the current gamestate
             if(gamestate.state == GameState.Paused)
             {
                 gamestate.pauseMenu.Draw(window);
@@ -152,6 +154,7 @@ public static class Program
             }
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                // Draw everything else if the game is running
                 map.Draw();
                 gun.Draw();
                 foreach (var enemies in enemyList.enemies)
@@ -164,17 +167,17 @@ public static class Program
                 enemyList.DrawArray(timer);
                 player.Draw(timer, mousePosition);
                 shootlist.DrawShoots();
+                gamestate.running.Draw();
                 gui.Draw();
                 mouse.Draw();
-
                 window.SwapBuffers();
             }
-
         }
 
 
         void Update(FrameEventArgs e)
         {
+            // Update the current gamestate
             if(player.health <= 0)
             {
                 gamestate.GameOver();
@@ -204,60 +207,55 @@ public static class Program
             }
             else
             {
+                // Update the game if the game is running
                 if(CursorState.Normal == window.CursorState)
                 {
                     setMouseInGame();
                 }
+
+                // Move the player
                 if (moveLeft) player.Left();
                 if (moveRight) player.Right();
                 if (moveUp) player.Up();
                 if (moveDown) player.Down();
                 if (moveLeft == false && moveRight  == false && moveUp == false && moveDown == false) player.Stop();
-                if (gamestate.state == GameState.UpgradeScreen)
+
+                // Moves the enemies
+                foreach (var enemy in enemyList.enemies)
                 {
-                    // Führen Sie die Upgrade-Logik aus
-                    gamestate.gameOver.Restart();
-                }
-                else
-                {
-                    playerpos = player.Position;
-                    // Durchläuft das Array der Feinde und lässt jeden Feind den Spieler verfolgen
-                    foreach (var enemy in enemyList.enemies)
+                    if (enemy != null && enemy.enemyDead == false) // Check if the enemy is alive and e
                     {
-                        if (enemy != null && enemy.enemyDead == false) // Überprüft, ob der Feind existiert
+                        //check which type of enemy it is
+                        if(enemy is BigEnemy bigEnemy)
                         {
-                            //check welcher Enemy der derzeitige ist
-                            if(enemy is BigEnemy bigEnemy)
-                            {
-                                bigEnemy.Update(playerpos);
-                            }
-                            if(enemy is FastEnemy fastEnemy)
-                            {
-                                fastEnemy.Update(playerpos);
-                            }
-                            if(enemy is RangedEnemy rangedEnemy)
-                            {
-                                rangedEnemy.Update(playerpos);
-                                
-                                if (enemy.range.Length < 0.9f)
-                                {                                
-                                    shootlist.InitializeShoot(playerpos, rangedEnemy, timer);
-                                }
-                            }
-                            else
-                            {
-                                enemy.MoveTowards(playerpos, 0.0001f); // Bewegt den Feind in Richtung des Spielers
+                            bigEnemy.Update(player.Position);
+                        }
+                        if(enemy is FastEnemy fastEnemy)
+                        {
+                            fastEnemy.Update(player.Position);
+                        }
+                        if(enemy is RangedEnemy rangedEnemy)
+                        {
+                            rangedEnemy.Update(player.Position);
+                            
+                            if (enemy.range.Length < 0.9f)
+                            {                                
+                                shootlist.InitializeShoot(player.Position, rangedEnemy, timer);
                             }
                         }
+                        else
+                        {
+                            enemy.MoveTowards(player.Position, 0.0001f); // move the enemy towards the player
+                        }
                     }
-                    mouse.Update(mousePosition);
-                    gun.Update(player, mousePosition);
-                    timer += e.Time;
-                    timerShoot += e.Time;
-                    enemyList.UpdateTimer(timer);
-                    shootlist.ShootDirectionList(timer);
-                    collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
                 }
+                // update everything else
+                mouse.Update(mousePosition);
+                gun.Update(player, mousePosition);
+                timer += e.Time;
+                enemyList.UpdateTimer(timer);
+                shootlist.ShootDirectionList(timer);
+                collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
             }
         }
 
@@ -266,5 +264,5 @@ public static class Program
             GL.Viewport(0, 0, e.Width, e.Height);
             GlobalSettings.AspectRatio = e.Width / (float)e.Height;
         }
-            }
+    }
 }

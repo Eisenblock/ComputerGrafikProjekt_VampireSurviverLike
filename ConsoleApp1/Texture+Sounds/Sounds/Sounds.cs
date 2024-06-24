@@ -26,7 +26,7 @@ public class SoundsPlayer
                         };
                     }
 
-                    // Warten, bis der Sound abgespielt ist
+                    // Wait till the audio is playing
                     while (outputDevice.PlaybackState == PlaybackState.Playing)
                     {
                         System.Threading.Thread.Sleep(100);

@@ -1,31 +1,25 @@
 using OpenTK.Mathematics;
 using OpenTK.Graphics.OpenGL;
-using System.Drawing.Drawing2D;
-using System.Drawing.Printing;
 using System.Drawing;
-using System.Drawing.Imaging;
-using ImageMagick;
-using Image = System.Drawing.Image;
-using ImageMagick.Formats;
-using System.Numerics;
-using System.Security.Cryptography.X509Certificates;
-
 
 internal class GUI
 {
-    public static OpenTK.Mathematics.Vector2 WindowSize => Program.WindowSize;
+    //instances of other classes
+    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
+
+    //variables
+    List<Entity> entitylist = new List<Entity>(); // Initialize the entitylist
+
+    //variables for the animation
     public string Texture_Hearts;
     public List<int> TextureID_Hearts;
-
-    Texturer texturer = new Texturer(); // Create an instance of the Texturer class
-    List<Entity> entitylist = new List<Entity>(); // Initialize the entitylist
 
     public GUI(Entity entity)
     {
         entitylist.Add(entity);
 
         Texture_Hearts = "assets/Hearts.png";
-        TextureID_Hearts = texturer.LoadTexture(Texture_Hearts,3); // Call the LoadTexture method on the instance
+        TextureID_Hearts = texturer.LoadTexture(Texture_Hearts,3,1); // Call the LoadTexture method on the instance
     }
     public void AddBoss(Entity entity)
     {
@@ -35,11 +29,6 @@ internal class GUI
     public void RemoveBoss(Entity entity)
     {
         entitylist.Remove(entity);
-    }
-
-    float SetScale()
-    {
-        return GlobalSettings.AspectRatio;
     }
 
     public void Draw()
@@ -89,12 +78,13 @@ internal class GUI
     }
     public void DrawHeartsEnemy()
     {
+        // Draw the hearts for the Bosses
         for(int i = 1; i < entitylist.Count; i++)
         {
             var current_health = entitylist[i].health;
             float offset_X = -0.05f;
             float offset_Y = 0.15f;
-            for (int j = 0; j <= entitylist[i].max_Health/2; j++)
+            for (int j = 0; j < entitylist[i].max_Health/2; j++)
             {
                 if (current_health >= 2)
                 {

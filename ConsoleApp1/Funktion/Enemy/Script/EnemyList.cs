@@ -14,8 +14,10 @@ class EnemyList
     private double spawnTimer = 2; //Timer for the spawn of the enemies
     private double lastPrintedTime = 0; //Last time the enemies were spawned
     private int deadEnemiesCount = 0;
-    private int neededKills = 10; //Number of kills needed to spawn the boss
+    private int neededKills = 5; //Number of kills needed to spawn the boss
     private bool bossAlive = false;
+    int bossHealth = 6;
+    int deadBosses = 0;
     
     public EnemyList(Entity player, GUI gui, Score score)
     {
@@ -55,9 +57,12 @@ class EnemyList
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Repeat until the enemy is not spawned in the arena
 
         // Enemies spawnen
+        Console.WriteLine("Enemy spawned: "+ (deadEnemiesCount % neededKills));
+        Console.WriteLine("Enemy dead: "+deadEnemiesCount);
+        Console.WriteLine("Boss killed: "+bossAlive);
         if (deadEnemiesCount % neededKills == 0 && deadEnemiesCount > 0 && bossAlive == false)
         {
-            Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2, Vector2.Zero, particlesList);
+            Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2, Vector2.Zero, bossHealth+deadBosses, particlesList);
             enemies.Add(enemy);
             bossAlive = true;
             Console.WriteLine("Boss spawned");
@@ -110,6 +115,7 @@ class EnemyList
                 if ((DateTime.Now - enemies[i].LastCollision).TotalSeconds >= 1)
                 {
                     bossAlive = false;
+                    deadBosses++;
                     gui.RemoveBoss(enemies[i]);
                     score.AddScore(5);
                     NextWave();

@@ -1,5 +1,6 @@
 ﻿class CollisionDetection
 {
+    float shakeduratio = 0;
     private bool CheckCollision(Circle circle1, Circle circle2)
     {
         float distanceSquared = (circle1.Center - circle2.Center).LengthSquared;
@@ -10,6 +11,7 @@
 
     public void CheckCollision(Player player, List<Enemy> enemies, List<Shoot> shoots)
     {
+        
         if (enemies != null)
         {
             foreach (Enemy enemy in enemies)
@@ -22,11 +24,23 @@
                         if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)
                         {                           
                             player.DecreaseHealth(enemy.Dmg);
+                            Console.WriteLine(player.health);
+                            if(player.health <= 0 )
+                            {
+                                shakeduratio = 0;
+                            }
+                            else
+                            {
+                                shakeduratio = 0.25f;
+                            }
+                            
                             player.LastCollision = DateTime.Now; // Update the last collision time
                         }
-                        
-                    }  
-                    if ((DateTime.Now - player.LastCollision).TotalSeconds >= 1)  {
+                       
+                    }
+                    
+                    if ((DateTime.Now - player.LastCollision).TotalSeconds >= 0.25f)  {
+                        shakeduratio = 0;
                     }          
                 }
             }
@@ -65,11 +79,31 @@
                     {
                             player.DecreaseHealth(1);
                             player.LastCollision = DateTime.Now;
+                            if (player.health <= 0)
+                            {
+                                shakeduratio = 0;
+                            }
+                            else
+                            {
+                                shakeduratio = 0.25f;
+                            }
                             shoot.isLive = false;
+                    }
+
+                    if ((DateTime.Now - player.LastCollision).TotalSeconds >= 0.25f)
+                    {
+                        shakeduratio = 0;
                     }
                 }
             }
         }
         
+    }
+
+    public float UpdateShakeDuration()
+    {
+        
+
+        return shakeduratio;
     }
 }

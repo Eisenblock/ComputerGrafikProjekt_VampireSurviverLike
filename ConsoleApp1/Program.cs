@@ -3,14 +3,16 @@ using OpenTK.Windowing.Common;
 using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
+using System.Security.Cryptography;
 
-public static class Program
+public  class Program
 {
     public static Vector2i WindowSize {get; private set;}
 
     public static void Main(string[] args)
     {
-        var window = new GameWindow(
+
+    var window = new GameWindow(
             new GameWindowSettings(),
             new NativeWindowSettings()
             {
@@ -18,7 +20,18 @@ public static class Program
                 ClientSize = new Vector2i(1200, 1000) // Setzen Sie die Fenstergröße auf 800x600 Pixel
             }
         );
-        WindowSize = window.ClientSize;  
+        WindowSize = window.ClientSize;
+
+        void Resize(ResizeEventArgs e)
+        {
+            GL.Viewport(0, 0, e.Width, e.Height);
+            GlobalSettings.AspectRatio = e.Width / (float)e.Height;
+            Matrix4 modelView = Matrix4.CreateOrthographic(e.Width, e.Height, -1.0f, 1.0f);
+            /*GL.MatrixMode(MatrixMode.Projection);
+            GL.LoadMatrix(ref projection);
+            GL.MatrixMode(MatrixMode.Modelview);*/
+           
+        }
 
         // Set mouse to normal state
         void setMouseInMenu()
@@ -55,6 +68,10 @@ public static class Program
         bool moveRight = false;
         bool moveUp = false;
         bool moveDown = false;
+        float shakeDuration = 0.0f;
+        float ShakeMagnitude = 0.1f;
+        Random random = new Random();
+        Matrix4 modelView = new Matrix4();
 
         //functions
         Action Restart = () =>
@@ -81,6 +98,7 @@ public static class Program
                 case Keys.D: moveRight = true; break;
                 case Keys.W: moveUp = true; break;
                 case Keys.S: moveDown = true; break;
+                //case Keys.X: shakeDuration = 0.5f; break;
                 // case Keys.L: gamestate.state = GameState.UpgradeScreen; break;
                 case Keys.R: gamestate.gameOver.Restart(); break;
             }
@@ -154,6 +172,18 @@ public static class Program
             }
             else{
                 GL.Clear(ClearBufferMask.ColorBufferBit | ClearBufferMask.DepthBufferBit);
+                Matrix4 modelView = Matrix4.Identity;
+                shakeDuration = collisionDetection.UpdateShakeDuration();
+
+                if (shakeDuration > 0)
+                {
+                    float offsetX = (float)(random.NextDouble() * 2 - 1) * ShakeMagnitude;
+                    float offsetY = (float)(random.NextDouble() * 2 - 1) * ShakeMagnitude;
+                    modelView = Matrix4.CreateTranslation(offsetX, offsetY, 0);
+                }
+           
+                GL.MatrixMode(MatrixMode.Modelview);
+                GL.LoadMatrix(ref modelView);
                 // Draw everything else if the game is running
                 map.Draw();
                 gun.Draw();
@@ -177,8 +207,9 @@ public static class Program
 
         void Update(FrameEventArgs e)
         {
+
             // Update the current gamestate
-            if(player.health <= 0)
+            if (player.health <= 0)
             {
                 gamestate.GameOver();
             }
@@ -256,13 +287,12 @@ public static class Program
                 enemyList.UpdateTimer(timer);
                 shootlist.ShootDirectionList(timer);
                 collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
+                shakeDuration = collisionDetection.UpdateShakeDuration();
+               
             }
         }
 
-        void Resize(ResizeEventArgs e)
-        {
-            GL.Viewport(0, 0, e.Width, e.Height);
-            GlobalSettings.AspectRatio = e.Width / (float)e.Height;
-        }
     }
+
+
 }

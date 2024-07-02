@@ -126,6 +126,7 @@ internal class Player : Entity
     }
     public void Draw(double time, Vector2 mouse)
     {
+        bounds.Center = Position;
         var isFacingRight = true;
         if (!playerDead)
         {
@@ -169,7 +170,7 @@ internal class Player : Entity
                 lastFrameTime = time;
             }
             Texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
-            DrawCircle(Position, bounds.Radius, 32);    
+            //DrawCircle(Position, bounds.Radius, 32);    
         }
     }
 }

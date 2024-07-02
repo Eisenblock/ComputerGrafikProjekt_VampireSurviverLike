@@ -78,7 +78,7 @@ internal class Shoot
         if (isLive == true)
         {
             texturer.Draw(TextureID, rect, tex_rect); // Hintergrundbild zeichnen   
-            DrawCircle(shootPos, 0.1f, 32);
+            //DrawCircle(shootPos, 0.1f, 32);
         }
     }
 

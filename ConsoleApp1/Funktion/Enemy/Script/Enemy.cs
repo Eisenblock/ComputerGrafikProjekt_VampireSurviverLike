@@ -113,7 +113,7 @@ internal class Enemy : Entity
             lastFrameTime = time; 
         }
         texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
-        DrawCircle(Position, boundEnemy.Radius, 32);  
+        //DrawCircle(Position, boundEnemy.Radius, 32);  
     }
 
     public void MoveTowards(Vector2 targetPosition, float speed)

@@ -69,7 +69,7 @@ public  class Program
         bool moveUp = false;
         bool moveDown = false;
         float shakeDuration = 0.0f;
-        float ShakeMagnitude = 0.1f;
+        float ShakeMagnitude = 0.01f;
         Random random = new Random();
         Matrix4 modelView = new Matrix4();
 

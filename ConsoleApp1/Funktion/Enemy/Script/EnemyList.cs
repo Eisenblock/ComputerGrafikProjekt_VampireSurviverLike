@@ -14,7 +14,7 @@ class EnemyList
     private double spawnTimer = 2; //Timer for the spawn of the enemies
     private double lastPrintedTime = 0; //Last time the enemies were spawned
     private int deadEnemiesCount = 0;
-    private int neededKills = 5; //Number of kills needed to spawn the boss
+    private int neededKills = 10; //Number of kills needed to spawn the boss
     private bool bossAlive = false;
     int bossHealth = 6;
     int deadBosses = 0;

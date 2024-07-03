@@ -237,3 +237,6 @@ C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\n
 C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Midi.dll
 C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.Wasapi.dll
 C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\NAudio.WinMM.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\Zenseless.OpenTK.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\Zenseless.Patterns.dll
+C:\Users\paulk\ComputerGrafikProjekt_VampireSurviverLike\ConsoleApp1\bin\Debug\net8.0\Zenseless.Resources.dll

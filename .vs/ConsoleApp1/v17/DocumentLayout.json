@@ -3,40 +3,32 @@
   "WorkspaceRootPath": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\player\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\player\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\collisiondetection\\collisiondetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\collisiondetection\\collisiondetection.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\fastenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\fastenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\script\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\script\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\rangedenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\rangedenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\script\\enemylist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\script\\enemylist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\shoot(enemy \u0026 player\\shoot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\shoot(enemy \u0026 player\\shoot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\shoot(enemy \u0026 player\\shootlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\shoot(enemy \u0026 player\\shootlist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\shoot(enemy \u0026 player\\shoot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\shoot(enemy \u0026 player\\shoot.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\camera.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\player\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\player\\script\\player.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\script\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\script\\enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\script\\enemylist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\script\\enemylist.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\enemy_type\\boss\\bossenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -47,7 +39,20 @@
       "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\bigenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{A2FE74E1-B743-11D0-AE1A-00A0C90FFFC3}|\u003CMiscFiles\u003E|C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLikesds\\ConsoleApp1\\Enemy\\Enemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\fastenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\fastenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\rangedenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\funktion\\enemy\\enemy_type\\thrash\\rangedenemy.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\view.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|c:\\users\\paulk\\computergrafikprojekt_vampiresurviverlike\\consoleapp1\\consoleapp1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|",
+      "RelativeMoniker": "D:0:0:{5BB223E9-69AD-40B5-9EBB-423048D36B4C}|ConsoleApp1\\ConsoleApp1.csproj|solutionrelative:consoleapp1\\consoleapp1.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}|"
     }
   ],
   "DocumentGroupContainers": [
@@ -57,7 +62,7 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 14,
+          "SelectedChildIndex": 4,
           "Children": [
             {
               "$type": "Bookmark",
@@ -74,39 +79,75 @@
             {
               "$type": "Document",
               "DocumentIndex": 1,
-              "Title": "Player.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
-              "ViewState": "AQIAAEoAAAAAAAAAAAAiwCcAAAAuAAAA",
+              "Title": "Shootlist.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
+              "ViewState": "AQIAACYAAAAAAAAAAAAwwDkAAAApAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T12:40:49.343Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-07-03T14:50:30.733Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
-              "Title": "CollisionDetection.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\CollisionDetection\\CollisionDetection.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\CollisionDetection\\CollisionDetection.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\CollisionDetection\\CollisionDetection.cs",
-              "RelativeToolTip": "ConsoleApp1\\CollisionDetection\\CollisionDetection.cs",
-              "ViewState": "AQIAAEUAAAAAAAAAAAAowFsAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-29T11:18:28.245Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 0,
               "Title": "Shoot.cs",
               "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shoot.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shoot.cs",
               "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shoot.cs",
               "RelativeToolTip": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shoot.cs",
-              "ViewState": "AQIAACkAAAAAAAAAAAAwwAAAAAAAAAAA",
+              "ViewState": "AQIAAEAAAAAAAAAAAAAcwGYAAAAhAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T14:24:51.426Z"
+              "WhenOpened": "2024-07-03T14:50:20.848Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 7,
+              "Title": "BossEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAQAAABsAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T14:02:18.801Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 10,
+              "Title": "RangedEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAqwAcAAABgAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T14:00:05.821Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 9,
+              "Title": "FastEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABdAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T13:57:33.406Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 8,
+              "Title": "BigEnemy.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAYAAABcAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T13:46:25.945Z"
             },
             {
               "$type": "Document",
@@ -116,106 +157,81 @@
               "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Script\\EnemyList.cs",
               "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Script\\EnemyList.cs",
               "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Script\\EnemyList.cs",
-              "ViewState": "AQIAABMAAAAAAAAAAAAgwDIAAABRAAAA",
+              "ViewState": "AQIAAHYAAAAAAAAAAAAQwJoAAAAzAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T13:59:28.509Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 3,
-              "Title": "FastEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\FastEnemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAAAFAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T14:04:36.045Z"
+              "WhenOpened": "2024-07-03T13:44:26.445Z"
             },
             {
               "$type": "Document",
               "DocumentIndex": 5,
-              "Title": "RangedEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\RangedEnemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAABgAAAAAAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T14:04:10.754Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 10,
-              "Title": "BigEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Thrash\\BigEnemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABjAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T14:04:07.856Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 9,
-              "Title": "BossEnemy.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Enemy_Type\\Boss\\BossEnemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAcAAABkAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T13:59:48.947Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 11,
-              "Title": "Enemy.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLikesds\\ConsoleApp1\\Enemy\\Enemy.cs",
-              "RelativeDocumentMoniker": "..\\ComputerGrafikProjekt_VampireSurviverLikesds\\ConsoleApp1\\Enemy\\Enemy.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLikesds\\ConsoleApp1\\Enemy\\Enemy.cs",
-              "RelativeToolTip": "..\\ComputerGrafikProjekt_VampireSurviverLikesds\\ConsoleApp1\\Enemy\\Enemy.cs",
-              "ViewState": "AQIAAJMAAAAAAAAAAAAAAK0AAAAaAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T11:34:21.178Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 7,
-              "Title": "Shootlist.cs",
-              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
-              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
-              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
-              "RelativeToolTip": "ConsoleApp1\\Funktion\\Shoot(Enemy \u0026 Player\\Shootlist.cs",
-              "ViewState": "AQIAAAUAAAAAAAAAAAAQwEwAAAAoAAAA",
-              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T11:32:13.493Z"
-            },
-            {
-              "$type": "Document",
-              "DocumentIndex": 4,
               "Title": "Enemy.cs",
               "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Script\\Enemy.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Enemy\\Script\\Enemy.cs",
               "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Enemy\\Script\\Enemy.cs",
               "RelativeToolTip": "ConsoleApp1\\Funktion\\Enemy\\Script\\Enemy.cs",
-              "ViewState": "AQIAAAAAAAAAAAAAAAAAALMAAAAbAAAA",
+              "ViewState": "AQIAAKMAAAAAAAAAAAAYwMUAAAAFAAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-06-02T11:31:58.292Z"
+              "WhenOpened": "2024-07-03T13:43:40.866Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 4,
+              "Title": "Player.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
+              "RelativeToolTip": "ConsoleApp1\\Funktion\\Player\\Script\\Player.cs",
+              "ViewState": "AQIAAIcAAAAAAAAAAAAiwLMAAAAHAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T13:22:27.646Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 12,
+              "Title": "ConsoleApp1.csproj",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+              "RelativeDocumentMoniker": "ConsoleApp1\\ConsoleApp1.csproj",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+              "RelativeToolTip": "ConsoleApp1\\ConsoleApp1.csproj",
+              "ViewState": "AQIAAAAAAAAAAAAAAAAAAAAAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2024-07-03T13:17:21.903Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 11,
+              "Title": "View.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\View.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\View.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\View.cs",
+              "RelativeToolTip": "ConsoleApp1\\View.cs",
+              "ViewState": "AQIAAAkAAAAAAAAAAAAAADkAAAAAAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T13:17:30.07Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 3,
+              "Title": "Camera.cs",
+              "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Camera.cs",
+              "RelativeDocumentMoniker": "ConsoleApp1\\Camera.cs",
+              "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Camera.cs",
+              "RelativeToolTip": "ConsoleApp1\\Camera.cs",
+              "ViewState": "AQIAABkAAAAAAAAAAAA0wAMAAAAvAAAA",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2024-07-03T13:17:18.282Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "Program.cs",
               "DocumentMoniker": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Program.cs",
               "RelativeDocumentMoniker": "ConsoleApp1\\Program.cs",
               "ToolTip": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\Program.cs",
               "RelativeToolTip": "ConsoleApp1\\Program.cs",
-              "ViewState": "AQIAAA0BAAAAAAAAAAAkwCUBAAAAAAAA",
+              "ViewState": "AQIAAPwAAAAAAAAAAAAcwCkBAAA1AAAA",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2024-04-13T09:27:30.96Z",
-              "EditorCaption": ""
+              "WhenOpened": "2024-04-13T09:27:30.96Z"
             }
           ]
         }

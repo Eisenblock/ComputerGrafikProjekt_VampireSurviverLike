@@ -5,7 +5,7 @@ using System.Drawing;
 internal class Enemy : Entity
 {
     //instances of other classes
-    Texturer texturer = new Texturer(); 
+    Texturer texturer = new Texturer();
     Player player = new Player();
     Particles particles;
 
@@ -16,32 +16,35 @@ internal class Enemy : Entity
     public float scale;
     public float size { get; set; } = 0.1f;
     public double time;
+    float timerr = 0f;
     public Vector2 range;
     public Vector2 range2;
     public Circle boundEnemy;
     public bool enemyDead;
     public bool isActive;
-    
+    float time_walk = 0f;
+
     //variables for the animation
     public List<int> TextureID_Run;
     public List<int> TextureID_Dead;
     public List<int> current_TextureID = new List<int>();
     bool particleDrawn = false;
 
-    public Enemy(Vector2 pos, bool dead , int dmg, Vector2 _range, List<int>particlesList) 
+    public Enemy(Vector2 pos, bool dead, int dmg, Vector2 _range, List<int> particlesList)
     {
         string Texture_Run = "assets/sEnemy_Run.png";
-        TextureID_Run = texturer.LoadTexture(Texture_Run, 7,1); 
+        TextureID_Run = texturer.LoadTexture(Texture_Run, 7, 1);
         string Texture_Dead = "assets/sEnemy_Dead.png";
-        TextureID_Dead = texturer.LoadTexture(Texture_Dead, 1,1);
+        TextureID_Dead = texturer.LoadTexture(Texture_Dead, 1, 1);
         enemyDead = dead;
         Position = pos;
         isActive = true;
         health = 1;
         range = _range;
-        boundEnemy = new Circle(Position,0.1f);
+        boundEnemy = new Circle(Position, 0.1f);
         this.Dmg = dmg;
         particles = new Particles(particlesList);
+
     }
 
     float SetScale()
@@ -52,7 +55,8 @@ internal class Enemy : Entity
     {
         particleDrawn = true;
         health--;
-        if(health <= 0){
+        if (health <= 0)
+        {
             enemyDead = true;
         }
     }
@@ -69,29 +73,31 @@ internal class Enemy : Entity
 
     public virtual void Draw(float scale)
     {
-        if(particleDrawn)
+        if (particleDrawn)
         {
             Vector2 direction = player.Position - Position;
             direction = Vector2.Normalize(direction);
             bool temp = particles.Draw(Position, size, direction);
             particleDrawn = temp;
         }
-        
+
         var isFacingRight = true;
         GL.Color4(Color4.White);
         var hittime = DateTime.Now - LastCollision;
-        if(hittime.TotalSeconds <= 0.3 && !enemyDead){
+        if (hittime.TotalSeconds <= 0.3 && !enemyDead)
+        {
             GL.Color4(Color4.Red);
         }
 
-        var rect = new RectangleF(Position.X - size /2, Position.Y  - size/2, size, size);
+        var rect = new RectangleF(Position.X - size / 2, Position.Y - size / 2, size, size);
         var tex_rect = new RectangleF(0, 0, 1, 1);
-        
+
         // Flipped texture coordinates
-        var flipped_rect = new Rectangle( 1, 0, -1, 1);
+        var flipped_rect = new Rectangle(1, 0, -1, 1);
 
         // Use the normal or flipped texture coordinates based on the direction the player is facing
-        if (player.Position.X < Position.X && !enemyDead){
+        if (player.Position.X < Position.X && !enemyDead)
+        {
             isFacingRight = false;
         }
         var currentTexCoords = isFacingRight ? tex_rect : flipped_rect;
@@ -110,7 +116,7 @@ internal class Enemy : Entity
             currentFrame = (currentFrame + 1) % current_TextureID.Count;
 
             // Update the time of the last frame change
-            lastFrameTime = time; 
+            lastFrameTime = time;
         }
         texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
         //DrawCircle(Position, boundEnemy.Radius, 32);  
@@ -120,6 +126,7 @@ internal class Enemy : Entity
     {
 
         float damping = 0.90f;
+        speed = speed * time_walk;
         if (isActive)
         {
             MoveTowardsTarget();
@@ -183,10 +190,15 @@ internal class Enemy : Entity
         for (int i = 0; i < segments; i++)
         {
             float angle = i / (float)segments * 2.0f * MathF.PI;
-            float x = center.X + size/2 * MathF.Cos(angle) / scale;
-            float y = center.Y + size/2 * MathF.Sin(angle);
+            float x = center.X + size / 2 * MathF.Cos(angle) / scale;
+            float y = center.Y + size / 2 * MathF.Sin(angle);
             GL.Vertex2(x, y);
         }
         GL.End();
+    }
+    public void GetTimer(float timer)
+    {
+        timer = timer - time_walk + 1;
+        time_walk += timer;
     }
 }

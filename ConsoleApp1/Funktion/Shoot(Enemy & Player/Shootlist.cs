@@ -8,6 +8,7 @@ internal class Shootlist
     double playerSpeed = -0.5;
     double enemySpeed = -0.75;
     public List<Shoot> shootList;
+    float time_t = 0;
     public Shootlist(Entity entity)
     {      
         shootList = new List<Shoot>();
@@ -54,7 +55,7 @@ internal class Shootlist
             }
             else
             {
-                shoot.ShootDirection(0.0003f);
+                shoot.ShootDirection(0.001f);
             }
 
             //attackspeed
@@ -88,6 +89,16 @@ internal class Shootlist
         foreach(Shoot shoot in shootList)
         {
             shoot.Draw();
+        }
+    }
+
+    public void UpdateTimeShootSpeed(float time)
+    {
+        time = time - time_t;
+        time_t += (float)time;
+        foreach(Shoot shoot in shootList)
+        {
+            shoot.GetTimer(time_t);
         }
     }
 }

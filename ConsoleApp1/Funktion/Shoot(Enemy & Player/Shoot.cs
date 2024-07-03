@@ -19,6 +19,7 @@ internal class Shoot
     private float scale;
     public Circle boundShoot;
     public bool shotbyPlayer;
+    float time = 0f;
 
     //variables for the animation
     public int TextureID { get; private set; } 
@@ -60,6 +61,7 @@ internal class Shoot
     {
         Vector2 direction = targetPos - shootPos;
         direction = Vector2.Normalize(direction);
+        speed *= time;
         shootPos += direction * speed;
         targetPos += direction * speed;
         boundShoot.Center = shootPos;
@@ -96,4 +98,9 @@ internal class Shoot
         GL.End();
     }
 
+    public void GetTimer(float timer)
+    {
+        timer = timer - time + 1 ;
+        time += (float)timer;
+    }
 }

@@ -12,11 +12,11 @@ internal class BigEnemy : Enemy
 
     public override void Draw(float scale)
     {
-        base.Draw(scale); 
+        base.Draw(scale);
     }
 
     public void Update(Vector2 targetPosition)
     {
-        MoveTowards(targetPosition, speed); 
+        MoveTowards(targetPosition, speed);
     }
 }

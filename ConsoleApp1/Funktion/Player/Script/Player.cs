@@ -11,10 +11,11 @@ internal class Player : Entity
     //variables    
     public override bool IsPlayer => true;
     public float scale;
-    public float speed = 0.00015f;
+    public float speed = 1f;
     public Circle bounds;
     public bool playerDead = false;
     bool ismoving = false;
+    float time = 0f;
 
     //variables for the animation
     public List<int> TextureID_Run { get; private set; } 
@@ -66,10 +67,11 @@ internal class Player : Entity
         }
     }
 
+
     internal void Left()
     {
         ismoving = true;
-        float newX = Position.X - speed;
+        float newX = Position.X - speed * (float)time;
         if (newX >= -0.85)
         {
             Position = new Vector2(newX, Position.Y);
@@ -79,7 +81,7 @@ internal class Player : Entity
     internal void Right()
     {
         ismoving = true;
-        float newX = Position.X + speed;
+        float newX = Position.X + speed * (float)time;
         if (newX <= 0.85)
         {
             Position = new Vector2(newX, Position.Y);
@@ -89,7 +91,7 @@ internal class Player : Entity
     internal void Up()
     {
         ismoving = true;
-        float newY = Position.Y + speed;
+        float newY = Position.Y + speed * (float)time;
         if (newY <= 0.85)
         {
             Position = new Vector2(Position.X, newY);
@@ -99,7 +101,7 @@ internal class Player : Entity
     internal void Down()
     {
         ismoving = true;
-        float newY = Position.Y - speed;
+        float newY = Position.Y - speed * (float)time;
         if (newY >= -0.85)
         {
             Position = new Vector2(Position.X, newY);
@@ -172,5 +174,11 @@ internal class Player : Entity
             Texturer.Draw(current_TextureID[currentFrame], rect, currentTexCoords);
             //DrawCircle(Position, bounds.Radius, 32);    
         }
+    }
+    public void GetTimer(float timer)
+    {
+        timer = timer - time ;
+        time += (float)timer;
+       
     }
 }

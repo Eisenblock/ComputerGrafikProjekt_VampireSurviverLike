@@ -1,7 +1,7 @@
 ﻿using OpenTK.Mathematics;
 
 class EnemyList
-{    
+{
     //instances of other classes
     Entity player;
     GUI gui;
@@ -18,7 +18,7 @@ class EnemyList
     private bool bossAlive = false;
     int bossHealth = 6;
     int deadBosses = 0;
-    
+
     public EnemyList(Entity player, GUI gui, Score score)
     {
         this.score = score;
@@ -51,18 +51,18 @@ class EnemyList
         float x, y;
         do
         {
-            x = (float)random.NextDouble() * 2.6f - 1.3f; 
-            y = (float)random.NextDouble() * 2.6f - 1.3f; 
+            x = (float)random.NextDouble() * 2.6f - 1.3f;
+            y = (float)random.NextDouble() * 2.6f - 1.3f;
         }
         while (Math.Abs(x) < 1 && Math.Abs(y) < 1); // Repeat until the enemy is not spawned in the arena
 
         // Enemies spawnen
-        Console.WriteLine("Enemy spawned: "+ (deadEnemiesCount % neededKills));
-        Console.WriteLine("Enemy dead: "+deadEnemiesCount);
-        Console.WriteLine("Boss killed: "+bossAlive);
+        Console.WriteLine("Enemy spawned: " + (deadEnemiesCount % neededKills));
+        Console.WriteLine("Enemy dead: " + deadEnemiesCount);
+        Console.WriteLine("Boss killed: " + bossAlive);
         if (deadEnemiesCount % neededKills == 0 && deadEnemiesCount > 0 && bossAlive == false)
         {
-            Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2, Vector2.Zero, bossHealth+deadBosses, particlesList);
+            Enemy enemy = new BossEnemy(new Vector2(x, y), false, 2, Vector2.Zero, bossHealth + deadBosses, particlesList);
             enemies.Add(enemy);
             bossAlive = true;
             Console.WriteLine("Boss spawned");
@@ -75,7 +75,7 @@ class EnemyList
             int randomNumber = random.Next(1, 4); // Random number between 1 and 3
             if (randomNumber == 1)
             {
-                Enemy enemy = new BigEnemy(new Vector2(x, y), false,1 ,Vector2.Zero, particlesList);
+                Enemy enemy = new BigEnemy(new Vector2(x, y), false, 1, Vector2.Zero, particlesList);
                 enemies.Add(enemy);
             }
             else if (randomNumber == 2)
@@ -85,7 +85,7 @@ class EnemyList
             }
             else if (randomNumber == 3)
             {
-                Enemy enemy = new RangedEnemy(new Vector2(x, y), false,1 ,Vector2.Zero, particlesList);
+                Enemy enemy = new RangedEnemy(new Vector2(x, y), false, 1, Vector2.Zero, particlesList);
                 enemies.Add(enemy);
             }
         }
@@ -93,13 +93,14 @@ class EnemyList
         UpdateList();
     }
 
-    public void DrawArray(double timer)
+    public void DrawArray(double timer, float time)
     {
         // Draws all enemies
         foreach (Enemy enemy in enemies)
         {
             enemy.setTargetPosition(player.Position);
             enemy.setTime(timer);
+            enemy.GetTimer(time);
             enemy.Draw(enemy.scale);
         }
     }
@@ -122,7 +123,7 @@ class EnemyList
                     enemies.RemoveAt(i); // Deletes the boss
                     break;
                 }
-                
+
             }
             if (enemies[i].enemyDead == true)
             {
@@ -134,9 +135,9 @@ class EnemyList
                 }
             }
         }
-        
+
         int afterRemovalCount = enemies.Count;
-        
+
         deadEnemiesCount += beforeRemovalCount - afterRemovalCount;
     }
     public void NextWave()
@@ -151,15 +152,16 @@ class EnemyList
         deadEnemiesCount = 0;
     }
 
-    public void UpdateTimer(double timer)
+    public void UpdateTimer(double timer,float time)
     {
         UpdateList();
         double roundedTimer = Math.Round(timer, 1);
-        if(roundedTimer % spawnTimer == 0 && roundedTimer != lastPrintedTime){
+        if (roundedTimer % spawnTimer == 0 && roundedTimer != lastPrintedTime)
+        {
 
             InitializeEnemy();
 
-            DrawArray(timer);
+            DrawArray(timer,time);
             lastPrintedTime = roundedTimer;
         }
     }

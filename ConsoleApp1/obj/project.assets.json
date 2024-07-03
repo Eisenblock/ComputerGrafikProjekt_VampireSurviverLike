@@ -509,6 +509,47 @@
             "rid": "win"
           }
         }
+      },
+      "Zenseless.OpenTK/0.1.82": {
+        "type": "package",
+        "dependencies": {
+          "Magick.NET-Q8-AnyCPU": "13.8.0",
+          "OpenTK": "4.8.2",
+          "Zenseless.Patterns": "0.6.35",
+          "Zenseless.Resources": "0.2.15"
+        },
+        "compile": {
+          "lib/net6.0/Zenseless.OpenTK.dll": {}
+        },
+        "runtime": {
+          "lib/net6.0/Zenseless.OpenTK.dll": {}
+        }
+      },
+      "Zenseless.Patterns/0.6.35": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Zenseless.Patterns.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Zenseless.Patterns.dll": {
+            "related": ".xml"
+          }
+        }
+      },
+      "Zenseless.Resources/0.2.15": {
+        "type": "package",
+        "compile": {
+          "lib/netstandard2.1/Zenseless.Resources.dll": {
+            "related": ".xml"
+          }
+        },
+        "runtime": {
+          "lib/netstandard2.1/Zenseless.Resources.dll": {
+            "related": ".xml"
+          }
+        }
       }
     }
   },
@@ -1105,6 +1146,45 @@
         "useSharedDesignerContext.txt",
         "version.txt"
       ]
+    },
+    "Zenseless.OpenTK/0.1.82": {
+      "sha512": "cXr75mpJcwAI67ssEM07oMMGTnPPEOO/r9luacn+iLQITHesqk/5qYT2c7oHsgCWqw+58W8/B6gdmCVKpcXphA==",
+      "type": "package",
+      "path": "zenseless.opentk/0.1.82",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/net6.0/Zenseless.OpenTK.dll",
+        "lib/net6.0/Zenseless.Patterns.xml",
+        "zenseless.opentk.0.1.82.nupkg.sha512",
+        "zenseless.opentk.nuspec"
+      ]
+    },
+    "Zenseless.Patterns/0.6.35": {
+      "sha512": "g8rITJmDp/ftVMB4cD3xgOAmnvs8uVtCj/5kAP5bFt1/YQ3jmbSTPLjVYD+VJ7eFwQMmXYX6mLHvSeaJe+VXiw==",
+      "type": "package",
+      "path": "zenseless.patterns/0.6.35",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Zenseless.Patterns.dll",
+        "lib/netstandard2.1/Zenseless.Patterns.xml",
+        "zenseless.patterns.0.6.35.nupkg.sha512",
+        "zenseless.patterns.nuspec"
+      ]
+    },
+    "Zenseless.Resources/0.2.15": {
+      "sha512": "4YVSwfhaM4emFnPKa/tuV3tVBvNf/1T/Q2ny5OuDXsUUMLN53jNOC5D+73JbCSLnEVArnNGBiiz0vbCEKa+DRQ==",
+      "type": "package",
+      "path": "zenseless.resources/0.2.15",
+      "files": [
+        ".nupkg.metadata",
+        ".signature.p7s",
+        "lib/netstandard2.1/Zenseless.Resources.dll",
+        "lib/netstandard2.1/Zenseless.Resources.xml",
+        "zenseless.resources.0.2.15.nupkg.sha512",
+        "zenseless.resources.nuspec"
+      ]
     }
   },
   "projectFileDependencyGroups": {
@@ -1113,28 +1193,31 @@
       "NAudio >= 2.2.1",
       "OpenTK >= 4.8.2",
       "QuickFont >= 3.0.2.1",
-      "System.Drawing.Common >= 8.0.4"
+      "System.Drawing.Common >= 8.0.4",
+      "Zenseless.OpenTK >= 0.1.82"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\nxine\\.nuget\\packages\\": {}
+    "C:\\Users\\paulk\\.nuget\\packages\\": {}
   },
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+      "projectUniqueName": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
       "projectName": "ConsoleApp1",
-      "projectPath": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
-      "packagesPath": "C:\\Users\\nxine\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\nxine\\source\\repos\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
+      "projectPath": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\ConsoleApp1.csproj",
+      "packagesPath": "C:\\Users\\paulk\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\paulk\\ComputerGrafikProjekt_VampireSurviverLike\\ConsoleApp1\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
-        "C:\\Users\\nxine\\AppData\\Roaming\\NuGet\\NuGet.Config"
+        "C:\\Users\\paulk\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "net8.0"
       ],
       "sources": {
+        "C:\\Program Files (x86)\\Microsoft SDKs\\NuGetPackages\\": {},
         "https://api.nuget.org/v3/index.json": {}
       },
       "frameworks": {
@@ -1177,6 +1260,10 @@
           "System.Drawing.Common": {
             "target": "Package",
             "version": "[8.0.4, )"
+          },
+          "Zenseless.OpenTK": {
+            "target": "Package",
+            "version": "[0.1.82, )"
           }
         },
         "imports": [
@@ -1195,7 +1282,7 @@
             "privateAssets": "all"
           }
         },
-        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.203/PortableRuntimeIdentifierGraph.json"
+        "runtimeIdentifierGraphPath": "C:\\Program Files\\dotnet\\sdk\\8.0.200/PortableRuntimeIdentifierGraph.json"
       }
     }
   },
@@ -1204,7 +1291,7 @@
       "code": "NU1701",
       "level": "Warning",
       "warningLevel": 1,
-      "message": "Package 'QuickFont 3.0.2.1' was restored using '.NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1' instead of the project target framework 'net8.0'. This package may not be fully compatible with your project.",
+      "message": "Das Paket \"QuickFont 3.0.2.1\" wurde nicht mit dem Projektzielframework \"net8.0\", sondern mit \".NETFramework,Version=v4.6.1, .NETFramework,Version=v4.6.2, .NETFramework,Version=v4.7, .NETFramework,Version=v4.7.1, .NETFramework,Version=v4.7.2, .NETFramework,Version=v4.8, .NETFramework,Version=v4.8.1\" wiederhergestellt. Dieses Paket ist mit Ihrem Projekt möglicherweise nicht vollständig kompatibel.",
       "libraryId": "QuickFont",
       "targetGraphs": [
         "net8.0"

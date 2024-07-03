@@ -4,6 +4,7 @@ using OpenTK.Graphics.OpenGL;
 using OpenTK.Windowing.GraphicsLibraryFramework;
 using OpenTK.Mathematics;
 using System.Security.Cryptography;
+using ConsoleApp1;
 
 public  class Program
 {
@@ -60,9 +61,14 @@ public  class Program
         SoundsPlayer soundsPlayer = new SoundsPlayer();
         Shootlist shootlist = new Shootlist(player);
         Mouse mouse = new Mouse();
+        Camera camera = new Camera();
+        View view = new View(camera);
         
+
+
         //variables
         double timer = 3;
+        float time = 0f;
         Vector2 mousePosition = Vector2.Zero;
         bool moveLeft = false;
         bool moveRight = false;
@@ -86,7 +92,7 @@ public  class Program
         Game gamestate  = new Game(window, player, Restart, soundsPlayer, score);
         window.UpdateFrame += Update;
         window.RenderFrame += Render;
-        window.Resize += Resize;
+        window.Resize += args => view.Resize(args.Width, args.Height);
 
         //Eventhandler button pressed
         window.KeyDown += args =>
@@ -194,7 +200,7 @@ public  class Program
                         rangedEnemy.DrawGun();
                     }
                 }
-                enemyList.DrawArray(timer);
+                enemyList.DrawArray(timer,time);
                 player.Draw(timer, mousePosition);
                 shootlist.DrawShoots();
                 gamestate.running.Draw();
@@ -276,7 +282,7 @@ public  class Program
                         }
                         else
                         {
-                            enemy.MoveTowards(player.Position, 0.0001f); // move the enemy towards the player
+                           enemy.MoveTowards(player.Position, 0.0001f); // move the enemy towards the player
                         }
                     }
                 }
@@ -284,8 +290,12 @@ public  class Program
                 mouse.Update(mousePosition);
                 gun.Update(player, mousePosition);
                 timer += e.Time;
-                enemyList.UpdateTimer(timer);
+                time = (float) e.Time;
+                player.GetTimer(time);
+                //enemy.GetTimer(time);
+                enemyList.UpdateTimer(timer,time);
                 shootlist.ShootDirectionList(timer);
+                shootlist.UpdateTimeShootSpeed(time);
                 collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);
                 shakeDuration = collisionDetection.UpdateShakeDuration();
                

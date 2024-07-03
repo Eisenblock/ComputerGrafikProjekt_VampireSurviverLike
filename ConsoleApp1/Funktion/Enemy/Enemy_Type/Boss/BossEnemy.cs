@@ -1,7 +1,7 @@
 using OpenTK.Mathematics;
 internal class BossEnemy : Enemy
 {
-    public float speed = 0.000005f;
+    public float speed = 1f;
     public BossEnemy(Vector2 pos, bool dead, int dmg, Vector2 _range, int max_Health, List<int>particlesList) : base(pos, dead, dmg, _range, particlesList)
     {
         this.max_Health = max_Health;
@@ -16,6 +16,6 @@ internal class BossEnemy : Enemy
 
     public void Update(Vector2 targetPosition)
     {
-        MoveTowards(targetPosition, speed); 
+        MoveTowards(targetPosition, 0.5f); 
     }
 }

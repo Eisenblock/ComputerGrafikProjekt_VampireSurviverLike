@@ -177,7 +177,7 @@ internal class Player : Entity
     }
     public void GetTimer(float timer)
     {
-        timer = timer - time ;
+        timer = timer - time;
         time += (float)timer;
        
     }

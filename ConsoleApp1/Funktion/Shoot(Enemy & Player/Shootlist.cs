@@ -55,7 +55,7 @@ internal class Shootlist
             }
             else
             {
-                shoot.ShootDirection(0.001f);
+                shoot.ShootDirection(1.2f);
             }
 
             //attackspeed

@@ -100,7 +100,7 @@ internal class Shoot
 
     public void GetTimer(float timer)
     {
-        timer = timer - time + 1 ;
+        timer = timer - time;
         time += (float)timer;
     }
 }

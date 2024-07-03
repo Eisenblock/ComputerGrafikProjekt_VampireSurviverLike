@@ -127,6 +127,7 @@ internal class Enemy : Entity
 
         float damping = 0.90f;
         speed = speed * time_walk;
+       
         if (isActive)
         {
             MoveTowardsTarget();
@@ -162,11 +163,52 @@ internal class Enemy : Entity
 
     }
 
+    public void MoveTowardss(Vector2 targetPosition, float speed)
+    {
+
+        float damping = 0.90f;
+        //speed = speed * time_walk;
+        if (isActive)
+        {
+            MoveTowardsTargets();
+        }
+        else
+        {
+            MoveAwayFromTargets();
+            i++;
+            if (i >= 2000)
+            {
+                isActive = true;
+                i = 0;
+            }
+        }
+
+        void MoveTowardsTargets()
+        {
+            Vector2 direction = targetPosition - Position;
+            direction = Vector2.Normalize(direction);
+            speed *= damping; // speed dampen
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+        }
+
+        void MoveAwayFromTargets()
+        {
+            Vector2 direction = Position - targetPosition; // Change direction
+            direction = Vector2.Normalize(direction);
+            speed *= damping; // speed dampen
+            Position += direction * speed;
+            boundEnemy.Center = Position;
+        }
+
+    }
+
     public void MoveAway(Vector2 targetPosition, float speed)
     {
         // Keeping distance from the player
         range = targetPosition - Position;
         range2 = targetPosition - Position;
+        speed = speed * time_walk;
         float distance = range.Length;
         if (distance > 0.5f)
         {
@@ -198,7 +240,7 @@ internal class Enemy : Entity
     }
     public void GetTimer(float timer)
     {
-        timer = timer - time_walk + 1;
+        timer = timer - time_walk;
         time_walk += timer;
     }
 }

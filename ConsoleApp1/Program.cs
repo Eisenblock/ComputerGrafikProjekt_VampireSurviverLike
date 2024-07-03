@@ -262,6 +262,10 @@ public  class Program
                 {
                     if (enemy != null && enemy.enemyDead == false) // Check if the enemy is alive and e
                     {
+                        if(enemy is BossEnemy bossEnemy)
+                        {
+                            bossEnemy.Update(player.Position);
+                        }
                         //check which type of enemy it is
                         if(enemy is BigEnemy bigEnemy)
                         {
@@ -294,6 +298,7 @@ public  class Program
                 player.GetTimer(time);
                 //enemy.GetTimer(time);
                 enemyList.UpdateTimer(timer,time);
+                enemyList.UpdateTimerSpeed(time);
                 shootlist.ShootDirectionList(timer);
                 shootlist.UpdateTimeShootSpeed(time);
                 collisionDetection.CheckCollision(player,enemyList.enemies,shootlist.shootList);

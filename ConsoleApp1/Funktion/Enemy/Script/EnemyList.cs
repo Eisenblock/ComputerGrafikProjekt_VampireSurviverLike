@@ -18,6 +18,7 @@ class EnemyList
     private bool bossAlive = false;
     int bossHealth = 6;
     int deadBosses = 0;
+    float t = 0f;
 
     public EnemyList(Entity player, GUI gui, Score score)
     {
@@ -98,10 +99,20 @@ class EnemyList
         // Draws all enemies
         foreach (Enemy enemy in enemies)
         {
+            t = time;
             enemy.setTargetPosition(player.Position);
             enemy.setTime(timer);
-            enemy.GetTimer(time);
+            //enemy.GetTimer(time);
             enemy.Draw(enemy.scale);
+        }
+    }
+
+    public void UpdateTimerSpeed(float time)
+    {
+        foreach(Enemy enemy in enemies)
+        {
+            enemy.GetTimer(time);
+            t = time;
         }
     }
 
